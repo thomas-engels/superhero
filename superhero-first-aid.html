@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superhero First Aid Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E02020;
+    --red-dark: #A01010;
+    --black: #0a0a0a;
+    --off-black: #111111;
+    --dark-gray: #1a1a1a;
+    --mid-gray: #2a2a2a;
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(224,32,32,0.2);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-shield { width: 36px; }
+
+  .nav-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white) !important;
+    border: 1.5px solid var(--red);
+    padding: 8px 20px;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--red) !important; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: brightness(0.6) saturate(0.85);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.6) 100%);
+  }
+
+  .hero-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, var(--black) 0%, transparent 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-shield {
+    width: 160px;
+    filter: drop-shadow(0 8px 32px rgba(224,32,32,0.4));
+    animation: dropIn 0.9s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 9vw, 110px);
+    letter-spacing: 8px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-top: 24px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+    animation: fadeUp 0.9s ease 0.2s both;
+  }
+
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 8px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    margin-top: 8px;
+    animation: fadeUp 0.9s ease 0.35s both;
+  }
+
+  .hero-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--red);
+    margin: 20px auto 0;
+    animation: fadeUp 0.9s ease 0.45s both;
+  }
+
+  .hero-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    margin-top: 18px;
+    letter-spacing: 1px;
+    animation: fadeUp 0.9s ease 0.55s both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    animation: fadeUp 0.9s ease 0.65s both;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    padding: 14px 36px;
+    text-decoration: none;
+    border: 2px solid var(--red);
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: transparent;
+    padding: 14px 36px;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: border-color 0.2s, transform 0.1s;
+  }
+
+  .btn-outline:hover { border-color: white; transform: translateY(-1px); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 72px);
+    letter-spacing: 4px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .section-body {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.65);
+    max-width: 640px;
+  }
+
+  /* ── WHY DIFFERENT ── */
+  #why { background: var(--off-black); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 60px;
+    align-items: start;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+  }
+
+  .compare-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid #333;
+  }
+
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #1e1e1e;
+    vertical-align: top;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .compare-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .compare-table .yes { color: #4CAF50; font-weight: 600; }
+  .compare-table .no { color: #666; }
+  .compare-table .partial { color: #FFA726; }
+
+  .highlight-row td { background: rgba(224,32,32,0.06); }
+
+  .why-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .stat-card {
+    border-left: 3px solid var(--red);
+    padding: 20px 24px;
+    background: var(--dark-gray);
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .stat-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* ── FIELD EXPERIENCE ── */
+  #experience { background: var(--black); }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+  }
+
+  .exp-card {
+    background: var(--dark-gray);
+    padding: 32px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-card:hover { background: #222; }
+
+  .exp-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .exp-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .exp-years {
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 4px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--off-black); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 56px;
+  }
+
+  .price-card {
+    background: var(--dark-gray);
+    padding: 40px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-card.featured {
+    background: var(--red);
+    transform: scaleY(1.02);
+    z-index: 1;
+  }
+
+  .price-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--white);
+    color: var(--red);
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+    align-self: flex-start;
+    font-weight: 700;
+  }
+
+  .price-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--white);
+    line-height: 1;
+    margin-top: 12px;
+  }
+
+  .price-card.featured .price-amount { color: var(--white); }
+
+  .price-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-top: 16px;
+    flex: 1;
+  }
+
+  .price-card.featured .price-desc { color: rgba(255,255,255,0.85); }
+
+  .price-ideal {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .price-card.featured .price-ideal { color: rgba(255,255,255,0.7); border-top-color: rgba(255,255,255,0.3); }
+
+  .price-cta {
+    display: block;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px;
+    margin-top: 28px;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .price-card.featured .price-cta {
+    background: var(--white);
+    color: var(--red);
+    border-color: var(--white);
+  }
+
+  .price-cta:hover { background: rgba(255,255,255,0.1); border-color: white; }
+  .price-card.featured .price-cta:hover { background: rgba(255,255,255,0.88); }
+
+  /* ── FAQ ── */
+  #faq { background: var(--black); }
+
+  .faq-list {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .faq-item {
+    background: var(--dark-gray);
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item.open { border-left-color: var(--red); }
+
+  .faq-q {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--white);
+    padding: 24px 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+
+  .faq-q:hover { color: var(--red); }
+
+  .faq-arrow {
+    font-size: 20px;
+    color: var(--red);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  .faq-a {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    padding: 0 28px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding: 0 28px 24px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--off-black);
+    text-align: center;
+  }
+
+  #contact .section-label,
+  #contact .section-title { text-align: center; }
+
+  #contact .section-title { margin: 0 auto 16px; }
+
+  .contact-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1px;
+    margin-bottom: 48px;
+  }
+
+  .contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+
+  .contact-method a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .contact-method-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .contact-method-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+    transition: color 0.2s;
+  }
+
+  .contact-method a:hover .contact-method-value { color: var(--red); }
+
+  .disclaimer {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.7;
+    border-top: 1px solid #222;
+    padding-top: 40px;
+    margin-top: 40px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #333;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .container { padding: 0 20px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.featured { transform: none; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg class="nav-shield" viewBox="0 0 680 700" xmlns="http://www.w3.org/2000/svg">
+      <path d="M340 52 L168 78 L122 142 L122 372 C122 518 228 628 340 698 C452 628 558 518 558 372 L558 142 L512 78 Z" fill="#E02020"/>
+      <path d="M340 78 L190 102 L150 160 L150 370 C150 506 248 610 340 672 C432 610 530 506 530 370 L530 160 L490 102 Z" fill="none" stroke="white" stroke-width="7"/>
+      <rect x="300" y="188" width="80" height="264" fill="white"/>
+      <rect x="218" y="268" width="244" height="84" fill="white"/>
+    </svg>
+    <span class="nav-name">Superhero</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Different</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#pricing">Kits</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<!--  <img class="hero-bg img-fluid" src="stars.jpeg" alt="Mountain landscape at dusk">-->
+  <div class="hero-overlay"></div>
+  <div class="hero-bottom"></div>
+  <div class="hero-content">
+    <svg class="hero-shield" viewBox="0 0 680 700" xmlns="http://www.w3.org/2000/svg">
+      <path d="M340 52 L168 78 L122 142 L122 372 C122 518 228 628 340 698 C452 628 558 518 558 372 L558 142 L512 78 Z" fill="#E02020"/>
+      <path d="M340 78 L190 102 L150 160 L150 370 C150 506 248 610 340 672 C432 610 530 506 530 370 L530 160 L490 102 Z" fill="none" stroke="white" stroke-width="7"/>
+      <rect x="300" y="188" width="80" height="264" fill="white"/>
+      <rect x="218" y="268" width="244" height="84" fill="white"/>
+    </svg>
+    <div class="hero-title">Superhero</div>
+    <div class="hero-sub">First Aid Systems</div>
+    <div class="hero-divider"></div>
+    <div class="hero-tagline">Built for bold people who demand exceptional first aid capabilities in any environment.</div>
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn-primary">See the Kits</a>
+      <a href="#why" class="btn-outline">Why It's Different</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY DIFFERENT -->
+<section id="why">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Why It's Different</div>
+      <div class="section-title">Most kits treat<br>paper cuts.<br>This one saves lives.</div>
+      <p class="section-body">Generic first aid kits are built for minor injuries and attempt to treat everything; resulting in a clunky, confusing first aid kit.
+      </p>
+      <p class="section-body">
+        <br>
+        The Superhero First Aid focuses on what actually matters; increasing your odds of survival in true emergencies.
+      </p>
+    </div>
+
+    <div class="why-grid">
+      <div class="reveal">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>Generic Kit</th>
+              <th>Superhero Kit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td>Major bleeding control</td>
+              <td class="no">✕ Minimal</td>
+              <td class="yes">✓ Full </td>
+            </tr>
+            <tr>
+              <td>Tourniquet</td>
+              <td class="no">✕ None</td>
+              <td class="yes">✓ CAT</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Hemostatic agents</td>
+              <td class="no">✕ None</td>
+              <td class="yes">✓ Combat grade</td>
+            </tr>
+            <tr>
+              <td>Hypothermia</td>
+              <td class="no">✕ None</td>
+              <td class="yes">✓ Space blanket</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Hypoglycemia</td>
+              <td class="no">✕ None</td>
+              <td class="yes">✓ Glucose paste</td>
+            </tr>
+            <tr>
+              <td>Wound closure</td>
+              <td class="partial">⚠ Rare</td>
+              <td class="yes">✓ Steri-strips</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Dehydration / Hyponatremia</td>
+              <td class="no">✕ None</td>
+              <td class="yes">✓ Rehydration mix</td>
+            </tr>
+            <tr>
+              <td>Bag material</td>
+              <td class="partial">⚠ Water-resistant</td>
+              <td class="yes">✓ Dyneema — ultralight + waterproof</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="why-stats reveal">
+        <div class="stat-card">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Years field-tested</div>
+          <div class="stat-desc">Refined through real emergencies across vertical terrain, deep backcountry, and high-consequence environments.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">90+</div>
+          <div class="stat-label">Minutes from care</div>
+          <div class="stat-desc">Most serious injuries happen where help can't reach you in time. This kit bridges that gap.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Tiers, one purpose</div>
+          <div class="stat-desc">From day hikes to multi-day alpine objectives — a kit built precisely for your exposure level.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIELD EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Built From Real Experience</div>
+      <div class="section-title">Not designed in an office.</div>
+      <p class="section-body">Purposefully crafted over 7 years through actual field work. <br> Every item in this kit earned its place.</p>
+    </div>
+
+    <div class="exp-grid reveal">
+      <div class="exp-card">
+        <div class="exp-icon">🚑</div>
+        <div class="exp-title">EMT</div>
+        <div class="exp-years">Certified</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">⛷️</div>
+        <div class="exp-title">Ski Patrol</div>
+        <div class="exp-years">Field Response</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🧗</div>
+        <div class="exp-title">Ice Climbing</div>
+        <div class="exp-years">Vertical Terrain</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🚵</div>
+        <div class="exp-title">Mountain Biking</div>
+        <div class="exp-years">High-Speed Risk</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🎿</div>
+        <div class="exp-title">Backcountry Skiing</div>
+        <div class="exp-years">Remote Exposure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">The Kits</div>
+      <div class="section-title">Choose your<br>level of exposure.</div>
+      <p class="section-body">One kit per person, every adventure. Ensuring first aid is always within arm's reach. </p>
+    </div>
+
+    <div class="pricing-grid reveal">
+      <!-- Sidekick -->
+      <div class="price-card">
+        <div class="price-name">Side-Kick</div>
+        <div class="price-amount">$100</div>
+        <div class="price-desc">Basic essentials for minor injuries that don't require evacuation.</div>
+        <div class="price-ideal">Ideal for walks close to town.</div>
+        <a href="#contact" class="price-cta">Order Now</a>
+      </div>
+
+      <!-- Superhero (featured) -->
+      <div class="price-card featured">
+        <div class="price-badge">Recommended</div>
+        <div class="price-name">Superhero Kit</div>
+        <div class="price-amount">$200</div>
+        <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, glucose, space blanket, and more. Strongly recommended as your default for everything.</div>
+        <div class="price-ideal">Climbers, bikers, skiers, hikers, paddlers — even in your car.</div>
+        <a href="#contact" class="price-cta">Order Now</a>
+      </div>
+
+      <!-- Comfort Add-on -->
+      <div class="price-card">
+        <div class="price-name">Comfort Add-On</div>
+        <div class="price-amount">$50</div>
+        <div class="price-desc">Prolonged care and quality of life in the field. Blisters, wound care, splinting, recovery support. Keeps small issues from becoming trip-ending problems.</div>
+        <div class="price-ideal">Add to any kit for extended expeditions.</div>
+        <a href="#contact" class="price-cta">Add to Kit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">Questions.</div>
+    </div>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do I need training?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">You don't need to be an EMT, but a basic first aid and CPR class is strongly recommended. You're also expected to review all educational materials — video tutorials for each item, articles, and field guide — included with the kit.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can you customize it?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">While I recommend the Superhero tier for every activity (even driving your car), I can work with you to create the perfect kit for your specific needs. Reach out directly.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How many people can one kit help?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">I strongly recommend one kit per person. Multiple kits reduce risk of loss, increase speed of care when your group is spread out, and can be combined for severe injuries — some incidents require multiple tourniquets to stop a bleed.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How does it attach?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Designed to mount to a climbing harness, running vest, or backpack via a combination of carabiners, cords, and webbing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I see the full contents list?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Yes — text or email directly to get the complete contents list. (651) 395-1906 or tbengels@gmail.com.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What about comfort items like tweezers or SAM splints?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">The core kit focuses on life-saving interventions and ultralight weight. I'm happy to include comfort and maintenance items (tweezers, ointments, SAM splints, blister treatment, irrigation tools, etc.) for an additional $75.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Ready to Order</div>
+      <div class="section-title">Be a superhero.</div>
+      <p class="contact-sub">Contact directly to order your prototype kit.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <a href="tel:6513951906">
+            <span class="contact-method-label">Call or Text</span>
+            <span class="contact-method-value">(651) 395-1906</span>
+          </a>
+        </div>
+        <div class="contact-method">
+          <a href="mailto:tbengels@gmail.com">
+            <span class="contact-method-label">Email</span>
+            <span class="contact-method-value">tbengels@gmail.com</span>
+          </a>
+        </div>
+      </div>
+      <div class="disclaimer">
+        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) are intended for life-threatening bleeding and require prerequisite knowledge to use safely. By purchasing, you accept responsibility for its use and acknowledge the inherent risks of emergency situations. Product is currently in prototyping phase — bag design, colors, logo, and contents may be updated.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Superhero First Aid Systems</div>
+  <div class="footer-note">Built for the field. &copy; 2026</div>
+</footer>
+
+<script>
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
