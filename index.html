@@ -1,950 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Superhero First Aid Systems</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --red: #E02020;
-    --red-dark: #A01010;
-    --black: #0a0a0a;
-    --off-black: #111111;
-    --dark-gray: #1a1a1a;
-    --mid-gray: #2a2a2a;
-    --text: #f0f0f0;
-    --text-muted: #888;
-    --white: #ffffff;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Superhero First Aid Systems</title>
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
 
-  html { scroll-behavior: smooth; }
+  <style>
+    :root {
+      --red:      #E02020;
+      --red-dark: #b01818;
+      --dark:     #0d0d0d;
+      --mid:      #1a1a1a;
+      --card-bg:  #161616;
+      --border:   rgba(255,255,255,0.08);
+      --text:     #e8e8e8;
+      --muted:    #888;
+    }
 
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(224,32,32,0.2);
-  }
+    html { scroll-behavior: smooth; }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-  }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
 
-  .nav-shield { width: 36px; }
-
-  .nav-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 3px;
-    color: var(--white);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--red); }
-
-  .nav-cta {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--white) !important;
-    border: 1.5px solid var(--red);
-    padding: 8px 20px;
-    transition: background 0.2s !important;
-  }
-
-  .nav-cta:hover { background: var(--red) !important; color: var(--white) !important; }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 40%;
-    filter: brightness(0.6) saturate(0.85);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.6) 100%);
-  }
-
-  .hero-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40%;
-    background: linear-gradient(to top, var(--black) 0%, transparent 100%);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-shield {
-    width: 160px;
-    filter: drop-shadow(0 8px 32px rgba(224,32,32,0.4));
-    animation: dropIn 0.9s cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(60px, 9vw, 110px);
-    letter-spacing: 8px;
-    line-height: 0.95;
-    color: var(--white);
-    margin-top: 24px;
-    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
-    animation: fadeUp 0.9s ease 0.2s both;
-  }
-
-  .hero-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300;
-    font-size: 15px;
-    letter-spacing: 8px;
-    color: rgba(255,255,255,0.65);
-    text-transform: uppercase;
-    margin-top: 8px;
-    animation: fadeUp 0.9s ease 0.35s both;
-  }
-
-  .hero-divider {
+    /* ── NAV ── */
+    .navbar {
+      background: rgba(13,13,13,0.92) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: #fff !important;
+      text-decoration: none;
+    }
+    .nav-shield {
     width: 50px;
-    height: 2px;
-    background: var(--red);
-    margin: 20px auto 0;
-    animation: fadeUp 0.9s ease 0.45s both;
-  }
-
-  .hero-tagline {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px;
-    font-style: italic;
-    color: rgba(255,255,255,0.75);
-    margin-top: 18px;
-    letter-spacing: 1px;
-    animation: fadeUp 0.9s ease 0.55s both;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 16px;
-    margin-top: 32px;
-    animation: fadeUp 0.9s ease 0.65s both;
-  }
-
-  .btn-primary {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--white);
-    background: var(--red);
-    padding: 14px 36px;
-    text-decoration: none;
-    border: 2px solid var(--red);
-    transition: background 0.2s, transform 0.1s;
-  }
-
-  .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-1px); }
-
-  .btn-outline {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--white);
-    background: transparent;
-    padding: 14px 36px;
-    text-decoration: none;
-    border: 2px solid rgba(255,255,255,0.4);
-    transition: border-color 0.2s, transform 0.1s;
-  }
-
-  .btn-outline:hover { border-color: white; transform: translateY(-1px); }
-
-  /* ── SECTIONS ── */
-  section { padding: 100px 0; }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-
-  .section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(42px, 6vw, 72px);
-    letter-spacing: 4px;
-    line-height: 1;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-
-  .section-body {
-    font-size: 17px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.65);
-    max-width: 640px;
-  }
-
-  /* ── WHY DIFFERENT ── */
-  #why { background: var(--off-black); }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    margin-top: 60px;
-    align-items: start;
-  }
-
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px;
-  }
-
-  .compare-table th {
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-    letter-spacing: 2px;
-    font-size: 12px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    border-bottom: 1px solid #333;
-  }
-
-  .compare-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #1e1e1e;
-    vertical-align: top;
-    color: rgba(255,255,255,0.75);
-  }
-
-  .compare-table tr:hover td { background: rgba(255,255,255,0.03); }
-
-  .compare-table .yes { color: #4CAF50; font-weight: 600; }
-  .compare-table .no { color: #666; }
-  .compare-table .partial { color: #FFA726; }
-
-  .highlight-row td { background: rgba(224,32,32,0.06); }
-
-  .why-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .stat-card {
-    border-left: 3px solid var(--red);
-    padding: 20px 24px;
-    background: var(--dark-gray);
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 56px;
-    color: var(--red);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  .stat-desc {
-    font-size: 15px;
-    color: rgba(255,255,255,0.55);
-    margin-top: 8px;
-    line-height: 1.6;
-  }
-
-  /* ── FIELD EXPERIENCE ── */
-  #experience { background: var(--black); }
-
-  .exp-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
-    margin-top: 56px;
-  }
-
-  .exp-card {
-    background: var(--dark-gray);
-    padding: 32px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.2s;
-  }
-
-  .exp-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--red);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
-
-  .exp-card:hover::before { transform: scaleX(1); }
-  .exp-card:hover { background: #222; }
-
-  .exp-icon {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-
-  .exp-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-
-  .exp-years {
-    font-size: 13px;
-    color: var(--red);
-    margin-top: 4px;
-    font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: 1px;
-  }
-
-  /* ── PRICING ── */
-  #pricing { background: var(--off-black); }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-top: 56px;
-  }
-
-  .price-card {
-    background: var(--dark-gray);
-    padding: 40px 32px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .price-card.featured {
-    background: var(--red);
-    transform: scaleY(1.02);
-    z-index: 1;
-  }
-
-  .price-badge {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    background: var(--white);
-    color: var(--red);
-    padding: 4px 12px;
-    display: inline-block;
-    margin-bottom: 20px;
-    align-self: flex-start;
-    font-weight: 700;
-  }
-
-  .price-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    letter-spacing: 3px;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .price-amount {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 72px;
-    color: var(--white);
-    line-height: 1;
-    margin-top: 12px;
-  }
-
-  .price-card.featured .price-amount { color: var(--white); }
-
-  .price-desc {
-    font-size: 14px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.6;
-    margin-top: 16px;
-    flex: 1;
-  }
-
-  .price-card.featured .price-desc { color: rgba(255,255,255,0.85); }
-
-  .price-ideal {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.5);
-    font-style: italic;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.15);
-  }
-
-  .price-card.featured .price-ideal { color: rgba(255,255,255,0.7); border-top-color: rgba(255,255,255,0.3); }
-
-  .price-cta {
-    display: block;
-    text-align: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 14px;
-    margin-top: 28px;
-    border: 2px solid rgba(255,255,255,0.3);
-    color: var(--white);
-    transition: background 0.2s, border-color 0.2s;
-  }
-
-  .price-card.featured .price-cta {
-    background: var(--white);
-    color: var(--red);
-    border-color: var(--white);
-  }
-
-  .price-cta:hover { background: rgba(255,255,255,0.1); border-color: white; }
-  .price-card.featured .price-cta:hover { background: rgba(255,255,255,0.88); }
-
-  /* ── FAQ ── */
-  #faq { background: var(--black); }
-
-  .faq-list {
-    margin-top: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .faq-item {
-    background: var(--dark-gray);
-    border-left: 3px solid transparent;
-    transition: border-color 0.2s;
-  }
-
-  .faq-item.open { border-left-color: var(--red); }
-
-  .faq-q {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 1px;
-    color: var(--white);
-    padding: 24px 28px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-  }
-
-  .faq-q:hover { color: var(--red); }
-
-  .faq-arrow {
-    font-size: 20px;
-    color: var(--red);
-    transition: transform 0.3s;
-    flex-shrink: 0;
-  }
-
-  .faq-item.open .faq-arrow { transform: rotate(45deg); }
-
-  .faq-a {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.6);
-    padding: 0 28px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-  }
-
-  .faq-item.open .faq-a {
-    max-height: 400px;
-    padding: 0 28px 24px;
-  }
-
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--off-black);
-    text-align: center;
-  }
-
-  #contact .section-label,
-  #contact .section-title { text-align: center; }
-
-  #contact .section-title { margin: 0 auto 16px; }
-
-  .contact-sub {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 1px;
-    margin-bottom: 48px;
-  }
-
-  .contact-methods {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    margin-bottom: 56px;
-    flex-wrap: wrap;
-  }
-
-  .contact-method a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-  }
-
-  .contact-method-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .contact-method-value {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 3px;
-    color: var(--white);
-    transition: color 0.2s;
-  }
-
-  .contact-method a:hover .contact-method-value { color: var(--red); }
-
-  .disclaimer {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 13px;
-    color: #444;
-    line-height: 1.7;
-    border-top: 1px solid #222;
-    padding-top: 40px;
-    margin-top: 40px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--black);
-    padding: 28px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #1a1a1a;
-  }
-
-  .footer-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: #333;
-  }
-
-  .footer-note {
-    font-size: 12px;
-    color: #333;
-    letter-spacing: 1px;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes dropIn {
-    from { opacity: 0; transform: translateY(-30px) scale(0.9); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .container { padding: 0 20px; }
-    .why-grid { grid-template-columns: 1fr; }
-    .exp-grid { grid-template-columns: repeat(2, 1fr); }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .price-card.featured { transform: none; }
-    footer { flex-direction: column; gap: 8px; text-align: center; }
-  }
-</style>
+    height: auto;
+    }
+    .navbar-nav .nav-link {
+      color: var(--muted) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.9rem !important;
+      transition: color 0.2s;
+    }
+    .navbar-nav .nav-link:hover { color: #fff !important; }
+    .nav-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      border-radius: 4px !important;
+      padding: 0.4rem 1.1rem !important;
+    }
+    .nav-cta:hover { background: var(--red-dark) !important; }
+    .navbar-toggler { border-color: var(--border); }
+    .navbar-toggler-icon { filter: invert(1); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 60% 30%, #3a0a0a 0%, #0d0d0d 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 1.5rem 5rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-shield-wrap { margin-bottom: 1.5rem; }
+    .hero-shield {
+    filter: drop-shadow(0 0 30px rgba(224,32,32,0.5));
+    width: 20rem;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-top: 0;
+  display: block;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      color: #fff;
+    }
+    .hero-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: var(--red);
+      letter-spacing: 0.25em;
+      margin-top: 0.25rem;
+    }
+    .hero-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--red);
+      margin: 1.5rem auto;
+    }
+<!--    .hero-content {-->
+<!--      height: 100vh;-->
+<!--      display: flex;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--    }-->
+    .hero-tagline {
+      max-width: 540px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    /* ── SECTION HELPERS ── */
+    section { padding: 6rem 0; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .section-body { color: var(--muted); max-width: 600px; font-size: 1.05rem; }
+
+    /* ── COMPARE TABLE ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .compare-table thead th {
+      background: var(--mid);
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table thead th:nth-child(3) { color: var(--red); }
+    .compare-table tbody td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: middle;
+    }
+    .compare-table .highlight-row td { background: rgba(255,255,255,0.02); }
+    .compare-table td.yes  { color: #4ade80; }
+    .compare-table td.no   { color: #f87171; }
+    .compare-table td.partial { color: #fbbf24; }
+
+    /* ── STAT CARDS ── */
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      height: 100%;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .stat-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--mid); }
+    .exp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .exp-card:hover { transform: translateY(-4px); border-color: var(--red); }
+    .exp-icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
+    .exp-title { font-weight: 700; font-size: 1rem; color: #fff; }
+    .exp-years { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--mid); }
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.2rem 1.8rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: border-color 0.2s;
+    }
+    .price-card:hover { border-color: rgba(224,32,32,0.4); }
+    .price-card.featured {
+      border-color: var(--red);
+      background: linear-gradient(160deg, #1e0808, var(--card-bg));
+    }
+    .price-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.9rem;
+      border-radius: 30px;
+      white-space: nowrap;
+    }
+    .price-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      color: #fff;
+    }
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.2rem;
+      color: var(--red);
+      line-height: 1.1;
+      margin: 0.4rem 0 1rem;
+    }
+    .price-desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
+    .price-ideal {
+      font-size: 0.8rem;
+      color: #fff;
+      font-style: italic;
+      margin: 1.2rem 0 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .price-cta {
+      display: block;
+      text-align: center;
+      background: var(--red);
+      color: #fff;
+      padding: 0.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      transition: background 0.2s;
+    }
+    .price-cta:hover { background: var(--red-dark); color: #fff; }
+
+    /* ── FAQ ── */
+    #faq { background: var(--mid); }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      user-select: none;
+      gap: 1rem;
+    }
+    .faq-q:hover { color: var(--red); }
+    .faq-arrow {
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--red);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      color: var(--muted);
+      font-size: 0.93rem;
+      padding: 0;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.1rem; }
+
+    /* ── CONTACT ── */
+    .contact-methods { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 2rem 0; }
+    .contact-method {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 2rem;
+      flex: 1;
+      min-width: 220px;
+      transition: border-color 0.2s;
+    }
+    .contact-method:hover { border-color: var(--red); }
+    .contact-method a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .contact-method-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .contact-method-value { font-size: 1.2rem; font-weight: 700; color: #fff; }
+    .disclaimer {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 680px;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-hero-primary {
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-hero-primary:hover { background: var(--red-dark); color: #fff; transform: translateY(-2px); }
+    .btn-hero-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-hero-outline:hover { border-color: #fff; color: #fff; transform: translateY(-2px); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#">
-    <svg class="nav-shield" viewBox="0 0 680 700" xmlns="http://www.w3.org/2000/svg">
-      <path d="M340 52 L168 78 L122 142 L122 372 C122 518 228 628 340 698 C452 628 558 518 558 372 L558 142 L512 78 Z" fill="#E02020"/>
-      <path d="M340 78 L190 102 L150 160 L150 370 C150 506 248 610 340 672 C432 610 530 506 530 370 L530 160 L490 102 Z" fill="none" stroke="white" stroke-width="7"/>
-      <rect x="300" y="188" width="80" height="264" fill="white"/>
-      <rect x="218" y="268" width="244" height="84" fill="white"/>
-    </svg>
-    <span class="nav-name">Superhero</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#why">Why Different</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#pricing">Kits</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact" class="nav-cta">Order Now</a></li>
-  </ul>
+<!-- ── NAVBAR ── -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid px-3">
+    <a class="navbar-brand" href="#">
+        <img src="logo.svg" class="nav-shield" alt="Superhero log"/>
+      Superhero
+    </a>
+
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="#why">Why Different</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">Kits</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#contact">Order Now</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero">
-<!--  <img class="hero-bg img-fluid" src="stars.jpeg" alt="Mountain landscape at dusk">-->
-  <div class="hero-overlay"></div>
-  <div class="hero-bottom"></div>
-  <div class="hero-content">
-    <svg class="hero-shield" viewBox="0 0 680 700" xmlns="http://www.w3.org/2000/svg">
-      <path d="M340 52 L168 78 L122 142 L122 372 C122 518 228 628 340 698 C452 628 558 518 558 372 L558 142 L512 78 Z" fill="#E02020"/>
-      <path d="M340 78 L190 102 L150 160 L150 370 C150 506 248 610 340 672 C432 610 530 506 530 370 L530 160 L490 102 Z" fill="none" stroke="white" stroke-width="7"/>
-      <rect x="300" y="188" width="80" height="264" fill="white"/>
-      <rect x="218" y="268" width="244" height="84" fill="white"/>
-    </svg>
+    <div class="hero-content text-center position-relative" style="z-index:1;">
+      <div class="hero-shield-wrap">
+        <img src="logo.svg" class="hero-shield" />
+    </div>
     <div class="hero-title">Superhero</div>
     <div class="hero-sub">First Aid Systems</div>
     <div class="hero-divider"></div>
-    <div class="hero-tagline">Built for bold people who demand exceptional first aid capabilities in any environment.</div>
-    <div class="hero-buttons">
-      <a href="#pricing" class="btn-primary">See the Kits</a>
-      <a href="#why" class="btn-outline">Why It's Different</a>
+    <p class="hero-tagline">First Aid Kits for people who want to save lives in any environment.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <a href="#pricing" class="btn-hero-primary">See the Kits</a>
+      <a href="#why"     class="btn-hero-outline">Why It's Different</a>
     </div>
   </div>
 </section>
 
-<!-- WHY DIFFERENT -->
+<!-- ── WHY DIFFERENT ── -->
 <section id="why">
   <div class="container">
-    <div class="reveal">
+
+    <div class="reveal mb-5">
       <div class="section-label">Why It's Different</div>
       <div class="section-title">Most kits treat<br>paper cuts.<br>This one saves lives.</div>
-      <p class="section-body">Generic first aid kits are built for minor injuries and attempt to treat everything; resulting in a clunky, confusing first aid kit.
-      </p>
-      <p class="section-body">
-        <br>
-        The Superhero First Aid focuses on what actually matters; increasing your odds of survival in true emergencies.
-      </p>
+      <p class="section-body">Generic first aid kits are heavy, confusing, and try to treat everything; completely missing the whole point of a first aid kit.</p>
+      <p class="section-body mt-3">The Superhero First Aid Kit focuses on what actually matters — increasing your odds of survival in true emergencies.</p>
     </div>
 
-    <div class="why-grid">
-      <div class="reveal">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Capability</th>
-              <th>Generic Kit</th>
-              <th>Superhero Kit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="highlight-row">
-              <td>Major bleeding control</td>
-              <td class="no">✕ Minimal</td>
-              <td class="yes">✓ Full </td>
-            </tr>
-            <tr>
-              <td>Tourniquet</td>
-              <td class="no">✕ None</td>
-              <td class="yes">✓ CAT</td>
-            </tr>
-            <tr class="highlight-row">
-              <td>Hemostatic agents</td>
-              <td class="no">✕ None</td>
-              <td class="yes">✓ Combat grade</td>
-            </tr>
-            <tr>
-              <td>Hypothermia</td>
-              <td class="no">✕ None</td>
-              <td class="yes">✓ Space blanket</td>
-            </tr>
-            <tr class="highlight-row">
-              <td>Hypoglycemia</td>
-              <td class="no">✕ None</td>
-              <td class="yes">✓ Glucose paste</td>
-            </tr>
-            <tr>
-              <td>Wound closure</td>
-              <td class="partial">⚠ Rare</td>
-              <td class="yes">✓ Steri-strips</td>
-            </tr>
-            <tr class="highlight-row">
-              <td>Dehydration / Hyponatremia</td>
-              <td class="no">✕ None</td>
-              <td class="yes">✓ Rehydration mix</td>
-            </tr>
-            <tr>
-              <td>Bag material</td>
-              <td class="partial">⚠ Water-resistant</td>
-              <td class="yes">✓ Dyneema — ultralight + waterproof</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="row g-5 align-items-start reveal">
+      <!-- Table -->
+      <div class="col-12 col-xl-7">
+        <div class="table-responsive rounded overflow-hidden border" style="border-color: var(--border) !important;">
+          <table class="compare-table mb-0">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Generic Kit</th>
+                <th>Superhero Kit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row">
+                <td>Major bleeding control</td>
+                <td class="no">✕ Minimal</td>
+                <td class="yes">✓ Full</td>
+              </tr>
+              <tr>
+                <td>Tourniquet</td>
+                <td class="no">✕ None</td>
+                <td class="yes">✓ CAT</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Hemostatic agents</td>
+                <td class="no">✕ None</td>
+                <td class="yes">✓ Combat grade</td>
+              </tr>
+              <tr>
+                <td>Hypothermia</td>
+                <td class="no">✕ None</td>
+                <td class="yes">✓ Space blanket</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Hypoglycemia</td>
+                <td class="no">✕ None</td>
+                <td class="yes">✓ Glucose paste</td>
+              </tr>
+              <tr>
+                <td>Wound closure</td>
+                <td class="partial">⚠ Rare</td>
+                <td class="yes">✓ Steri-strips</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Dehydration / Hyponatremia</td>
+                <td class="no">✕ None</td>
+                <td class="yes">✓ Rehydration mix</td>
+              </tr>
+              <tr>
+                <td>Comprehensive Medications</td>
+                <td class="partial">⚠ Minimal</td>
+                <td class="yes">✓ 6</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Bag material</td>
+                <td class="partial">⚠ Water-resistant</td>
+                <td class="yes">✓ Dyneema — ultralight + waterproof + bombproof</td>
+              </tr>
+              <tr>
+                <td>User Skill Assumption</td>
+                <td class="partial">Basic</td>
+                <td class="yes">✓ Personally created videos and field guide provided after purchase</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="why-stats reveal">
-        <div class="stat-card">
-          <div class="stat-num">7</div>
-          <div class="stat-label">Years field-tested</div>
-          <div class="stat-desc">Refined through real emergencies across vertical terrain, deep backcountry, and high-consequence environments.</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">90+</div>
-          <div class="stat-label">Minutes from care</div>
-          <div class="stat-desc">Most serious injuries happen where help can't reach you in time. This kit bridges that gap.</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Tiers, one purpose</div>
-          <div class="stat-desc">From day hikes to multi-day alpine objectives — a kit built precisely for your exposure level.</div>
+
+      <!-- Stats -->
+      <div class="col-12 col-xl-5">
+        <div class="row g-3">
+          <div class="col-12">
+            <div class="stat-card">
+              <div class="stat-num">14</div>
+              <div class="stat-label">ounces</div>
+              <div class="stat-desc">Everything fits into a 1L Dyneema pouch that mounts to a climbing harness, running vest, or backpack.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-num">20+</div>
+              <div class="stat-label">first aid tools</div>
+              <div class="stat-desc">Focused on keeping you alive.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-num">7</div>
+              <div class="stat-label">years experience</div>
+              <div class="stat-desc">Refined through real emergencies in remote, high-consequence environments.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- FIELD EXPERIENCE -->
+<!-- ── EXPERIENCE ── -->
 <section id="experience">
   <div class="container">
-    <div class="reveal">
+
+    <div class="reveal mb-5">
       <div class="section-label">Built From Real Experience</div>
       <div class="section-title">Not designed in an office.</div>
-      <p class="section-body">Purposefully crafted over 7 years through actual field work. <br> Every item in this kit earned its place.</p>
+      <p class="section-body">Every item in this kit earned its place by helping care for people on their worst days.</p>
     </div>
 
-    <div class="exp-grid reveal">
-      <div class="exp-card">
-        <div class="exp-icon">🚑</div>
-        <div class="exp-title">EMT</div>
-        <div class="exp-years">Certified</div>
+    <div class="row g-3 reveal">
+      <div class="col-6 col-md-4 col-lg">
+        <div class="exp-card">
+          <div class="exp-icon">🚑</div>
+          <div class="exp-title">EMT</div>
+          <div class="exp-years">Certified</div>
+        </div>
       </div>
-      <div class="exp-card">
-        <div class="exp-icon">⛷️</div>
-        <div class="exp-title">Ski Patrol</div>
-        <div class="exp-years">Field Response</div>
+      <div class="col-6 col-md-4 col-lg">
+        <div class="exp-card">
+          <div class="exp-icon">⛷️</div>
+          <div class="exp-title">Ski Patrol</div>
+          <div class="exp-years">Extreme Weather</div>
+        </div>
       </div>
-      <div class="exp-card">
-        <div class="exp-icon">🧗</div>
-        <div class="exp-title">Ice Climbing</div>
-        <div class="exp-years">Vertical Terrain</div>
+      <div class="col-6 col-md-4 col-lg">
+        <div class="exp-card">
+          <div class="exp-icon">🧗</div>
+          <div class="exp-title">Ice Climbing</div>
+          <div class="exp-years">Vertical Terrain</div>
+        </div>
       </div>
-      <div class="exp-card">
-        <div class="exp-icon">🚵</div>
-        <div class="exp-title">Mountain Biking</div>
-        <div class="exp-years">High-Speed Risk</div>
+      <div class="col-6 col-md-6 col-lg">
+        <div class="exp-card">
+          <div class="exp-icon">🚵</div>
+          <div class="exp-title">Mountain Biking</div>
+          <div class="exp-years">High-Speed Risk</div>
+        </div>
       </div>
-      <div class="exp-card">
-        <div class="exp-icon">🎿</div>
-        <div class="exp-title">Backcountry Skiing</div>
-        <div class="exp-years">Remote Exposure</div>
+      <div class="col-12 col-md-6 col-lg">
+        <div class="exp-card">
+          <div class="exp-icon">🎿</div>
+          <div class="exp-title">Backcountry Skiing</div>
+          <div class="exp-years">Remote Exposure</div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing">
+<!-- ── THE BAG ── -->
+<section id="the-bag">
   <div class="container">
-    <div class="reveal">
-      <div class="section-label">The Kits</div>
-      <div class="section-title">Choose your<br>level of exposure.</div>
-      <p class="section-body">One kit per person, every adventure. Ensuring first aid is always within arm's reach. </p>
+
+    <div class="reveal mb-5">
+      <div class="section-label">The Vessel</div>
+      <div class="section-title">Why this bag.</div>
+      <p class="section-body">
+        The container is part of the system. After testing every pouch that
+        would mount to a harness, the Hyperlite Zippy earned its place.
+      </p>
     </div>
 
-    <div class="pricing-grid reveal">
-      <!-- Sidekick -->
-      <div class="price-card">
-        <div class="price-name">Side-Kick</div>
-        <div class="price-amount">$100</div>
-        <div class="price-desc">Basic essentials for minor injuries that don't require evacuation.</div>
-        <div class="price-ideal">Ideal for walks close to town.</div>
-        <a href="#contact" class="price-cta">Order Now</a>
+    <div class="row g-4 align-items-center reveal">
+
+      <!-- Image -->
+      <div class="col-12 col-md-5">
+        <img src="zippy_ems.png"
+             alt="Hyperlite Mountain Gear Zippy 1L"
+             style="width:100%; border-radius:10px; border:1px solid var(--border);" />
+        <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <span style="font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+                       color:var(--red); background:rgba(224,32,32,0.1);
+                       border:1px solid rgba(224,32,32,0.25);
+                       padding:0.3rem 0.75rem; border-radius:4px;">Dyneema® DCF</span>
+          <span style="font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+                       color:var(--muted); background:rgba(255,255,255,0.04);
+                       border:1px solid var(--border);
+                       padding:0.3rem 0.75rem; border-radius:4px;">1L · ~1 oz</span>
+          <span style="font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+                       color:var(--muted); background:rgba(255,255,255,0.04);
+                       border:1px solid var(--border);
+                       padding:0.3rem 0.75rem; border-radius:4px;">Made in USA</span>
+        </div>
+      </div>
+
+      <!-- Reasons -->
+      <div class="col-12 col-md-7">
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
+                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;
+                        display:flex; align-items:center; justify-content:center;
+                        font-size:1rem;">⚡</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">
+                Ultralight without sacrificing structure
+              </div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">
+                Dyneema Composite Fabric is stronger than Cordura at a fraction of the weight.
+                The bag holds its shape when you need to dig into it one-handed under stress.
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
+                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;
+                        display:flex; align-items:center; justify-content:center;
+                        font-size:1rem;">🤐</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">
+                Full-length zipper, single-hand access
+              </div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">
+                Opens completely flat. When seconds matter and your other hand is occupied,
+                you're not fighting a small pull tab to get to your tourniquet.
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
+                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;
+                        display:flex; align-items:center; justify-content:center;
+                        font-size:1rem;">🏔️</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">
+                Sized for the kit, not the other way around
+              </div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">
+                1L is enough to hold the power of the Superhero Kit. Contents are grouped together internally using binders; making it wicked easy for you to find the right tool for the injury or illness.
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
+                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;
+                        display:flex; align-items:center; justify-content:center;
+                        font-size:1rem;">🔗</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">
+                Mounts anywhere
+              </div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">
+                The webbing loops are clip cleanly to a harness, pack, running vest,
+                or chest strap. It doesn't bounce, snag, or get in the way on technical terrain. Mini-carabiners (rated for climbing) can be provided for an additional $10.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section id="pricing">
+  <div class="container">
+
+    <div class="reveal mb-5">
+      <div class="section-label">The Kits</div>
+      <div class="section-title">Choose your<br>level of exposure.</div>
+      <p class="section-body">One kit per person, every adventure. Ensuring first aid is always within your reach.</p>
+    </div>
+
+    <div class="row g-4 align-items-stretch reveal">
+      <!-- Side-Kick -->
+      <div class="col-12 col-md-4">
+        <div class="price-card">
+          <div class="price-name">Side-Kick</div>
+          <div class="price-amount">$100</div>
+          <div class="price-desc">Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.<br><br>Message me directly for the full list.</div>
+          <div class="price-ideal">Ideal for walks close to town.</div>
+          <a href="#contact" class="price-cta">Order Now</a>
+        </div>
       </div>
 
       <!-- Superhero (featured) -->
-      <div class="price-card featured">
-        <div class="price-badge">Recommended</div>
-        <div class="price-name">Superhero Kit</div>
-        <div class="price-amount">$200</div>
-        <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, glucose, space blanket, and more. Strongly recommended as your default for everything.</div>
-        <div class="price-ideal">Climbers, bikers, skiers, hikers, paddlers — even in your car.</div>
-        <a href="#contact" class="price-cta">Order Now</a>
+      <div class="col-12 col-md-4">
+        <div class="price-card featured">
+          <div class="price-badge">Recommended</div>
+          <div class="price-name">Superhero Kit</div>
+          <div class="price-amount">$200</div>
+          <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, glucose, space blanket, and more. Strongly recommended as your default for everything.<br><br>Message me directly for the full list.</div>
+          <div class="price-ideal">Ideal for climbers, bikers, skiers, hikers, paddlers — even in your car.</div>
+          <a href="#contact" class="price-cta">Order Now</a>
+        </div>
       </div>
 
-      <!-- Comfort Add-on -->
-      <div class="price-card">
-        <div class="price-name">Comfort Add-On</div>
-        <div class="price-amount">$50</div>
-        <div class="price-desc">Prolonged care and quality of life in the field. Blisters, wound care, splinting, recovery support. Keeps small issues from becoming trip-ending problems.</div>
-        <div class="price-ideal">Add to any kit for extended expeditions.</div>
-        <a href="#contact" class="price-cta">Add to Kit</a>
+      <!-- Comfort Add-On -->
+      <div class="col-12 col-md-4">
+        <div class="price-card">
+          <div class="price-name">Comfort Add-On</div>
+          <div class="price-amount">$50</div>
+          <div class="price-desc">Prolonged care and quality of life in the field. Blisters, wound care, splinting, recovery support. Keeps small issues from becoming trip-ending problems.</div>
+          <div class="price-ideal">Add to any kit for extended expeditions.</div>
+          <a href="#contact" class="price-cta">Add to Kit</a>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- FAQ -->
-<section id="faq">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">FAQ</div>
-      <div class="section-title">Questions.</div>
-    </div>
-
-    <div class="faq-list reveal">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Do I need training?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">You don't need to be an EMT, but a basic first aid and CPR class is strongly recommended. You're also expected to review all educational materials — video tutorials for each item, articles, and field guide — included with the kit.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Can you customize it?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">While I recommend the Superhero tier for every activity (even driving your car), I can work with you to create the perfect kit for your specific needs. Reach out directly.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          How many people can one kit help?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">I strongly recommend one kit per person. Multiple kits reduce risk of loss, increase speed of care when your group is spread out, and can be combined for severe injuries — some incidents require multiple tourniquets to stop a bleed.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          How does it attach?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">Designed to mount to a climbing harness, running vest, or backpack via a combination of carabiners, cords, and webbing.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Can I see the full contents list?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">Yes — text or email directly to get the complete contents list. (651) 395-1906 or tbengels@gmail.com.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          What about comfort items like tweezers or SAM splints?
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a">The core kit focuses on life-saving interventions and ultralight weight. I'm happy to include comfort and maintenance items (tweezers, ointments, SAM splints, blister treatment, irrigation tools, etc.) for an additional $75.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
+<!-- ── CONTACT ── -->
 <section id="contact">
   <div class="container">
     <div class="reveal">
       <div class="section-label">Ready to Order</div>
       <div class="section-title">Be a superhero.</div>
-      <p class="contact-sub">Contact directly to order your prototype kit.</p>
+      <p class="section-body">Contact directly to order your prototype kit.</p>
       <div class="contact-methods">
         <div class="contact-method">
           <a href="tel:6513951906">
@@ -959,21 +803,225 @@
           </a>
         </div>
       </div>
-      <div class="disclaimer">
+      <p class="disclaimer">
         This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) are intended for life-threatening bleeding and require prerequisite knowledge to use safely. By purchasing, you accept responsibility for its use and acknowledge the inherent risks of emergency situations. Product is currently in prototyping phase — bag design, colors, logo, and contents may be updated.
-      </div>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+
+    <div class="reveal mb-5">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">Questions.</div>
+    </div>
+
+    <div class="reveal" style="max-width: 760px;">
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do I need training? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">You don't need to be an EMT, but a basic first aid and CPR class is strongly recommended. You're also expected to review all educational materials — video tutorials for each item, articles, and field guide — included with the kit.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can you customize it? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">While I recommend the Superhero tier for every activity (even driving your car), I can work with you to create the perfect kit for your specific needs. Reach out directly.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How many people can one kit help? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">I strongly recommend one kit per person. Multiple kits reduce risk of loss, increase speed of care when your group is spread out, and can be combined for severe injuries — some incidents require multiple tourniquets to stop a bleed.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How does it attach? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Designed to mount to a climbing harness, running vest, or backpack via a combination of carabiners, cords, and webbing.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can I see the full contents list? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">Yes — text or email directly to get the complete contents list. (651) 395-1906 or tbengels@gmail.com.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What about comfort items like tweezers or SAM splints? <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-a">The Superhero kit focuses on life-saving interventions while staying ultralight. I'm happy to include comfort and maintenance items (tweezers, ointments, SAM splints, blister treatment, irrigation tools, etc.) for an additional $50.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+
+    <div class="reveal mb-5">
+      <div class="section-label">The People Behind It</div>
+      <div class="section-title">Built by two.<br>Backed by experience.</div>
+      <p class="section-body">
+        This isn't a brand — it's a father and son project born from a shared obsession
+        with being prepared in the outdoors. The activities we love can be incredibly dangerous--skiing, backpacking, scuba diving, surfing, climbing, cycling, and countless others. We've both witnessed the consequences poor judgment and mediocre first aid. Our preparedness has enabled us to enjoy these thrilling activities without serius consequences. We want others to reap the benefits of being prepared for the unexpected. The Superhero First Aid Kit will give you peace of mind, and might just save someone's life.
+      </p>
+    </div>
+
+    <div class="row g-4 reveal">
+
+      <!-- Dad -->
+      <div class="col-12 col-md-6">
+        <div style="background: var(--card-bg); border: 1px solid var(--border);
+                    border-radius: 10px; padding: 2rem; height: 100%;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="width: 56px; height: 56px; border-radius: 50%;
+                        background: rgba(224,32,32,0.12); border: 1px solid rgba(224,32,32,0.3);
+                        display: flex; align-items: center; justify-content: center;
+                        font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+                        color: var(--red); flex-shrink: 0;">JE</div>
+            <div>
+              <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+                          letter-spacing: 0.05em; color: #fff; line-height: 1.1;">
+                Dr. James Engels
+              </div>
+              <div style="font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+                          color: var(--red); margin-top: 0.2rem;">
+                MD · Orthopedic Surgeon · Consultant
+              </div>
+            </div>
+          </div>
+
+          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Chief of Pediatric Orthopaedic Surgery and Associate Professor at
+            Children's Hospital of Richmond at VCU. Fellowship-trained in both
+            pediatric orthopaedics (Northwestern / Lurie Children's) and sports
+            medicine (Lake Tahoe Orthopedic Institute). Fellow of the American
+            Academy of Orthopaedic Surgeons.
+          </p>
+          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            He's seen firsthand what untreated trauma looks like — and what a
+            well-prepared bystander can prevent. That clinical perspective is baked
+            into every item selection in this kit.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              Pediatric Orthopaedics
+            </span>
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              Sports Medicine
+            </span>
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              Trauma
+            </span>
+          </div>
+
+          <a href="https://www.chrichmond.org/find-a-provider/profile/james-engels"
+             target="_blank" rel="noopener"
+             style="font-size: 0.8rem; color: var(--red); text-decoration: none;
+                    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;">
+            View Profile →
+          </a>
+        </div>
+      </div>
+
+      <!-- Son -->
+      <div class="col-12 col-md-6">
+        <div style="background: var(--card-bg); border: 1px solid var(--border);
+                    border-radius: 10px; padding: 2rem; height: 100%;">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="width: 56px; height: 56px; border-radius: 50%;
+                        background: rgba(224,32,32,0.12); border: 1px solid rgba(224,32,32,0.3);
+                        display: flex; align-items: center; justify-content: center;
+                        font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+                        color: var(--red); flex-shrink: 0;">TE</div>
+            <div>
+              <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+                          letter-spacing: 0.05em; color: #fff; line-height: 1.1;">
+                Thomas Engels
+              </div>
+              <div style="font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+                          color: var(--red); margin-top: 0.2rem;">
+                EMT · Software Engineer · Founder
+              </div>
+            </div>
+          </div>
+
+          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Certified EMT, ski patroller, and product developer with a background in
+            high-consequence outdoor environments — ice climbing, backcountry skiing,
+            mountain biking. Years of carrying DIY, custom first aid kits for real emergencies (saved a free-soloist's life after 60 ft fall in 2025).
+          </p>
+          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            Superhero First Aid Systems exists because the right kit didn't. So we
+            built it — then refined it until we'd trust it with our own lives.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              EMT Certified
+            </span>
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              Ski Patrol
+            </span>
+            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+                         color: var(--muted); background: rgba(255,255,255,0.04);
+                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
+              Product Dev
+            </span>
+          </div>
+
+          <a href="https://www.linkedin.com/in/thomas-engels-pm-developer/"
+             target="_blank" rel="noopener"
+             style="font-size: 0.8rem; color: var(--red); text-decoration: none;
+                    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;">
+            LinkedIn →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-name">Superhero First Aid Systems</div>
-  <div class="footer-note">Built for the field. &copy; 2026</div>
+  <div class="footer-note">First Aid Kits for people who want to save lives in any environment. &copy; 2026</div>
 </footer>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-  // FAQ toggle
+  // FAQ accordion
   function toggleFaq(el) {
     const item = el.parentElement;
     const isOpen = item.classList.contains('open');
@@ -990,8 +1038,8 @@
       }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
