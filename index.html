@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Superhero First Aid Systems</title>
 
+  <!-- Preload hero image -->
+  <link rel="preload" href="logo.svg" as="image" type="image/svg+xml"/>
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Google Fonts -->
@@ -433,7 +435,7 @@
   <div class="container-fluid px-3">
     <a class="navbar-brand" href="#">
         <img src="logo.svg" class="nav-shield" alt="Superhero log"/>
-      Superhero First Aid Systems
+      <span class="d-none d-sm-inline">Superhero First Aid Systems</span>
     </a>
 
 
@@ -459,7 +461,7 @@
 <section class="hero">
     <div class="hero-content text-center position-relative" style="z-index:1;">
       <div class="hero-shield-wrap">
-        <img src="logo.svg" class="hero-shield" />
+        <img src="logo.svg" class="hero-shield" width="320" height="320" />
     </div>
     <div class="hero-title">Superhero</div>
     <div class="hero-sub">First Aid Systems</div>
@@ -649,7 +651,7 @@
 
       <!-- Image -->
       <div class="col-12 col-md-5">
-        <img src="zippy_ems.png"
+        <img src="zippy_ems.png?v=2"
              alt="Hyperlite Mountain Gear Zippy 1L"
              style="width:100%; border-radius:10px; border:1px solid var(--border);" />
         <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
@@ -753,8 +755,8 @@
         <div class="price-card">
           <div class="price-name">Side-Kick</div>
           <div class="price-amount">$100</div>
-          <div class="price-desc">Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.<br><br>Message me directly for the full list.</div>
-          <div class="price-ideal">Ideal for walks close to town.</div>
+          <div class="price-desc">Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.</div>
+          <div class="price-ideal">Ideal for casual hikers in flat terrain.</div>
           <a href="#contact" class="price-cta">Order Now</a>
         </div>
       </div>
@@ -765,8 +767,8 @@
           <div class="price-badge">Recommended</div>
           <div class="price-name">Superhero Kit</div>
           <div class="price-amount">$200</div>
-          <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, glucose, space blanket, and more. Strongly recommended as your default for everything.<br><br>Message me directly for the full list.</div>
-          <div class="price-ideal">Ideal for climbers, bikers, skiers, hikers, paddlers — even in your car.</div>
+          <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, glucose, space blanket, and more. Strongly recommended as your default for everything.</div>
+          <div class="price-ideal">Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
           <a href="#contact" class="price-cta">Order Now</a>
         </div>
       </div>
@@ -774,10 +776,14 @@
       <!-- Comfort Add-On -->
       <div class="col-12 col-md-4">
         <div class="price-card">
-          <div class="price-name">Comfort Add-On</div>
-          <div class="price-amount">$75</div>
-          <div class="price-desc">Prolonged care and quality of life in the field. Blisters, wound care, splinting, recovery support. Keeps small issues from becoming trip-ending problems.</div>
-          <div class="price-ideal">Add to any kit for extended expeditions. </div>
+          <div class="price-name">Superhero Plus Kit</div>
+          <div class="price-amount">$300</div>
+          <div class="price-desc">
+            Includes the <i>Superhero</i> components and quality of life tools; ensuring small issues don't turn into
+            trip-ending problems. Enables treatment for blisters, bug bites, poisonous plant exposure, wound cleaning, eye care, stabilizing fractures, and other minor injuries.
+           
+          </div>
+          <div class="price-ideal">Ideal for multi-day trips.</div>
           <a href="#contact" class="price-cta">Add to Kit</a>
         </div>
       </div>
@@ -930,7 +936,7 @@
             <br><br>
             Through my wilderness medicine education and real patient treatment, I realized that generic first aid kits are overly
             focused on "comfort and quality of life" like treating blisters, small scrapes and bruises.
-            While worthy features of well-rounded first aid kit, the most important capability of a first aid kit should
+            While worthy features of a well-rounded first aid kit, the most important capability of a first aid kit should
             be keeping you alive long enough to transport you to definitive healthcare. It only takes 3 minutes for arterial/severe bleeding
             to kill you, and amazingly you cannot find a first aid kit at your local outdoor store that can control arterial bleeding; let alone control the bleeding for an extensive
             8-10 hour SAR helicopter rescue in mountainous terrain.
