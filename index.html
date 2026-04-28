@@ -152,6 +152,27 @@
       line-height: 1.7;
     }
 
+    /* Hero mobile overrides — placed after base rules so they win the cascade */
+    @media (max-width: 576px) {
+      .hero {
+        padding: 4.5rem 1rem 3rem;
+        min-height: auto;
+      }
+      .hero-shield {
+        width: 11rem;
+      }
+      .hero-shield-wrap {
+        margin-bottom: 0.75rem;
+      }
+      .hero-divider {
+        margin: 1rem auto;
+      }
+      .hero-tagline {
+        margin-bottom: 1.25rem;
+        font-size: 0.95rem;
+      }
+    }
+
     /* ── SECTION HELPERS ── */
     section { padding: 6rem 0; }
     .section-label {
@@ -237,6 +258,110 @@
     .exp-icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
     .exp-title { font-weight: 700; font-size: 1rem; color: #fff; }
     .exp-years { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── PHOTO ACCENTS ── */
+    /* Banner photo at end of a section */
+    .photo-banner {
+      position: relative;
+      margin: 3rem 0 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 21 / 9;
+      isolation: isolate;
+    }
+    .photo-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.04);
+      transition: transform 0.8s ease;
+    }
+    .photo-banner:hover img { transform: scale(1.02); }
+    .photo-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none;
+    }
+
+    /* Slim full-width break strip with quote overlay */
+    .photo-strip {
+      position: relative;
+      height: clamp(220px, 28vh, 320px);
+      overflow: hidden;
+      isolation: isolate;
+      display: block;
+    }
+    .photo-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.05) brightness(0.78);
+    }
+    .photo-strip::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    .photo-strip-quote {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+      padding: 0 1.5rem;
+    }
+    .photo-strip-quote span {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #fff;
+      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+      letter-spacing: 0.08em;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.75);
+    }
+    .photo-strip-quote em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    /* Inline portrait inside About section */
+    .about-intro::after { content: ''; display: block; clear: both; }
+    .about-portrait {
+      float: right;
+      width: 280px;
+      margin: 0.25rem 0 1rem 1.75rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 4 / 5;
+    }
+    .about-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.04);
+    }
+
+    @media (max-width: 768px) {
+      .photo-banner { aspect-ratio: 16 / 9; margin-top: 2.25rem; }
+      .about-portrait {
+        float: none;
+        width: 100%;
+        margin: 0 0 1.5rem 0;
+        aspect-ratio: 16 / 10;
+      }
+    }
+    @media (max-width: 576px) {
+      .photo-banner { aspect-ratio: 4 / 3; }
+    }
 
     /* ── PRICING ── */
     #pricing { background: var(--mid); }
@@ -632,6 +757,10 @@
       </div>
     </div>
 
+<!--    <figure class="photo-banner reveal">-->
+<!--      <img src="photos/adv-flatirons.jpg" alt="Flatirons at sunset above Boulder, Colorado" loading="lazy"/>-->
+<!--    </figure>-->
+
   </div>
 </section>
 
@@ -739,6 +868,14 @@
   </div>
 </section>
 
+<!-- ── PHOTO STRIP ── -->
+<aside class="photo-strip reveal" aria-hidden="true">
+  <img src="photos/adv-mtb.jpg" alt="" loading="lazy"/>
+  <div class="photo-strip-quote">
+    <span>Always by your side.</span>
+  </div>
+</aside>
+
 <!-- ── PRICING ── -->
 <section id="pricing">
   <div class="container">
@@ -818,7 +955,7 @@
         out the shipping model while also moving across the country to start school. So there will be a 4-5 week lead
         time to receive your kit. Thank you for your patience.
         <br><br>
-        Friends, family, and first responder/pro discounts available.</p>
+        First responder, healthcare, law enforcement, military, and outdoor professional discounts available.</p>
 
 
       <p class="disclaimer">
@@ -827,7 +964,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ── FAQ ── -->
 <section id="faq">
@@ -897,10 +1033,15 @@
     <div class="reveal mb-5">
       <div class="section-label">The People Behind It</div>
       <div class="section-title">Built by two.<br>Backed by experience.</div>
-      <p class="section-body">
-        This isn't a brand — it's a father and son project born from a shared obsession
-        with being prepared in the outdoors. The activities we love can be incredibly dangerous; such as skiing, backpacking, scuba diving, surfing, climbing, cycling, and countless others. We have both witnessed the consequences of poor judgment and mediocre first aid. Our preparedness has enabled us to enjoy these thrilling activities without serius consequences. We want others to reap the benefits of being prepared for the unexpected. The Superhero First Aid Kit will give you peace of mind, and might just save someone's life.
-      </p>
+      <div class="about-intro">
+<!--        <figure class="about-portrait">-->
+<!--          <img src="photos/silver.png" alt="Summit ridge in Colorado" loading="lazy"/>-->
+<!--        </figure>-->
+        <p class="section-body">
+          This isn't a brand — it's a father and son project born from a shared obsession
+          with being prepared in the outdoors. The activities we love can be incredibly dangerous; such as skiing, backpacking, scuba diving, surfing, climbing, cycling, and countless others. We have both witnessed the consequences of poor judgment and mediocre first aid. Our preparedness has enabled us to enjoy these thrilling activities without serius consequences. We want others to reap the benefits of being prepared for the unexpected. The Superhero First Aid Kit will give you peace of mind, and might just save someone's life.
+        </p>
+      </div>
     </div>
 
     <div class="row g-4 reveal">
@@ -1070,6 +1211,19 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Gallery carousel nav
+  document.querySelectorAll('.carousel-nav').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const track = document.getElementById(btn.dataset.track);
+      if (!track) return;
+      const tile = track.querySelector('.gallery-tile');
+      if (!tile) return;
+      const dir = btn.classList.contains('next') ? 1 : -1;
+      const step = tile.offsetWidth + 14;
+      track.scrollBy({ left: step * dir, behavior: 'smooth' });
+    });
+  });
 </script>
 
 </body>
