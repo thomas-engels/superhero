@@ -363,6 +363,97 @@
       .photo-banner { aspect-ratio: 4 / 3; }
     }
 
+    /* ── BAG IMAGE CAROUSEL ── */
+    .bag-carousel {
+      position: relative;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #1a1414;
+      isolation: isolate;
+    }
+    .bag-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      aspect-ratio: 4 / 5;
+    }
+    .bag-track::-webkit-scrollbar { display: none; }
+    .bag-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1414;
+    }
+    .bag-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bag-slide:first-child { background: #fff; }
+    .bag-slide:first-child img { object-fit: contain; }
+
+    .bag-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(13,13,13,0.7);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .bag-nav.prev { left: 10px; }
+    .bag-nav.next { right: 10px; }
+    .bag-nav:hover { background: var(--red); border-color: var(--red); }
+    .bag-nav:active { transform: translateY(-50%) scale(0.94); }
+
+    .bag-dots {
+      position: absolute;
+      left: 0; right: 0; bottom: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+    }
+    .bag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .bag-dot:hover { background: rgba(255,255,255,0.7); }
+    .bag-dot.active {
+      background: var(--red);
+      transform: scale(1.3);
+    }
+
+    @media (max-width: 576px) {
+      .bag-nav { width: 36px; height: 36px; font-size: 1.3rem; }
+    }
+
     /* ── PRICING ── */
     #pricing { background: var(--mid); }
     .price-card {
@@ -432,6 +523,77 @@
       transition: background 0.2s;
     }
     .price-cta:hover { background: var(--red-dark); color: #fff; }
+
+    /* Single-card tier picker */
+    .price-picker {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .price-tier-toggle {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 5px;
+      gap: 4px;
+      margin-bottom: 1.75rem;
+    }
+    .tier-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 0.7rem 0.5rem;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .tier-btn:hover { color: #fff; }
+    .tier-btn.active {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .price-card-single {
+      background: linear-gradient(160deg, #1e0808, var(--card-bg));
+      border: 1px solid var(--red);
+      border-radius: 14px;
+      padding: 2.5rem 2.2rem 2.2rem;
+      position: relative;
+      transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .price-card-single.swapping {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .price-card-single .price-amount {
+      font-size: 4rem;
+      margin: 0.3rem 0 1.1rem;
+    }
+    .price-card-single .price-desc { font-size: 0.95rem; }
+    .price-card-single .price-ideal { font-size: 0.85rem; }
+    .price-card-single .price-cta {
+      margin-top: 0.5rem;
+      padding: 0.95rem;
+      font-size: 0.95rem;
+    }
+    .price-card-single .price-badge { display: none; }
+    .price-card-single[data-tier-active="standard"] .price-badge { display: inline-block; }
+    .price-card-single:not([data-tier-active="standard"]) {
+      background: var(--card-bg);
+      border-color: var(--border);
+    }
+
+    @media (max-width: 576px) {
+      .price-card-single { padding: 2rem 1.4rem 1.6rem; }
+      .price-card-single .price-amount { font-size: 3.2rem; }
+      .tier-btn { font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.65rem 0.3rem; }
+    }
 
     /* ── FAQ ── */
     #faq { background: var(--mid); }
@@ -571,8 +733,8 @@
     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
       <ul class="navbar-nav align-items-lg-center gap-lg-1">
         <li class="nav-item"><a class="nav-link" href="#why">The Difference</a></li>
-        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-         <li class="nav-item"><a class="nav-link" href="#the-bag">Dyneeema</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">The Mission</a></li>
+         <li class="nav-item"><a class="nav-link" href="#the-bag">The Vessel</a></li>
         <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
@@ -720,9 +882,14 @@
   <div class="container">
 
     <div class="reveal mb-5">
-      <div class="section-label">Built From Real Experience</div>
-      <div class="section-title">Not designed in an office.</div>
-      <p class="section-body">Every item in this kit earned its place by helping people on their worst days.</p>
+      <div class="section-label">Inspired By Real Experience</div>
+      <div class="section-title">The Mission</div>
+      <p class="section-body">
+        Empower you to help during emergencies with the mindset and tools of a professional first responder.
+
+        <br><br>
+        Every item in this kit earned its place by helping people on their worst days.
+      </p>
     </div>
 
     <div class="row g-3 reveal">
@@ -784,11 +951,32 @@
 
     <div class="row g-4 align-items-center reveal">
 
-      <!-- Image -->
+      <!-- Image carousel -->
       <div class="col-12 col-md-5">
-        <img src="zippy_ems_v2.png?v=2"
-             alt="Hyperlite Mountain Gear Zippy 1L"
-             style="width:100%; border-radius:10px; border:1px solid var(--border);" />
+        <div class="bag-carousel" id="bagCarousel">
+          <div class="bag-track" id="bagTrack">
+            <div class="bag-slide">
+              <img src="zippy_ems_v2.png?v=2" alt="Hyperlite Mountain Gear Zippy 1L"/>
+            </div>
+            <div class="bag-slide">
+              <img src="photos/coffee-web.jpg" alt="Bag next to a coffee mug for size reference" loading="lazy"/>
+            </div>
+            <div class="bag-slide">
+              <img src="photos/cams-web.jpg" alt="Bag clipped to climbing harness with cams and quickdraws" loading="lazy"/>
+            </div>
+            <div class="bag-slide">
+              <img src="photos/horizontal-web.jpg" alt="Bag mounted horizontally on a climbing harness" loading="lazy"/>
+            </div>
+          </div>
+          <button class="bag-nav prev" type="button" aria-label="Previous photo" data-bag-dir="-1">‹</button>
+          <button class="bag-nav next" type="button" aria-label="Next photo" data-bag-dir="1">›</button>
+          <div class="bag-dots" id="bagDots">
+            <button type="button" class="bag-dot active" data-slide="0" aria-label="Photo 1"></button>
+            <button type="button" class="bag-dot" data-slide="1" aria-label="Photo 2"></button>
+            <button type="button" class="bag-dot" data-slide="2" aria-label="Photo 3"></button>
+            <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 4"></button>
+          </div>
+        </div>
         <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
           <span style="font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
                        color:var(--red); background:rgba(224,32,32,0.1);
@@ -878,7 +1066,7 @@
 <aside class="photo-strip reveal" aria-hidden="true">
   <img src="photos/adv-mtb.jpg" alt="" loading="lazy"/>
   <div class="photo-strip-quote">
-    <span>Always by your side.</span>
+    <span>Always by your side like your furry best friend.</span>
   </div>
 </aside>
 
@@ -892,43 +1080,20 @@
       <p class="section-body">One kit per person, every adventure. First aid is always within your reach.</p>
     </div>
 
-    <div class="row g-4 align-items-stretch reveal">
-      <!-- Side-Kick -->
-      <div class="col-12 col-md-4">
-        <div class="price-card">
-          <div class="price-name">Side-Kick</div>
-          <div class="price-amount">$100</div>
-          <div class="price-desc">Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.</div>
-          <div class="price-ideal">Ideal for casual hikers in flat terrain.</div>
-          <a href="#contact" class="price-cta">Order Now</a>
-        </div>
+    <div class="price-picker reveal">
+      <div class="price-tier-toggle" role="tablist" aria-label="Choose a kit tier">
+        <button class="tier-btn" type="button" role="tab" data-tier="basic" aria-selected="false">Basic</button>
+        <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Standard</button>
+        <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Pro</button>
       </div>
 
-      <!-- Superhero (featured) -->
-      <div class="col-12 col-md-4">
-        <div class="price-card featured">
-          <div class="price-badge">Recommended</div>
-          <div class="price-name">Superhero Kit</div>
-          <div class="price-amount">$200</div>
-          <div class="price-desc">Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, shock treatment, and more. Strongly recommended as your default for everything.</div>
-          <div class="price-ideal">Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
-          <a href="#contact" class="price-cta">Order Now</a>
-        </div>
-      </div>
-
-      <!-- Comfort Add-On -->
-      <div class="col-12 col-md-4">
-        <div class="price-card">
-          <div class="price-name">Superhero Plus Kit</div>
-          <div class="price-amount">$300</div>
-          <div class="price-desc">
-            Includes the <i>Superhero</i> components and quality of life tools; ensuring small issues don't turn into
-            trip-ending problems. Enables treatment for blisters, bug bites, poisonous plant exposure, wound cleaning, eye care, stabilizing fractures, and other minor injuries.
-           
-          </div>
-          <div class="price-ideal">Ideal for multi-day trips.</div>
-          <a href="#contact" class="price-cta">Add to Kit</a>
-        </div>
+      <div class="price-card-single" id="priceCard">
+        <div class="price-badge" data-tier-badge>Recommended</div>
+        <div class="price-name" data-tier-name>Standard Kit</div>
+        <div class="price-amount" data-tier-amount>$225</div>
+        <div class="price-desc" data-tier-desc>Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, shock treatment, and more. Strongly recommended as your default for everything.</div>
+        <div class="price-ideal" data-tier-ideal>Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
+        <a href="#contact" class="price-cta">Order Now</a>
       </div>
     </div>
 
@@ -1217,7 +1382,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Gallery carousel nav
+  // Gallery carousel nav (legacy)
   document.querySelectorAll('.carousel-nav').forEach(btn => {
     btn.addEventListener('click', () => {
       const track = document.getElementById(btn.dataset.track);
@@ -1229,6 +1394,111 @@
       track.scrollBy({ left: step * dir, behavior: 'smooth' });
     });
   });
+
+  // Bag carousel
+  (function initBagCarousel() {
+    const track = document.getElementById('bagTrack');
+    const dots = document.querySelectorAll('#bagDots .bag-dot');
+    const navs = document.querySelectorAll('.bag-nav');
+    if (!track || !dots.length) return;
+
+    const slides = track.querySelectorAll('.bag-slide');
+    const setActive = (idx) => {
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    };
+
+    // Sync dots when user swipes/scrolls
+    let scrollTimer;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const idx = Math.round(track.scrollLeft / track.clientWidth);
+        setActive(Math.max(0, Math.min(slides.length - 1, idx)));
+      }, 60);
+    });
+
+    // Dot click -> jump to slide
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        setActive(i);
+      });
+    });
+
+    // Prev/next nav
+    navs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = parseInt(btn.dataset.bagDir, 10) || 1;
+        const current = Math.round(track.scrollLeft / track.clientWidth);
+        const next = Math.max(0, Math.min(slides.length - 1, current + dir));
+        track.scrollTo({ left: next * track.clientWidth, behavior: 'smooth' });
+        setActive(next);
+      });
+    });
+  })();
+
+  // Pricing tier picker
+  const tierData = {
+    basic: {
+      name: 'Basic Kit',
+      amount: '$125',
+      desc: "Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.",
+      ideal: 'Ideal for casual hikers in flat terrain.',
+      cta: 'Order Now',
+    },
+    standard: {
+      name: 'Standard Kit',
+      amount: '$225',
+      desc: 'Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, shock treatment, and more. Strongly recommended as your default for everything.',
+      ideal: 'Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.',
+      cta: 'Order Now',
+    },
+    pro: {
+      name: 'Pro Kit',
+      amount: '$350',
+      desc: "Includes all Standard components plus quality-of-life tools so small issues don't turn into trip-ending problems. Treatment for blisters, bug bites, poisonous plant exposure, wound cleaning, eye care, fracture stabilization, and more.",
+      ideal: 'Ideal for multi-day trips and remote expeditions.',
+      cta: 'Order Now',
+    },
+  };
+
+  const priceCard = document.getElementById('priceCard');
+  if (priceCard) {
+    priceCard.dataset.tierActive = 'standard';
+    const elName = priceCard.querySelector('[data-tier-name]');
+    const elAmount = priceCard.querySelector('[data-tier-amount]');
+    const elDesc = priceCard.querySelector('[data-tier-desc]');
+    const elIdeal = priceCard.querySelector('[data-tier-ideal]');
+    const elCta = priceCard.querySelector('.price-cta');
+
+    document.querySelectorAll('.tier-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tier = btn.dataset.tier;
+        if (priceCard.dataset.tierActive === tier) return;
+        const data = tierData[tier];
+        if (!data) return;
+
+        // Update active toggle state
+        document.querySelectorAll('.tier-btn').forEach(b => {
+          const isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Fade-swap card content
+        priceCard.classList.add('swapping');
+        setTimeout(() => {
+          elName.textContent = data.name;
+          elAmount.textContent = data.amount;
+          elDesc.textContent = data.desc;
+          elIdeal.textContent = data.ideal;
+          if (elCta) elCta.textContent = data.cta;
+          priceCard.dataset.tierActive = tier;
+          priceCard.classList.remove('swapping');
+        }, 200);
+      });
+    });
+  }
 </script>
 
 </body>
