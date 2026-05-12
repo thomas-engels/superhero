@@ -397,8 +397,10 @@
       object-fit: cover;
       display: block;
     }
-    .bag-slide:first-child { background: #fff; }
-    .bag-slide:first-child img { object-fit: contain; }
+    .bag-slide.bag-slide-contain img {
+      object-fit: contain;
+      padding: 0.5rem;
+    }
 
     .bag-nav {
       position: absolute;
@@ -573,8 +575,46 @@
     }
     .price-card-single .price-amount {
       font-size: 4rem;
-      margin: 0.3rem 0 1.1rem;
+      margin: 0.3rem 0 0.4rem;
     }
+    .price-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .price-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.3rem 0.7rem;
+      white-space: nowrap;
+    }
+    .price-pill::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .price-coverage-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.85rem;
+      line-height: 1.45;
+    }
+    .price-coverage-note[hidden] { display: none; }
     .price-card-single .price-desc { font-size: 0.95rem; }
     .price-card-single .price-ideal { font-size: 0.85rem; }
     .price-card-single .price-cta {
@@ -589,10 +629,109 @@
       border-color: var(--border);
     }
 
+    /* Expandable kit contents */
+    .contents-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .contents-toggle:hover {
+      color: #fff;
+      border-color: var(--red);
+      background: rgba(224,32,32,0.05);
+    }
+    .contents-toggle-icon {
+      display: inline-block;
+      transition: transform 0.25s ease;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .contents-toggle[aria-expanded="true"] .contents-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .contents-panel {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      gap: 1.4rem;
+      animation: contents-fade-in 0.3s ease;
+    }
+    .contents-panel[hidden] { display: none; }
+    @keyframes contents-fade-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .contents-category {
+      display: block;
+    }
+    .contents-category-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+    .contents-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.7rem 1.2rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .contents-item {
+      position: relative;
+      padding-left: 0.95rem;
+    }
+    .contents-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .contents-item-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.88rem;
+      display: block;
+      line-height: 1.3;
+    }
+    .contents-item-purpose {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: block;
+      line-height: 1.4;
+      margin-top: 0.1rem;
+    }
+
     @media (max-width: 576px) {
       .price-card-single { padding: 2rem 1.4rem 1.6rem; }
       .price-card-single .price-amount { font-size: 3.2rem; }
       .tier-btn { font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.65rem 0.3rem; }
+      .contents-items { grid-template-columns: 1fr; }
     }
 
     /* ── FAQ ── */
@@ -630,7 +769,44 @@
     .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.1rem; }
 
     /* ── CONTACT ── */
-    .contact-methods { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 2rem 0; }
+    .order-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      padding: 1.1rem 2.2rem;
+      border-radius: 8px;
+      margin: 1.5rem 0 2.5rem;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 6px 20px rgba(224,32,32,0.25);
+    }
+    .order-cta:hover {
+      background: var(--red-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(224,32,32,0.4);
+    }
+    .order-cta:active { transform: translateY(0); }
+    .order-cta-arrow {
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+    .order-cta:hover .order-cta-arrow { transform: translateX(4px); }
+
+    .contact-methods-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .contact-methods { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 0 0 2rem; }
     .contact-method {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -955,8 +1131,8 @@
       <div class="col-12 col-md-5">
         <div class="bag-carousel" id="bagCarousel">
           <div class="bag-track" id="bagTrack">
-            <div class="bag-slide">
-              <img src="zippy_ems_v2.png?v=2" alt="Hyperlite Mountain Gear Zippy 1L"/>
+            <div class="bag-slide bag-slide-contain">
+              <img src="photos/opening-web.jpg" alt="Superhero First Aid Systems 1L kit — branded Hyperlite Zippy bag"/>
             </div>
             <div class="bag-slide">
               <img src="photos/cams-web.jpg" alt="Bag clipped to climbing harness with cams and quickdraws" loading="lazy"/>
@@ -964,8 +1140,8 @@
             <div class="bag-slide">
               <img src="photos/horizontal-web.jpg" alt="Bag mounted horizontally on a climbing harness" loading="lazy"/>
             </div>
-            <div class="bag-slide">
-              <img src="photos/coffee-web.jpg" alt="Bag next to a coffee mug for size reference" loading="lazy"/>
+            <div class="bag-slide bag-slide-contain">
+              <img src="photos/coffee-new-web.jpg" alt="Superhero kit 1L and 2L sizes next to a coffee mug for scale" loading="lazy"/>
             </div>
           </div>
           <button class="bag-nav prev" type="button" aria-label="Previous photo" data-bag-dir="-1">‹</button>
@@ -1091,9 +1267,25 @@
         <div class="price-badge" data-tier-badge>Recommended</div>
         <div class="price-name" data-tier-name>Standard Kit</div>
         <div class="price-amount" data-tier-amount>$225</div>
-        <div class="price-desc" data-tier-desc>Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure bandage, shock treatment, and more. Strongly recommended as your default for everything.</div>
+        <div class="price-specs">
+          <span class="price-pill" data-tier-weight>14 oz · 1L bag</span>
+          <span class="price-pill" data-tier-coverage>1 person</span>
+        </div>
+        <div class="price-coverage-note" data-tier-coverage-note hidden>Covers up to 3 people when paired with two Standard kits.</div>
+        <div class="price-desc" data-tier-desc>For when minutes matters most—only what you absolutely NEED, nothing you don’t. Ultralight, life-saving tools to keep someone alive when everything goes wrong.</div>
         <div class="price-ideal" data-tier-ideal>Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
         <a href="#contact" class="price-cta">Order Now</a>
+        <button type="button"
+                class="contents-toggle"
+                id="contentsToggle"
+                aria-expanded="false"
+                aria-controls="kitContents">
+          <span class="contents-toggle-label">View what's inside</span>
+          <span class="contents-toggle-icon" aria-hidden="true">›</span>
+        </button>
+        <div class="contents-panel" id="kitContents" hidden>
+          <!-- Populated by JS based on active tier -->
+        </div>
       </div>
     </div>
 
@@ -1105,7 +1297,17 @@
     <div class="reveal">
       <div class="section-label">Ready to Order</div>
       <div class="section-title">Be a superhero. Save a life.</div>
-      <p class="section-body">Contact me directly to place your order.</p>
+      <p class="section-body">Place your order through the form below.</p>
+
+      <a class="order-cta"
+         href="https://docs.google.com/forms/d/e/1FAIpQLSeCmJn4cH63RdqNcN_hRFTQtWqvG3ZD8AI5K8ADFOwjTSaM9g/viewform?usp=dialog"
+         target="_blank"
+         rel="noopener noreferrer">
+        Place Your Order
+        <span class="order-cta-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <div class="contact-methods-label">Questions?</div>
       <div class="contact-methods">
         <div class="contact-method">
           <a href="tel:6513951906">
@@ -1442,24 +1644,160 @@
     basic: {
       name: 'Basic Kit',
       amount: '$125',
-      desc: "Basic essentials for minor injuries that don't require evacuation. ABD pads, bandages, medications, pressure wraps, mini shears, and other items to manage minor injuries.",
-      ideal: 'Ideal for casual hikers in flat terrain.',
+      weight: '8 oz · 1L bag',
+      coverage: '1 person',
+      coverageNote: '',
+      desc: "For the small hits—cuts, scrapes, and the everyday injuries that don’t require a visit to the Emergency Department.",
+      ideal: 'Ideal for easy hikes in mild weather and flat terrain.',
       cta: 'Order Now',
     },
     standard: {
       name: 'Standard Kit',
       amount: '$225',
-      desc: 'Maximum bleeding control for life-threatening emergencies. Tourniquet, hemostatic gauze, pressure wrap, shock treatment, and more. Strongly recommended as your default for everything.',
+      weight: '14 oz · 1L bag',
+      coverage: '1 person',
+      coverageNote: '',
+      desc: 'For when minutes matters most—only what you need, nothing you don’t. Ultralight, life-saving tools to keep someone alive when everything goes wrong.',
       ideal: 'Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.',
       cta: 'Order Now',
     },
     pro: {
       name: 'Pro Kit',
       amount: '$350',
-      desc: "Includes all Standard components plus quality-of-life tools so small issues don't turn into trip-ending problems. Treatment for blisters, bug bites, poisonous plant exposure, wound cleaning, eye care, fracture stabilization, and more. Comes as 2 bags (1L Zippy + 2L Zippy) to give you flexibility with packing.",
+      weight: '14 oz (1L bag) + 16 oz (2L bag)',
+      coverage: '3 people',
+      coverageNote: '* Up to 3 people when paired with two Standard kits.',
+      desc: "For the long fight—life-saving tools plus the systems to manage pain, prevent problems, and keep you and your team moving when the mission doesn’t end at sunset.",
       ideal: 'Ideal for multi-day trips and remote expeditions.',
       cta: 'Order Now',
     },
+  };
+
+  // Kit contents per tier, grouped by purpose
+  const tierContents = {
+    basic: [
+      { name: 'Wound Care', items: [
+        { name: 'Sterile gauze pads', purpose: 'Cover and clean minor wounds' },
+        { name: 'Gauze rolls', purpose: 'Wrap and secure dressings' },
+        { name: 'ABD trauma pads', purpose: 'Absorb heavy bleeding from large wounds' },
+        { name: 'Adhesive bandages', purpose: 'Cover cuts, scrapes, and blisters' },
+        { name: 'Cohesive wrap', purpose: 'Self-adhering wrap that won’t stick to skin' },
+        { name: 'Cloth medical tape', purpose: 'Fasten gauze and bandages' },
+      ]},
+      { name: 'Medications', items: [
+        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen, aspirin' },
+        { name: 'Allergy support', purpose: 'Diphenhydramine for stings and reactions' },
+      ]},
+      { name: 'Tools', items: [
+        { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
+        { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
+        { name: 'Ultralight zip pouch', purpose: 'Organizes the kit' },
+      ]},
+    ],
+    standard: [
+      { name: 'Bleeding & Trauma', items: [
+        { name: 'Tourniquet (windlass)', purpose: 'Stop life-threatening limb bleeding' },
+        { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds along core, back, and groin' },
+        { name: 'Slishman Pressure wrap', purpose: 'Compress and control major bleeds' },
+      ]},
+      { name: 'Environment & Body', items: [
+        { name: 'Hypothermia wrap', purpose: 'Reflect heat and prevent shock' },
+        { name: 'Glucose gel', purpose: 'Rapid carbs for low blood sugar' },
+        { name: 'Electrolytes', purpose: 'Replace salts lost from sweat or illness' },
+      ]},
+      { name: 'Wound Care', items: [
+        { name: 'Gauze rolls', purpose: 'Wrap and secure dressings' },
+        { name: 'ABD trauma pads', purpose: 'Absorb heavy bleeding from large wounds' },
+        { name: 'Adhesive bandages', purpose: 'Cover cuts, scrapes, and blisters' },
+        { name: 'Cloth medical tape', purpose: 'Fasten gauze and bandages' },
+      ]},
+      { name: 'Medications', items: [
+        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen' },
+        { name: 'Cardiac Support', purpose: 'Aspirin for Angina and Myocardial Infarctions (Heart Attacks)'},
+        { name: 'Allergy support', purpose: 'Diphenhydramine for stings, reactions, and nausea' },
+        { name: 'GI support', purpose: 'Loperamide for diarrhea and antacids for upset stomachs' },
+      ]},
+      { name: 'Tools', items: [
+        { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
+        { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
+        { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes on dressings' },
+        { name: 'Duct tape', purpose: 'Universal repair, blister patch, splint fix' },
+        { name: 'Ultralight zip pouch', purpose: 'Organizes the kit' },
+      ]},
+    ],
+    pro: [
+      { name: 'Bleeding & Trauma', items: [
+        { name: 'Tourniquet (windlass)', purpose: 'Stop life-threatening limb bleeding' },
+        { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds' },
+        { name: 'Pressure wrap', purpose: 'Compress and control major bleeds' },
+        { name: 'SAM splint', purpose: 'Immobilize fractures and sprains' },
+        { name: 'Triangular Slings', purpose: 'Immobilize fractures and sprains' }
+      ]},
+      { name: 'Burns & Skin', items: [
+        { name: 'Burn gel (lidocaine)', purpose: 'Numb and cool burns' },
+        { name: 'Non-adherent burn barrier', purpose: 'Cover burns without sticking' },
+        { name: 'Hydrocortisone cream', purpose: 'Reduce itching and inflammation' },
+      ]},
+      { name: 'Environment & Body', items: [
+        { name: 'Hypothermia wrap', purpose: 'Reflect heat and prevent shock' },
+        { name: 'Glucose gel', purpose: 'Rapid carbs for low blood sugar' },
+        { name: 'Electrolytes', purpose: 'Replace salts lost from sweat or illness' },
+      ]},
+      { name: 'Wound Care', items: [
+        { name: 'Sterile gauze pads', purpose: 'Cover and clean minor wounds' },
+        { name: 'Gauze rolls', purpose: 'Wrap and secure dressings' },
+        { name: 'ABD trauma pads', purpose: 'Absorb heavy bleeding from large wounds' },
+        { name: 'Adhesive bandages', purpose: 'Cover cuts, scrapes, and blisters' },
+        { name: 'Cloth medical tape', purpose: 'Fasten gauze and bandages' },
+        { name: 'Antiseptic wipes', purpose: 'Disinfect wounds before dressing' },
+        { name: 'Alcohol prep pads', purpose: 'Sterilize skin or instruments' },
+        { name: 'Irrigation syringe', purpose: 'Flush debris from wounds' },
+        { name: 'Eye drops', purpose: 'Flush eyes and relieve irritation' },
+      ]},
+      { name: 'Medications', items: [
+        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen, aspirin' },
+        { name: 'Allergy support', purpose: 'Diphenhydramine for stings and reactions' },
+        { name: 'GI support', purpose: 'Loperamide for diarrhea and antacids for upset stomachs' },
+        { name: 'Oral and tooth pain', purpose: 'Benzocaine for numbing toothaches and oral infections' },
+      ]},
+      { name: 'Blisters & Comfort', items: [
+        { name: 'Moleskin', purpose: 'Pad hot spots before blisters form' },
+        { name: 'Leukotape strip', purpose: 'Tough tape for blister prevention' },
+        { name: 'Anti-chafe stick', purpose: 'Prevent skin chafing on long days' },
+        { name: 'Lip balm', purpose: 'Protect lips from sun and wind' },
+      ]},
+      { name: 'Sun & Bugs', items: [
+        { name: 'Sunscreen', purpose: 'Block UV burns' },
+        { name: 'DEET wipe (30%)', purpose: 'Repel mosquitoes and ticks' },
+      ]},
+      { name: 'Tools', items: [
+        { name: 'Mini EMT shears (×2)', purpose: 'Cut clothing, gauze, and tape' },
+        { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
+        { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes' },
+        { name: 'Duct tape', purpose: 'Universal repair, blister patch, splint fix' },
+        { name: 'Ultralight zip pouches', purpose: '1L + 2L for flexible packing' },
+      ]},
+    ],
+  };
+
+  // Render contents into the panel for a given tier
+  const contentsPanel = document.getElementById('kitContents');
+  const renderContents = (tier) => {
+    if (!contentsPanel) return;
+    const groups = tierContents[tier] || [];
+    contentsPanel.innerHTML = groups.map(g => `
+      <div class="contents-category">
+        <div class="contents-category-name">${g.name}</div>
+        <ul class="contents-items">
+          ${g.items.map(it => `
+            <li class="contents-item">
+              <span class="contents-item-name">${it.name}</span>
+              <span class="contents-item-purpose">${it.purpose}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `).join('');
   };
 
   const priceCard = document.getElementById('priceCard');
@@ -1467,9 +1805,15 @@
     priceCard.dataset.tierActive = 'standard';
     const elName = priceCard.querySelector('[data-tier-name]');
     const elAmount = priceCard.querySelector('[data-tier-amount]');
+    const elWeight = priceCard.querySelector('[data-tier-weight]');
+    const elCoverage = priceCard.querySelector('[data-tier-coverage]');
+    const elCoverageNote = priceCard.querySelector('[data-tier-coverage-note]');
     const elDesc = priceCard.querySelector('[data-tier-desc]');
     const elIdeal = priceCard.querySelector('[data-tier-ideal]');
     const elCta = priceCard.querySelector('.price-cta');
+
+    // Pre-render initial contents
+    renderContents('standard');
 
     document.querySelectorAll('.tier-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1490,13 +1834,36 @@
         setTimeout(() => {
           elName.textContent = data.name;
           elAmount.textContent = data.amount;
+          if (elWeight) elWeight.textContent = data.weight;
+          if (elCoverage) elCoverage.textContent = data.coverage;
+          if (elCoverageNote) {
+            if (data.coverageNote) {
+              elCoverageNote.textContent = data.coverageNote;
+              elCoverageNote.hidden = false;
+            } else {
+              elCoverageNote.hidden = true;
+            }
+          }
           elDesc.textContent = data.desc;
           elIdeal.textContent = data.ideal;
           if (elCta) elCta.textContent = data.cta;
           priceCard.dataset.tierActive = tier;
           priceCard.classList.remove('swapping');
+          renderContents(tier);
         }, 200);
       });
+    });
+  }
+
+  // Contents toggle (expand/collapse)
+  const contentsToggle = document.getElementById('contentsToggle');
+  if (contentsToggle && contentsPanel) {
+    contentsToggle.addEventListener('click', () => {
+      const isOpen = contentsToggle.getAttribute('aria-expanded') === 'true';
+      contentsToggle.setAttribute('aria-expanded', String(!isOpen));
+      contentsToggle.querySelector('.contents-toggle-label').textContent =
+        isOpen ? "View what's inside" : 'Hide contents';
+      contentsPanel.hidden = isOpen;
     });
   }
 </script>
