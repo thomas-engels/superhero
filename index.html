@@ -70,13 +70,18 @@
       transition: color 0.2s;
     }
     .navbar-nav .nav-link:hover { color: #fff !important; }
-    .nav-cta {
+    .navbar-nav .nav-link.nav-cta {
       background: var(--red) !important;
       color: #fff !important;
       border-radius: 4px !important;
       padding: 0.4rem 1.1rem !important;
+      font-weight: 700;
+      letter-spacing: 0.06em;
     }
-    .nav-cta:hover { background: var(--red-dark) !important; }
+    .navbar-nav .nav-link.nav-cta:hover {
+      background: var(--red-dark) !important;
+      color: #fff !important;
+    }
     .navbar-toggler { border-color: var(--border); }
     .navbar-toggler-icon { filter: invert(1); }
 
@@ -174,7 +179,7 @@
     }
 
     /* ── SECTION HELPERS ── */
-    section { padding: 6rem 0; }
+    section { padding: 6rem 0; scroll-margin-top: 5rem; }
     .section-label {
       font-size: 0.75rem;
       font-weight: 700;
@@ -1053,10 +1058,10 @@
         <li class="nav-item"><a class="nav-link" href="#why">The Difference</a></li>
         <li class="nav-item"><a class="nav-link" href="#experience">The Mission</a></li>
          <li class="nav-item"><a class="nav-link" href="#the-bag">The Vessel</a></li>
-        <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">The Kits</a></li>
         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#contact" style="color: white">Order Now</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#contact">Order Now</a></li>
       </ul>
     </div>
   </div>
@@ -1737,6 +1742,58 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Auto-close mobile navbar after any nav-link is clicked.
+  // On mobile, we must close the menu BEFORE scrolling — otherwise the
+  // navbar's expanded height shifts the page layout mid-scroll and the
+  // browser overshoots the section title.
+  (function initNavAutoClose() {
+    const navCollapse = document.getElementById('mainNav');
+    if (!navCollapse) return;
+
+    document.querySelectorAll('#mainNav .nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Only intervene if the mobile menu is currently open
+        if (!navCollapse.classList.contains('show')) return;
+
+        const href = link.getAttribute('href');
+        const isAnchor = href && href.startsWith('#') && href.length > 1;
+
+        // Close the menu via Bootstrap (handles animation)
+        const hideMenu = () => {
+          if (window.bootstrap && bootstrap.Collapse) {
+            const instance = bootstrap.Collapse.getInstance(navCollapse)
+              || new bootstrap.Collapse(navCollapse, { toggle: false });
+            instance.hide();
+          } else {
+            navCollapse.classList.remove('show');
+          }
+        };
+
+        if (isAnchor) {
+          // Stop the browser's default scroll-to-anchor (it would fire
+          // immediately, while the navbar is still expanded). We'll
+          // re-fire it ourselves once the collapse animation finishes.
+          e.preventDefault();
+          const target = document.querySelector(href);
+
+          const doScroll = () => {
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Update the URL hash without re-triggering the jump
+            history.pushState(null, '', href);
+          };
+
+          // Wait for the navbar collapse to fully finish, then scroll
+          navCollapse.addEventListener('hidden.bs.collapse', doScroll, { once: true });
+          hideMenu();
+        } else {
+          // External link or non-anchor — just close the menu, let default proceed
+          hideMenu();
+        }
+      });
+    });
+  })();
 
   // Gallery carousel nav (legacy)
   document.querySelectorAll('.carousel-nav').forEach(btn => {
