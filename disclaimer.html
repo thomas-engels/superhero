@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disclaimer & Terms of Use — Superhero First Aid Systems</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    @page {
+      size: Letter;
+      margin: 0.75in;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:      #b01818;
+      --red-soft: #fdecec;
+      --ink:      #1a1a1a;
+      --muted:    #555;
+      --border:   #d8d8d8;
+    }
+    html, body {
+      background: #fff;
+      color: var(--ink);
+      font-family: 'DM Sans', Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Header */
+    .doc-header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .doc-header img { width: 56px; height: auto; }
+    .doc-header-text { line-height: 1.2; }
+    .doc-header-brand {
+      font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+      font-size: 18pt;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+    .doc-header-sub {
+      font-size: 9pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Title block */
+    .doc-title {
+      font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+      font-size: 26pt;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .doc-meta {
+      font-size: 9pt;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+    .doc-meta strong { color: var(--ink); font-weight: 700; }
+    .doc-intro {
+      font-size: 10.5pt;
+      color: var(--ink);
+      margin-bottom: 1.75rem;
+      padding: 0.9rem 1rem;
+      background: var(--red-soft);
+      border-left: 3px solid var(--red);
+      border-radius: 2px;
+    }
+
+    /* Clause list */
+    ol.clauses {
+      counter-reset: clause;
+      list-style: none;
+      padding: 0;
+    }
+    ol.clauses > li {
+      counter-increment: clause;
+      position: relative;
+      padding-left: 2.4rem;
+      margin-bottom: 1rem;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    ol.clauses > li::before {
+      content: counter(clause);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bebas Neue', Helvetica, Arial, sans-serif;
+      font-size: 13pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    ol.clauses h3 {
+      color: var(--ink);
+      font-size: 11pt;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    ol.clauses p {
+      color: var(--ink);
+      font-size: 10pt;
+      line-height: 1.55;
+    }
+    ol.clauses strong { font-weight: 700; }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 8.5pt;
+      color: var(--muted);
+      line-height: 1.5;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .doc-footer-left { max-width: 75%; }
+    .doc-footer-right { text-align: right; }
+    .doc-footer a { color: var(--ink); text-decoration: none; }
+
+    .doc-acknowledgment {
+      margin-top: 1.5rem;
+      padding: 0.9rem 1rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+      font-size: 9.5pt;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    .doc-acknowledgment strong { font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <header class="doc-header">
+    <img src="logo.svg" alt="Superhero First Aid Systems shield"/>
+    <div class="doc-header-text">
+      <div class="doc-header-brand">Superhero First Aid Systems</div>
+      <div class="doc-header-sub">Disclaimer &amp; Terms of Use</div>
+    </div>
+  </header>
+
+  <h1 class="doc-title">Disclaimer &amp; terms of use.</h1>
+  <div class="doc-meta">
+    <strong>Last updated:</strong> May 2026 &nbsp;·&nbsp; <strong>Applies to:</strong> All Superhero First Aid Kit tiers (Side-Kick, Hero, Superhero)
+  </div>
+
+  <div class="doc-intro">
+    Please read carefully. By purchasing, accepting, or using a Superhero First Aid Kit, you agree to all of the terms below.
+  </div>
+
+  <ol class="clauses">
+    <li>
+      <h3>Educational, not medical advice.</h3>
+      <p>This kit and its accompanying materials &mdash; videos, field guide, and any written content &mdash; are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation.</p>
+    </li>
+    <li>
+      <h3>Training is your responsibility.</h3>
+      <p>Several components &mdash; including tourniquets, hemostatic gauze, and pressure wraps &mdash; are intended for life-threatening emergencies and require prior knowledge to use safely. Improper use can cause additional injury, including tissue or nerve damage, or death. Before relying on this kit in a real emergency, you are strongly encouraged to complete recognized training such as Wilderness First Aid (WFA), Wilderness First Responder (WFR), EMT-Basic, or Red Cross / AHA BLS &amp; CPR.</p>
+    </li>
+    <li>
+      <h3>You voluntarily assume all risk.</h3>
+      <p>Emergencies and the activities this kit is designed for (climbing, skiing, biking, paddling, diving, backcountry travel, and similar) are inherently dangerous. By purchasing or using this kit, you voluntarily accept all risk of injury, illness, death, loss, or property damage &mdash; to yourself or to others &mdash; that may arise from the use, misuse, or failure to use any part of it. No outcome is guaranteed; first aid is not a substitute for definitive medical care.</p>
+    </li>
+    <li>
+      <h3>Limitation of liability.</h3>
+      <p>To the fullest extent permitted by law, Thomas Engels, Superhero First Aid Systems, and any affiliated individuals or entities shall <strong>not</strong> be liable for any direct, indirect, incidental, consequential, special, or punitive damages &mdash; including but not limited to bodily injury, illness, disability, death, emotional distress, or property loss &mdash; arising from or related to the purchase, use, misuse, or failure to use this kit, its components, or any associated educational materials. This limitation applies even if such parties have been advised of the possibility of such damages.</p>
+    </li>
+    <li>
+      <h3>Your ongoing responsibilities.</h3>
+      <p>You are responsible for: inspecting the kit and its contents upon receipt; replacing expired medications and components; knowing your own and others' medical history, allergies, and medication interactions before administering any item; complying with all federal, state, and local laws regarding kit contents in your jurisdiction; and seeking definitive medical care as soon as possible after any emergency intervention.</p>
+    </li>
+    <li>
+      <h3>No warranty.</h3>
+      <p>This kit is provided "as is" and "as available." No warranty, express or implied &mdash; including merchantability, fitness for a particular purpose, or ability to prevent injury or death &mdash; is made by Thomas Engels or Superhero First Aid Systems.</p>
+    </li>
+    <li>
+      <h3>Indemnification.</h3>
+      <p>You agree to indemnify and hold harmless Thomas Engels and Superhero First Aid Systems from any and all claims, demands, damages, costs, and expenses (including reasonable attorneys' fees) arising from your use or misuse of the kit, your violation of these terms, or your violation of any applicable law.</p>
+    </li>
+    <li>
+      <h3>Modifications void suitability.</h3>
+      <p>Modifying the kit, substituting components, or combining it with non-approved materials voids any implied suitability for emergency use and shifts full responsibility for the modified kit's performance to you.</p>
+    </li>
+    <li>
+      <h3>Severability.</h3>
+      <p>If any provision of this disclaimer is found unenforceable under applicable law, the remaining provisions remain in full force and effect.</p>
+    </li>
+    <li>
+      <h3>Acknowledgment.</h3>
+      <p>By purchasing or accepting a Superhero First Aid Kit, you confirm that you have read, understood, and agreed to all of the above.</p>
+    </li>
+  </ol>
+
+  <div class="doc-acknowledgment">
+    <strong>Acknowledgment of agreement.</strong> Purchase, acceptance, or use of a Superhero First Aid Kit constitutes acceptance of these terms in their entirety. Terms may be updated; the version in effect at the time of purchase applies.
+  </div>
+
+  <footer class="doc-footer">
+    <div class="doc-footer-left">
+      Superhero First Aid Systems &nbsp;·&nbsp; Built by Thomas Engels<br>
+      For questions: <a href="tel:6513951906">(651) 395-1906</a> &nbsp;·&nbsp; <a href="mailto:tbengels@gmail.com">tbengels@gmail.com</a>
+    </div>
+    <div class="doc-footer-right">
+      Document version: 2026-05-13<br>
+      © Superhero First Aid Systems
+    </div>
+  </footer>
+
+</body>
+</html>

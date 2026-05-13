@@ -840,6 +840,148 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── DISCLAIMER SECTION ── */
+    #disclaimer { background: var(--mid); }
+    .disclaimer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.4rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .disclaimer-toggle:hover {
+      color: #fff;
+      border-color: var(--red);
+      background: rgba(224,32,32,0.05);
+    }
+    .disclaimer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .disclaimer-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.4rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .disclaimer-download:hover {
+      color: #fff;
+      border-color: var(--red);
+      background: rgba(224,32,32,0.05);
+    }
+    .disclaimer-download span[aria-hidden="true"] {
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .disclaimer-toggle-icon {
+      display: inline-block;
+      transition: transform 0.25s ease;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+    .disclaimer-toggle[aria-expanded="true"] .disclaimer-toggle-icon {
+      transform: rotate(90deg);
+    }
+    .disclaimer-panel {
+      margin-top: 1.5rem;
+      animation: disclaimer-fade-in 0.35s ease;
+    }
+    .disclaimer-panel[hidden] { display: none; }
+    @keyframes disclaimer-fade-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .disclaimer-list {
+      counter-reset: clause;
+      list-style: none;
+      padding: 0;
+      max-width: 820px;
+      display: grid;
+      gap: 1.5rem;
+    }
+    .disclaimer-list > li {
+      counter-increment: clause;
+      position: relative;
+      padding-left: 3.25rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem 1.25rem 3.5rem;
+    }
+    .disclaimer-list > li::before {
+      content: counter(clause);
+      position: absolute;
+      left: 1rem;
+      top: 1.15rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(224,32,32,0.12);
+      border: 1px solid rgba(224,32,32,0.35);
+      color: var(--red);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .disclaimer-list h3 {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .disclaimer-list p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+    .disclaimer-list strong { color: var(--text); font-weight: 700; }
+    .disclaimer-updated {
+      margin-top: 2.25rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 820px;
+    }
+
+    @media (max-width: 576px) {
+      .disclaimer-list > li {
+        padding: 1.1rem 1.1rem 1.1rem 3.1rem;
+      }
+      .disclaimer-list > li::before {
+        left: 0.75rem;
+        top: 1rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.95rem;
+      }
+    }
+
     /* ── FOOTER ── */
     footer {
       background: #0a0a0a;
@@ -1297,7 +1439,7 @@
     <div class="reveal">
       <div class="section-label">Ready to Order</div>
       <div class="section-title">Be a superhero. Save a life.</div>
-      <p class="section-body">Place your order through the form below.</p>
+<!--      <p class="section-body">Place your order through the form below.</p>-->
 
       <a class="order-cta"
          href="https://docs.google.com/forms/d/e/1FAIpQLSeCmJn4cH63RdqNcN_hRFTQtWqvG3ZD8AI5K8ADFOwjTSaM9g/viewform?usp=dialog"
@@ -1327,7 +1469,7 @@
         Healthcare, educator, police, military, and SAR discounts available.</p>
 
       <p class="disclaimer">
-        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) are intended for life-threatening bleeding and require prerequisite knowledge to use safely. By purchasing, you accept responsibility for its use and acknowledge the inherent risks of emergency situations. Product is currently in prototyping phase — bag design, colors, logo, and contents may be updated.
+        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. Product is currently in prototyping phase — bag design, colors, logo, and contents may be updated.
       </p>
     </div>
   </div>
@@ -1403,23 +1545,19 @@
   <div class="container">
 
     <div class="reveal mb-5">
-      <div class="section-label">The People Behind It</div>
-      <div class="section-title">Built by two.<br>Backed by experience.</div>
+      <div class="section-label">The Person Behind It</div>
+      <div class="section-title">Built by someone<br>who's been there.</div>
       <div class="about-intro">
-<!--        <figure class="about-portrait">-->
-<!--          <img src="photos/silver.png" alt="Summit ridge in Colorado" loading="lazy"/>-->
-<!--        </figure>-->
         <p class="section-body">
-          This isn't a brand — it's a father and son project born from a shared obsession
-          with being prepared in the outdoors. The activities we love can be incredibly dangerous; such as skiing, backpacking, scuba diving, surfing, climbing, cycling, and countless others. We have both witnessed the consequences of poor judgment and mediocre first aid. Our preparedness has enabled us to enjoy these thrilling activities without serius consequences. We want others to reap the benefits of being prepared for the unexpected. The Superhero First Aid Kit will give you peace of mind, and might just save someone's life.
+          This isn't a brand — it's a personal project born from an obsession with being prepared in the outdoors. The activities I love — climbing, skiing, biking, scuba diving, surfing — are inherently dangerous, and I've seen firsthand what poor judgment and mediocre first aid can cost. Being prepared is what's let me keep enjoying them safely. I want others to have that same edge. Owning one of my first aid kits will give you peace of mind, and might just save someone's life.
         </p>
       </div>
     </div>
 
     <div class="row g-4 reveal">
 
-      <!-- Son -->
-      <div class="col-12 col-md-6">
+      <!-- Founder -->
+      <div class="col-12 col-md-10 col-lg-9 mx-auto">
         <div style="background: var(--card-bg); border: 1px solid var(--border);
                     border-radius: 10px; padding: 2rem; height: 100%;">
           <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
@@ -1489,68 +1627,83 @@
           </a>
         </div>
       </div>
-      <!-- Dad -->
-      <div class="col-12 col-md-6">
-        <div style="background: var(--card-bg); border: 1px solid var(--border);
-                    border-radius: 10px; padding: 2rem; height: 100%;">
-          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-            <div style="width: 56px; height: 56px; border-radius: 50%;
-                        background: rgba(224,32,32,0.12); border: 1px solid rgba(224,32,32,0.3);
-                        display: flex; align-items: center; justify-content: center;
-                        font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-                        color: var(--red); flex-shrink: 0;">JE</div>
-            <div>
-              <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-                          letter-spacing: 0.05em; color: #fff; line-height: 1.1;">
-                Dr. James Engels
-              </div>
-              <div style="font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
-                          color: var(--red); margin-top: 0.2rem;">
-                Medical Consultant · Orthopedic Surgeon · MD
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+</section>
 
-          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
-            Chief of Pediatric Orthopaedic Surgery and Associate Professor at
-            Children's Hospital of Richmond at VCU. Fellowship-trained in both
-            pediatric orthopaedics (Northwestern / Lurie Children's) and sports
-            medicine (Lake Tahoe Orthopedic Institute). Fellow of the American
-            Academy of Orthopaedic Surgeons.
-          </p>
-          <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">
-            He has seen firsthand what untreated trauma looks like — and what a
-            well-prepared bystander can prevent. That clinical perspective is baked
-            into every item selection in this kit.
-          </p>
+<!-- ── DISCLAIMER ── -->
+<section id="disclaimer">
+  <div class="container">
+    <div class="reveal mb-5">
+      <div class="section-label">Important Information</div>
+      <div class="section-title">Disclaimer &amp;<br>terms of use.</div>
+      <p class="section-body">Please read carefully. By purchasing, accepting, or using a Superhero First Aid Kit, you agree to the terms below.</p>
+    </div>
 
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
-                         color: var(--muted); background: rgba(255,255,255,0.04);
-                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
-              Pediatric Orthopaedics
-            </span>
-            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
-                         color: var(--muted); background: rgba(255,255,255,0.04);
-                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
-              Sports Medicine
-            </span>
-            <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
-                         color: var(--muted); background: rgba(255,255,255,0.04);
-                         border: 1px solid var(--border); padding: 0.25rem 0.6rem; border-radius: 4px;">
-              Trauma
-            </span>
-          </div>
+    <div class="disclaimer-actions reveal">
+      <button type="button"
+              class="disclaimer-toggle"
+              id="disclaimerToggle"
+              aria-expanded="false"
+              aria-controls="disclaimerPanel">
+        <span class="disclaimer-toggle-label">Read full disclaimer</span>
+        <span class="disclaimer-toggle-icon" aria-hidden="true">›</span>
+      </button>
+      <a class="disclaimer-download"
+         href="disclaimer.pdf"
+         target="_blank"
+         rel="noopener"
+         download="Superhero-First-Aid-Disclaimer.pdf">
+        <span aria-hidden="true">↓</span>
+        <span>Download as PDF</span>
+      </a>
+    </div>
 
-          <a href="https://www.chrichmond.org/find-a-provider/profile/james-engels"
-             target="_blank" rel="noopener"
-             style="font-size: 0.8rem; color: var(--red); text-decoration: none;
-                    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500;">
-            View Profile →
-          </a>
-        </div>
-      </div>
+    <div class="disclaimer-panel" id="disclaimerPanel" hidden>
+    <ol class="disclaimer-list">
+      <li>
+        <h3>Educational, not medical advice.</h3>
+        <p>This kit and its accompanying materials — videos, field guide, and any written content — are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation.</p>
+      </li>
+      <li>
+        <h3>Training is your responsibility.</h3>
+        <p>Several components — including tourniquets, hemostatic gauze, and pressure wraps — are intended for life-threatening emergencies and require prior knowledge to use safely. Improper use can cause additional injury, including tissue or nerve damage, or death. Before relying on this kit in a real emergency, you are strongly encouraged to complete recognized training such as Wilderness First Aid (WFA), Wilderness First Responder (WFR), EMT-Basic, or Red Cross / AHA BLS &amp; CPR.</p>
+      </li>
+      <li>
+        <h3>You voluntarily assume all risk.</h3>
+        <p>Emergencies and the activities this kit is designed for (climbing, skiing, biking, paddling, diving, backcountry travel, and similar) are inherently dangerous. By purchasing or using this kit, you voluntarily accept all risk of injury, illness, death, loss, or property damage — to yourself or to others — that may arise from the use, misuse, or failure to use any part of it. No outcome is guaranteed; first aid is not a substitute for definitive medical care.</p>
+      </li>
+      <li>
+        <h3>Limitation of liability.</h3>
+        <p>To the fullest extent permitted by law, Thomas Engels, Superhero First Aid Systems, and any affiliated individuals or entities shall <strong>not</strong> be liable for any direct, indirect, incidental, consequential, special, or punitive damages — including but not limited to bodily injury, illness, disability, death, emotional distress, or property loss — arising from or related to the purchase, use, misuse, or failure to use this kit, its components, or any associated educational materials. This limitation applies even if such parties have been advised of the possibility of such damages.</p>
+      </li>
+      <li>
+        <h3>Your ongoing responsibilities.</h3>
+        <p>You are responsible for: inspecting the kit and its contents upon receipt; replacing expired medications and components; knowing your own and others' medical history, allergies, and medication interactions before administering any item; complying with all federal, state, and local laws regarding kit contents in your jurisdiction; and seeking definitive medical care as soon as possible after any emergency intervention.</p>
+      </li>
+      <li>
+        <h3>No warranty.</h3>
+        <p>This kit is provided "as is" and "as available." No warranty, express or implied — including merchantability, fitness for a particular purpose, or ability to prevent injury or death — is made by Thomas Engels or Superhero First Aid Systems.</p>
+      </li>
+      <li>
+        <h3>Indemnification.</h3>
+        <p>You agree to indemnify and hold harmless Thomas Engels and Superhero First Aid Systems from any and all claims, demands, damages, costs, and expenses (including reasonable attorneys' fees) arising from your use or misuse of the kit, your violation of these terms, or your violation of any applicable law.</p>
+      </li>
+      <li>
+        <h3>Modifications void suitability.</h3>
+        <p>Modifying the kit, substituting components, or combining it with non-approved materials voids any implied suitability for emergency use and shifts full responsibility for the modified kit's performance to you.</p>
+      </li>
+      <li>
+        <h3>Severability.</h3>
+        <p>If any provision of this disclaimer is found unenforceable under applicable law, the remaining provisions remain in full force and effect.</p>
+      </li>
+      <li>
+        <h3>Acknowledgment.</h3>
+        <p>By purchasing or accepting a Superhero First Aid Kit, you confirm that you have read, understood, and agreed to all of the above.</p>
+      </li>
+    </ol>
 
+    <p class="disclaimer-updated">Last updated: May 2026. Terms may be updated; the version in effect at the time of purchase applies.</p>
     </div>
   </div>
 </section>
@@ -1871,6 +2024,33 @@
         isOpen ? "View what's inside" : 'Hide contents';
       contentsPanel.hidden = isOpen;
     });
+  }
+
+  // Disclaimer toggle (expand/collapse)
+  const disclaimerToggle = document.getElementById('disclaimerToggle');
+  const disclaimerPanel = document.getElementById('disclaimerPanel');
+  if (disclaimerToggle && disclaimerPanel) {
+    const expandDisclaimer = () => {
+      disclaimerToggle.setAttribute('aria-expanded', 'true');
+      disclaimerToggle.querySelector('.disclaimer-toggle-label').textContent = 'Hide full disclaimer';
+      disclaimerPanel.hidden = false;
+    };
+    const collapseDisclaimer = () => {
+      disclaimerToggle.setAttribute('aria-expanded', 'false');
+      disclaimerToggle.querySelector('.disclaimer-toggle-label').textContent = 'Read full disclaimer';
+      disclaimerPanel.hidden = true;
+    };
+    disclaimerToggle.addEventListener('click', () => {
+      const isOpen = disclaimerToggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? collapseDisclaimer() : expandDisclaimer();
+    });
+    // Auto-expand when a #disclaimer link is clicked (so users following the
+    // "full disclaimer and terms of use" link from the order section actually see it)
+    document.querySelectorAll('a[href="#disclaimer"]').forEach(link => {
+      link.addEventListener('click', expandDisclaimer);
+    });
+    // Handle direct navigation with #disclaimer in the URL
+    if (window.location.hash === '#disclaimer') expandDisclaimer();
   }
 </script>
 
