@@ -730,7 +730,7 @@
     @media (max-width: 576px) {
       .price-card-single { padding: 2rem 1.4rem 1.6rem; }
       .price-card-single .price-amount { font-size: 3.2rem; }
-      .tier-btn { font-size: 0.78rem; letter-spacing: 0.08em; padding: 0.65rem 0.3rem; }
+      .tier-btn { font-size: 0.72rem; letter-spacing: 0.04em; padding: 0.6rem 0.25rem; }
       .contents-items { grid-template-columns: 1fr; }
     }
 
@@ -957,7 +957,7 @@
               <tr>
                 <th>Capability</th>
                 <th>Generic Kit</th>
-                <th>Superhero Kit</th>
+                <th>Our Kits</th>
               </tr>
             </thead>
             <tbody>
@@ -1061,7 +1061,7 @@
       <div class="section-label">Inspired By Real Experience</div>
       <div class="section-title">The Mission</div>
       <p class="section-body">
-        Empower you to help during emergencies with the mindset and tools of a professional first responder.
+        Empower you with the mindset and tools of a professional first responder during real emergencies.
 
         <br><br>
         Every item in this kit earned its place by helping people on their worst days.
@@ -1200,20 +1200,20 @@
             </div>
           </div>
 
-          <div style="display:flex; gap:1rem; align-items:flex-start;">
-            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
-                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;
-                        display:flex; align-items:center; justify-content:center;
-                        font-size:1rem;">🏔️</div>
-            <div>
-              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">
-                Sized for the kit, not the other way around
-              </div>
-              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">
-                1L is enough to hold the power of the Superhero Kit. Contents are grouped together internally using binders; making it wicked easy for you to find the right tool for the injury or illness.
-              </div>
-            </div>
-          </div>
+<!--          <div style="display:flex; gap:1rem; align-items:flex-start;">-->
+<!--            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);-->
+<!--                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;-->
+<!--                        display:flex; align-items:center; justify-content:center;-->
+<!--                        font-size:1rem;">🏔️</div>-->
+<!--            <div>-->
+<!--              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">-->
+<!--                Sized for the kit, not the other way around-->
+<!--              </div>-->
+<!--              <div style="color:var(&#45;&#45;muted); font-size:0.88rem; line-height:1.6;">-->
+<!--                1L is enough to hold the power of the Superhero Kit. Contents are grouped together internally using binders; making it wicked easy for you to find the right tool for the injury or illness.-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
           <div style="display:flex; gap:1rem; align-items:flex-start;">
             <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
@@ -1258,21 +1258,21 @@
 
     <div class="price-picker reveal">
       <div class="price-tier-toggle" role="tablist" aria-label="Choose a kit tier">
-        <button class="tier-btn" type="button" role="tab" data-tier="basic" aria-selected="false">Basic</button>
-        <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Standard</button>
-        <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Pro</button>
+        <button class="tier-btn" type="button" role="tab" data-tier="basic" aria-selected="false">Side-Kick</button>
+        <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Hero</button>
+        <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Superhero</button>
       </div>
 
       <div class="price-card-single" id="priceCard">
         <div class="price-badge" data-tier-badge>Recommended</div>
-        <div class="price-name" data-tier-name>Standard Kit</div>
+        <div class="price-name" data-tier-name>Hero Kit</div>
         <div class="price-amount" data-tier-amount>$225</div>
         <div class="price-specs">
-          <span class="price-pill" data-tier-weight>14 oz · 1L bag</span>
+          <span class="price-pill" data-tier-weight>14 oz · 1L</span>
           <span class="price-pill" data-tier-coverage>1 person</span>
         </div>
-        <div class="price-coverage-note" data-tier-coverage-note hidden>Covers up to 3 people when paired with two Standard kits.</div>
-        <div class="price-desc" data-tier-desc>For when minutes matters most—only what you absolutely NEED, nothing you don’t. Ultralight, life-saving tools to keep someone alive when everything goes wrong.</div>
+        <div class="price-coverage-note" data-tier-coverage-note hidden>Covers up to 3 people when paired with two Hero kits.</div>
+        <div class="price-desc" data-tier-desc>Only what you need, nothing you don’t. Ultralight, life-saving tools to keep someone alive when everything goes wrong.</div>
         <div class="price-ideal" data-tier-ideal>Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
         <a href="#contact" class="price-cta">Order Now</a>
         <button type="button"
@@ -1356,7 +1356,7 @@
           <div class="faq-q" onclick="toggleFaq(this)">
             Can you customize it? <span class="faq-arrow">+</span>
           </div>
-          <div class="faq-a">While I recommend the <i>Standard</i> tier for every activity (even while driving your car), I can work with you to create the perfect kit for your specific needs.</div>
+          <div class="faq-a">While I recommend the <i>Hero</i> tier for every activity (even while driving your car), I can work with you to create the perfect kit for your specific needs.</div>
         </div>
 
         <div class="faq-item">
@@ -1365,8 +1365,8 @@
           </div>
           <div class="faq-a">I strongly recommend one kit per person.
             Multiple kits eliminate the "single point of failure" risk (e.g., someone forgets the first aid kit or drops it in a river), increase speed of treatment when your group is spread out, and can be combined for severe injuries — some injuries require multiple tourniquets to stop a bleed.
-          <br><br>If you're doing an overnight trip, the best practice would be one <i>Standard</i> Kit per person and
-          one <i>Pro</i> Kit to be shared across 3 people. Scale as needed.</div>
+          <br><br>If you're doing an overnight trip, the best practice would be one <i>Hero</i> Kit per person and
+          one <i>Superhero</i> Kit to be shared across 3 people. Scale as needed.</div>
         </div>
 
         <div class="faq-item">
@@ -1387,8 +1387,8 @@
           <div class="faq-q" onclick="toggleFaq(this)">
             What about comfort items like tweezers or SAM splints? <span class="faq-arrow">+</span>
           </div>
-          <div class="faq-a">The <i>Standard</i> Kit focuses on life-saving interventions while staying ultralight.
-            If you're planning to do multi-day trips, I recommend bringing the <i>Pro</i> Kit in addition to the <i>Standard</i> Kit; ensuring small issues
+          <div class="faq-a">The <i>Hero</i> Kit focuses on life-saving interventions while staying ultralight.
+            If you're planning to do multi-day trips, I recommend bringing the <i>Superhero</i> Kit in addition to the <i>Hero</i> Kit; ensuring small issues
           like sunburn, bug bites, and blisters don't force you to cut your trip short.</div>
         </div>
 
@@ -1642,32 +1642,32 @@
   // Pricing tier picker
   const tierData = {
     basic: {
-      name: 'Basic Kit',
+      name: 'Side-Kick Kit',
       amount: '$125',
-      weight: '8 oz · 1L bag',
+      weight: '8 oz · 1L',
       coverage: '1 person',
       coverageNote: '',
-      desc: "For the small hits—cuts, scrapes, and the everyday injuries that don’t require a visit to the Emergency Department.",
+      desc: "For the scrapes, bruises, and other injuries that don’t require a visit to the emergency department.",
       ideal: 'Ideal for easy hikes in mild weather and flat terrain.',
       cta: 'Order Now',
     },
     standard: {
-      name: 'Standard Kit',
+      name: 'Hero Kit',
       amount: '$225',
-      weight: '14 oz · 1L bag',
+      weight: '14 oz · 1L',
       coverage: '1 person',
       coverageNote: '',
-      desc: 'For when minutes matters most—only what you need, nothing you don’t. Ultralight, life-saving tools to keep someone alive when everything goes wrong.',
+      desc: 'Only what you need, nothing you don’t. Critical tools to keep someone alive when everything goes wrong.',
       ideal: 'Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.',
       cta: 'Order Now',
     },
     pro: {
-      name: 'Pro Kit',
+      name: 'Superhero Kit',
       amount: '$350',
-      weight: '14 oz (1L bag) + 16 oz (2L bag)',
+      weight: '14 oz (1L) + 16 oz (2L)',
       coverage: '3 people',
-      coverageNote: '* Up to 3 people when paired with two Standard kits.',
-      desc: "For the long fight—life-saving tools plus the systems to manage pain, prevent problems, and keep you and your team moving when the mission doesn’t end at sunset.",
+      coverageNote: '* Up to 3 people when paired with two Hero kits.',
+      desc: "For the long fight—life-saving tools plus the systems to manage pain, prevent infection, and keep you and your team moving when the mission doesn’t end at sunset.",
       ideal: 'Ideal for multi-day trips and remote expeditions.',
       cta: 'Order Now',
     },
@@ -1721,7 +1721,7 @@
         { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
         { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
         { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes on dressings' },
-        { name: 'Duct tape', purpose: 'Universal repair, blister patch, splint fix' },
+        { name: 'Duct tape', purpose: 'Universal repair' },
         { name: 'Ultralight zip pouch', purpose: 'Organizes the kit' },
       ]},
     ],
@@ -1730,6 +1730,7 @@
         { name: 'Tourniquet (windlass)', purpose: 'Stop life-threatening limb bleeding' },
         { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds' },
         { name: 'Pressure wrap', purpose: 'Compress and control major bleeds' },
+        { name: 'Coban', purpose: 'Secure dressings and apply pressure to wounds' },
         { name: 'SAM splint', purpose: 'Immobilize fractures and sprains' },
         { name: 'Triangular Slings', purpose: 'Immobilize fractures and sprains' }
       ]},
@@ -1752,29 +1753,34 @@
         { name: 'Antiseptic wipes', purpose: 'Disinfect wounds before dressing' },
         { name: 'Alcohol prep pads', purpose: 'Sterilize skin or instruments' },
         { name: 'Irrigation syringe', purpose: 'Flush debris from wounds' },
-        { name: 'Eye drops', purpose: 'Flush eyes and relieve irritation' },
+        { name: 'Steri-Strips', purpose: 'Small laceration closures' },
       ]},
       { name: 'Medications', items: [
         { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen, aspirin' },
         { name: 'Allergy support', purpose: 'Diphenhydramine for stings and reactions' },
         { name: 'GI support', purpose: 'Loperamide for diarrhea and antacids for upset stomachs' },
-        { name: 'Oral and tooth pain', purpose: 'Benzocaine for numbing toothaches and oral infections' },
+        { name: 'Oral and tooth pain', purpose: 'Benzocaine for numbing' },
+        { name: 'Eye drops', purpose: 'Flush eyes and relieve irritation' },
+        { name: 'Anti-Itch', purpose: 'Alleviate skin irritation from Eczema and poisonous plants' },
+        { name: 'Sting-Relief', purpose: 'Alleviate skin irritation from bites and stings' },
+
       ]},
       { name: 'Blisters & Comfort', items: [
-        { name: 'Moleskin', purpose: 'Pad hot spots before blisters form' },
+        { name: 'Moleskin', purpose: 'Create donut-hole to remove pressure on blister' },
         { name: 'Leukotape strip', purpose: 'Tough tape for blister prevention' },
-        { name: 'Anti-chafe stick', purpose: 'Prevent skin chafing on long days' },
-        { name: 'Lip balm', purpose: 'Protect lips from sun and wind' },
+        { name: 'Anti-chafe Ointment', purpose: 'Prevent skin chafing' },
       ]},
       { name: 'Sun & Bugs', items: [
         { name: 'Sunscreen', purpose: 'Block UV burns' },
         { name: 'DEET wipe (30%)', purpose: 'Repel mosquitoes and ticks' },
+        { name: 'Lip balm', purpose: 'Protect lips from sun and wind' },
       ]},
       { name: 'Tools', items: [
-        { name: 'Mini EMT shears (×2)', purpose: 'Cut clothing, gauze, and tape' },
+        { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
+        { name: 'Mini Tweezers', purpose: 'Remove splinters, dirt from wounds, ticks, etc.' },
         { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
         { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes' },
-        { name: 'Duct tape', purpose: 'Universal repair, blister patch, splint fix' },
+        { name: 'Duct tape', purpose: 'Universal repair' },
         { name: 'Ultralight zip pouches', purpose: '1L + 2L for flexible packing' },
       ]},
     ],
