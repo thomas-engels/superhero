@@ -620,6 +620,43 @@
       line-height: 1.45;
     }
     .price-coverage-note[hidden] { display: none; }
+
+    /* Private-beta banner above the kits */
+    .beta-banner {
+      margin-top: 1.5rem;
+      max-width: 720px;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1rem 1.15rem;
+      background: rgba(224,32,32,0.07);
+      border: 1px solid rgba(224,32,32,0.35);
+      border-left-width: 3px;
+      border-radius: 6px;
+    }
+    .beta-banner-tag {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(224,32,32,0.15);
+      border: 1px solid rgba(224,32,32,0.4);
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+    .beta-banner-text {
+      color: var(--text);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+    @media (max-width: 576px) {
+      .beta-banner { flex-direction: column; gap: 0.6rem; padding: 0.9rem 1rem; }
+    }
+
     .price-card-single .price-desc { font-size: 0.95rem; }
     .price-card-single .price-ideal { font-size: 0.85rem; }
     .price-card-single .price-cta {
@@ -1402,6 +1439,10 @@
       <div class="section-label">The Kits</div>
       <div class="section-title">Choose your<br>level of exposure.</div>
       <p class="section-body">One kit per person, every adventure. First aid is always within your reach.</p>
+      <div class="beta-banner">
+        <span class="beta-banner-tag">Private Beta · v1.0</span>
+        <span class="beta-banner-text">These kits are currently in prototype/testing phase. Initial production is going to friends, family, and trusted testers — design, components, and packaging are evolving based on feedback. This is not a commercial product yet.</span>
+      </div>
     </div>
 
     <div class="price-picker reveal">
@@ -1448,7 +1489,7 @@
 <!--      <p class="section-body">Place your order through the form below.</p>-->
 
       <a class="order-cta"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSeCmJn4cH63RdqNcN_hRFTQtWqvG3ZD8AI5K8ADFOwjTSaM9g/viewform?usp=dialog"
+         href="https://near.tl/sm/YtY8aQ7OO"
          target="_blank"
          rel="noopener noreferrer">
         Place Your Order
@@ -1475,7 +1516,7 @@
         Healthcare, educator, police, military, and SAR discounts available.</p>
 
       <p class="disclaimer">
-        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. Product is currently in prototyping phase — bag design, colors, logo, and contents may be updated.
+        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. <strong>This is a v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. Bag design, colors, logo, and contents are evolving based on feedback. This is not a commercial product.
       </p>
     </div>
   </div>
@@ -1668,6 +1709,10 @@
     <div class="disclaimer-panel" id="disclaimerPanel" hidden>
     <ol class="disclaimer-list">
       <li>
+        <h3>Private beta &mdash; this is a prototype, not a commercial product.</h3>
+        <p>The Superhero First Aid Kit is currently a <strong>v1.0 prototype</strong> distributed only to friends, family, and trusted testers as part of a private beta. It is not a commercial product. By accepting a kit, you understand the bag, components, packaging, branding, and educational materials are <strong>subject to change without notice</strong> as the product evolves based on feedback. No representations are made about the kit's completeness, durability, regulatory compliance, or readiness for general use.</p>
+      </li>
+      <li>
         <h3>Educational, not medical advice.</h3>
         <p>This kit and its accompanying materials — videos, field guide, and any written content — are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation.</p>
       </li>
@@ -1717,7 +1762,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-name">Superhero First Aid Systems</div>
-  <div class="footer-note">For the Prepared. For the Caring. &copy; 2026</div>
+  <div class="footer-note">For the Prepared. For the Caring. &nbsp;·&nbsp; v1.0 prototype &nbsp;·&nbsp; &copy; 2026</div>
 </footer>
 
 <!-- Bootstrap JS -->
