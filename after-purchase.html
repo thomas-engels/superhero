@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>After Purchasing the Kit — Superhero First Aid Systems</title>
+
+  <link rel="preload" href="logo.svg" as="image" type="image/svg+xml"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --red:      #E02020;
+      --red-dark: #b01818;
+      --dark:     #0d0d0d;
+      --mid:      #1a1a1a;
+      --card-bg:  #161616;
+      --border:   rgba(255,255,255,0.08);
+      --text:     #e8e8e8;
+      --muted:    #888;
+      --warn:     #fbbf24;
+      --ok:       #4ade80;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    .navbar {
+      background: rgba(13,13,13,0.92) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: #fff !important;
+    }
+    .nav-shield { width: 50px; height: auto; }
+    .navbar-nav .nav-link {
+      color: var(--muted) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.9rem !important;
+      transition: color 0.2s;
+    }
+    .navbar-nav .nav-link:hover { color: #fff !important; }
+    .navbar-nav .nav-link.nav-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      border-radius: 4px !important;
+      padding: 0.4rem 1.1rem !important;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .navbar-nav .nav-link.nav-cta:hover { background: var(--red-dark) !important; }
+    .navbar-toggler { border-color: var(--border); }
+    .navbar-toggler-icon { filter: invert(1); }
+    @media (max-width: 576px) {
+      .navbar-brand { font-size: 1rem; }
+      .nav-shield { width: 36px; }
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: radial-gradient(ellipse at 60% 30%, #3a0a0a 0%, #0d0d0d 70%);
+      padding: 5rem 1.5rem 3.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.6rem, 6.5vw, 4.5rem);
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 0; scroll-margin-top: 5rem; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+    .section-intro {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 720px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    /* ── DOWNLOAD ROW ── */
+    .download-row {
+      background: var(--mid);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 0;
+    }
+    .download-row .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .download-row .copy {
+      flex: 1;
+      min-width: 260px;
+    }
+    .download-row .copy-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+      margin-bottom: 0.35rem;
+      line-height: 1.2;
+    }
+    .copy-included {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--red);
+      background: rgba(224,32,32,0.15);
+      border: 1px solid rgba(224,32,32,0.4);
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+      margin-left: 0.55rem;
+      vertical-align: middle;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+    .download-row .copy-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.5rem;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(224,32,32,0.25);
+    }
+    .download-btn:hover {
+      background: var(--red-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(224,32,32,0.4);
+    }
+    .download-btn .arrow {
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    .download-btn:hover .arrow { transform: translateY(2px); }
+
+    /* ── PROTOTYPE BANNER ── */
+    .proto-banner {
+      max-width: 720px;
+      margin: 0 0 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1rem 1.15rem;
+      background: rgba(224,32,32,0.07);
+      border: 1px solid rgba(224,32,32,0.35);
+      border-left-width: 3px;
+      border-radius: 6px;
+    }
+    .proto-banner-tag {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(224,32,32,0.15);
+      border: 1px solid rgba(224,32,32,0.4);
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+    .proto-banner-text { color: var(--text); font-size: 0.88rem; line-height: 1.55; }
+    @media (max-width: 576px) {
+      .proto-banner { flex-direction: column; gap: 0.6rem; }
+    }
+
+    /* ── JUMP LINKS ── */
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.9rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+    .toc-link:hover {
+      border-color: var(--red);
+      transform: translateX(2px);
+      background: rgba(224,32,32,0.04);
+    }
+    .toc-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(224,32,32,0.15);
+      border: 1px solid rgba(224,32,32,0.35);
+      color: var(--red);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .toc-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* ── STOP CARD ── */
+    .stop-card {
+      background: linear-gradient(160deg, #2a0808, var(--card-bg));
+      border: 1px solid var(--red);
+      border-radius: 14px;
+      padding: 1.75rem 1.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .stop-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .stop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.6rem;
+    }
+    .stop-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .stop-item .num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .stop-breath {
+      margin-top: 0.85rem;
+      padding: 0.8rem 1rem;
+      background: rgba(13,13,13,0.5);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-align: center;
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FIELD GUIDE CONTENT ── */
+    .fg-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 1.75rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .fg-section-head {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--red);
+      cursor: pointer;
+      user-select: none;
+      transition: padding 0.2s ease, margin 0.2s ease, border-color 0.2s ease;
+    }
+    .fg-section-head[role="button"]:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    .fg-section-head[aria-expanded="false"] {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom-color: transparent;
+    }
+    .fg-section-head:hover .fg-section-title { color: var(--red); }
+    .fg-section-title { transition: color 0.2s ease; }
+    .fg-section-chevron {
+      margin-left: auto;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--muted);
+      transition: transform 0.25s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .fg-section-head:hover .fg-section-chevron { color: var(--red); }
+    .fg-section-head[aria-expanded="true"] .fg-section-chevron {
+      transform: rotate(90deg);
+      color: var(--red);
+    }
+    .fg-section-body[hidden] { display: none; }
+    .fg-section-body {
+      animation: fg-body-fade-in 0.3s ease;
+    }
+    @keyframes fg-body-fade-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* Expand-all toggle */
+    .fg-expand-all-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+    .fg-expand-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .fg-expand-all:hover {
+      color: #fff;
+      border-color: var(--red);
+      background: rgba(224,32,32,0.05);
+    }
+    .fg-section-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fg-section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .fg-sub-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin: 1.25rem 0 0.6rem;
+    }
+    .fg-sub-title:first-of-type { margin-top: 0; }
+
+    .fg-callout {
+      padding: 0.7rem 0.9rem;
+      background: rgba(224,32,32,0.08);
+      border: 1px solid rgba(224,32,32,0.3);
+      border-left: 3px solid var(--red);
+      border-radius: 4px;
+      margin: 0.75rem 0 1.25rem;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .fg-callout strong { color: var(--red); }
+
+    .fg-steps {
+      list-style: none;
+      counter-reset: fg-step;
+      padding: 0;
+      margin: 0;
+    }
+    .fg-step {
+      counter-increment: fg-step;
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fg-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .fg-step::before {
+      content: counter(fg-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(224,32,32,0.12);
+      border: 1px solid rgba(224,32,32,0.35);
+      color: var(--red);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fg-step-q {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.98rem;
+      margin-bottom: 0.35rem;
+    }
+    .fg-step-actions {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .fg-step-actions li {
+      position: relative;
+      padding-left: 1.2rem;
+      color: var(--text);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 0.25rem;
+    }
+    .fg-step-actions li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .fg-step-actions li.sub {
+      padding-left: 2.4rem;
+    }
+    .fg-step-actions li.sub::before {
+      content: '·';
+      left: 1.4rem;
+      font-size: 1.4rem;
+      top: -0.25rem;
+    }
+    .fg-step strong { color: #fff; }
+    .fg-warn { color: var(--warn); font-weight: 700; }
+    .fg-key { color: var(--red); font-weight: 700; }
+    .fg-bonus {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.3);
+      border-left: 3px solid var(--ok);
+      border-radius: 4px;
+      font-size: 0.92rem;
+    }
+    .fg-bonus strong { color: var(--ok); }
+
+    /* ── TABLES (Vitals / Meds) ── */
+    .fg-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .fg-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .fg-table thead th {
+      background: var(--mid);
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+    }
+    .fg-table tbody td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .fg-table tbody tr:last-child td { border-bottom: none; }
+    .fg-table .abbrev { color: var(--red); font-weight: 700; }
+    .fg-table .med-name { color: #fff; font-weight: 700; white-space: nowrap; }
+    .fg-table .warn { color: var(--warn); font-size: 0.82rem; display: block; margin-top: 0.2rem; }
+
+    /* ── EVAC GRID ── */
+    .evac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.6rem;
+    }
+    .evac-item {
+      padding: 0.85rem 1rem;
+      background: rgba(224,32,32,0.05);
+      border: 1px solid rgba(224,32,32,0.3);
+      border-left: 3px solid var(--red);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+    .evac-footer {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── TRAINING SECTION ── */
+    #training { background: var(--mid); border-top: 1px solid var(--border); }
+    .training-emphasis {
+      padding: 1.25rem 1.4rem;
+      background: linear-gradient(160deg, #1e0808, var(--card-bg));
+      border: 1px solid var(--red);
+      border-radius: 10px;
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .training-emphasis strong { color: var(--red); }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .cert {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.4rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cert:hover { border-color: var(--red); transform: translateY(-2px); }
+    .cert-abbrev {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--red);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .cert-name {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+    .cert-hours {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--red);
+      background: rgba(224,32,32,0.1);
+      border: 1px solid rgba(224,32,32,0.3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.85rem;
+    }
+    .cert-desc { font-size: 0.93rem; color: var(--text); line-height: 1.6; }
+    .cert-for {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Provider list */
+    .provider-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.85rem;
+    }
+    .provider {
+      padding: 1.2rem 1.3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .provider:hover { border-color: var(--red); transform: translateY(-2px); }
+    .provider-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .provider-name a {
+      color: var(--red);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .provider-name a:hover { color: #fff; }
+    .provider-tags {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .provider-tag {
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 0.18rem 0.55rem;
+      border-radius: 3px;
+    }
+    .provider-desc { font-size: 0.86rem; color: var(--text); line-height: 1.55; }
+
+    /* ── VIDEOS ── */
+    #videos { padding-top: 4rem; }
+    .video-card {
+      max-width: 900px;
+      padding: 2rem 2.2rem;
+      background: linear-gradient(160deg, #1e0808, var(--card-bg));
+      border: 1px solid var(--red);
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 240px;
+      gap: 1.75rem;
+      align-items: center;
+    }
+    .video-card-text { min-width: 0; }
+    .video-card-photo {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .video-card-photo img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      filter: saturate(1.05) contrast(1.04);
+    }
+    .video-card-photo figcaption {
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .video-card { grid-template-columns: 1fr; gap: 1.5rem; }
+      .video-card-photo { order: 2; max-width: 220px; margin: 0 auto; }
+    }
+    .video-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .video-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--red);
+      line-height: 0;
+    }
+    .video-coming-soon {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(224,32,32,0.15);
+      border: 1px solid rgba(224,32,32,0.4);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .video-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 0.65rem;
+    }
+    .video-desc {
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+    .video-desc strong { color: var(--red); font-weight: 700; }
+    .video-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 1.4rem;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(224,32,32,0.25);
+    }
+    .video-cta:hover {
+      background: var(--red-dark);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(224,32,32,0.4);
+    }
+    .video-cta-icon {
+      display: inline-flex;
+      line-height: 0;
+    }
+    .video-cta-arrow { transition: transform 0.2s ease; }
+    .video-cta:hover .video-cta-arrow { transform: translateX(4px); }
+    @media (max-width: 576px) {
+      .video-card { padding: 1.6rem 1.4rem; }
+      .video-cta { font-size: 0.82rem; padding: 0.85rem 1.1rem; gap: 0.55rem; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--mid);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .footer-note a { color: var(--red); }
+
+    .final-disclaimer {
+      padding: 2rem 0 0;
+      text-align: center;
+    }
+    .final-disclaimer p {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .final-disclaimer a { color: var(--red); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid px-3">
+    <a class="navbar-brand" href="index.html">
+      <img src="logo.svg" class="nav-shield" alt="Superhero logo"/>
+      <span class="d-none d-sm-inline">Superhero First Aid Systems</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html#why">The Difference</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#experience">The Why</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#the-bag">Design</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#pricing">Kits</a></li>
+        <li class="nav-item"><a class="nav-link" href="after-purchase.html">Knowledge &amp; Training</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="index.html#contact">Order Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="page-hero">
+  <div class="container">
+    <div class="eyebrow">After Purchasing the Kit</div>
+    <h1>Your kit is in your hands.<br>Here's what comes next.</h1>
+    <p>Everything you need to use the Superhero Kit confidently — a web version of the printed field guide, the PDF for download, and recommendations for the training that makes all of this actually work.</p>
+  </div>
+</header>
+
+<!-- ── DOWNLOAD ROW ── -->
+<div class="download-row">
+  <div class="container">
+    <div class="inner">
+      <div class="copy">
+        <div class="copy-title">Field guide — printable PDF <span class="copy-included">Included with kit</span></div>
+        <div class="copy-desc"><strong>Every kit ships with a laminated, weatherproof version</strong> sized to fit inside the bag. Use the PDF for backup, sharing with trip partners, or printing replacements — letter paper, fold in half, fold again.</div>
+      </div>
+      <a class="download-btn" href="field-guide.pdf" target="_blank" rel="noopener" download="Superhero-Field-Guide.pdf">
+        <span class="arrow" aria-hidden="true">↓</span>
+        <span>Download PDF</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ── FIELD GUIDE ── -->
+<section id="field-guide">
+  <div class="container">
+    <div class="section-eyebrow">Field Guide</div>
+    <h2 class="section-title">In an emergency.</h2>
+    <p class="section-intro">A quick-reference protocol for use of the kit. Read it now while it's calm — not in the moment. The order is intentional: airway and bleeding first, everything else second.</p>
+
+    <div class="proto-banner">
+      <span class="proto-banner-tag">Prototype · v1.0.0</span>
+      <span class="proto-banner-text">This field guide is part of the v1.0 prototype. <strong>For testing only — not for clinical use.</strong> It is not a substitute for formal first aid or CPR training. CPR protocols are updated regularly — always reference <a href="https://www.heart.org" target="_blank" rel="noopener" style="color: var(--red); text-decoration: underline;">heart.org</a> as the official authority.</span>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="fg-expand-all-wrap">
+      <button type="button" class="fg-expand-all" id="fgExpandAll" aria-pressed="false">
+        <span class="fg-expand-all-label">Expand all sections</span>
+      </button>
+    </div>
+    <div class="toc">
+      <a class="toc-link" href="#sec-stop"><span class="toc-num">⚠</span><span class="toc-text">STOP — Before You Help</span></a>
+      <a class="toc-link" href="#sec-1"><span class="toc-num">1</span><span class="toc-text">Airway &amp; Breathing</span></a>
+      <a class="toc-link" href="#sec-2"><span class="toc-num">2</span><span class="toc-text">Bleeding &amp; Circulation</span></a>
+      <a class="toc-link" href="#sec-3"><span class="toc-num">3</span><span class="toc-text">Disability · Environment · Glucose</span></a>
+      <a class="toc-link" href="#sec-4"><span class="toc-num">4</span><span class="toc-text">Evacuation Criteria</span></a>
+      <a class="toc-link" href="#sec-5"><span class="toc-num">5</span><span class="toc-text">Vitals &amp; Normal Ranges</span></a>
+      <a class="toc-link" href="#sec-6"><span class="toc-num">6</span><span class="toc-text">Medications</span></a>
+      <a class="toc-link" href="#sec-7"><span class="toc-num">7</span><span class="toc-text">Blister Care</span></a>
+    </div>
+
+    <!-- STOP card -->
+    <div class="stop-card" id="sec-stop">
+      <div class="stop-card-title">⚠ STOP — Before You Help</div>
+      <div class="stop-grid">
+        <div class="stop-item"><span class="num">1</span> Is the scene safe?</div>
+        <div class="stop-item"><span class="num">2</span> How many people need help?</div>
+        <div class="stop-item"><span class="num">3</span> Call 911</div>
+        <div class="stop-item"><span class="num">4</span> Gloves + eye protection</div>
+      </div>
+      <div class="stop-breath">Take a breath — you've got this.</div>
+    </div>
+
+    <!-- Section 1: Airway & Breathing -->
+    <div class="fg-section" id="sec-1">
+      <div class="fg-section-head">
+        <div class="fg-section-num">1</div>
+        <div class="fg-section-title">A–B: Airway &amp; Breathing</div>
+      </div>
+      <div class="fg-callout"><span class="fg-warn">⚡ Major bleeding?</span> Skip to <a href="#sec-2" style="color: var(--red); text-decoration: underline;">Section 2</a>, return here after.</div>
+
+      <div class="fg-sub-title">A — Airway</div>
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Check &amp; clear</strong> the airway — remove any visible obstruction.</div>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q">Choking?</div>
+          <ul class="fg-step-actions"><li>Abdominal thrusts from behind.</li></ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q">Unresponsive? <strong>Open airway:</strong></div>
+          <ul class="fg-step-actions"><li>Jaw-Thrust or Head-Tilt, Chin-Lift</li></ul>
+        </li>
+      </ol>
+
+      <div class="fg-sub-title">B — Breathing</div>
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>No breath + no pulse?</strong></div>
+          <ul class="fg-step-actions">
+            <li><strong>CPR:</strong> 30 compressions, 2 breaths — repeat</li>
+            <li>Ask 911 or bystanders for an AED</li>
+            <li>Maintain CPR → go to Section 2</li>
+          </ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>No breath, has pulse?</strong></div>
+          <ul class="fg-step-actions">
+            <li>1 rescue breath every 6 seconds</li>
+            <li>Maintain rescue breaths → go to Section 2</li>
+          </ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Breathing + pulse present?</strong> → Go to <a href="#sec-2" style="color: var(--red); text-decoration: underline;">Section 2</a></div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Section 2: Bleeding / Circulation -->
+    <div class="fg-section" id="sec-2">
+      <div class="fg-section-head">
+        <div class="fg-section-num">2</div>
+        <div class="fg-section-title">C — Bleeding / Circulation</div>
+      </div>
+
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Head wound?</strong></div>
+          <ul class="fg-step-actions"><li>ABD pads on wound · gentle pressure</li></ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Neck, core, back, pelvis?</strong></div>
+          <ul class="fg-step-actions"><li>Pack hemostatic gauze deep · firm pressure</li></ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Arm or leg?</strong></div>
+          <ul class="fg-step-actions">
+            <li>ABD pads · firm pressure</li>
+            <li class="sub">No stop → <span class="fg-key">TOURNIQUET</span> as high as possible on limb</li>
+            <li class="sub">Not on a knee or elbow joint</li>
+            <li class="sub">Tighten until bleeding <strong>stops</strong></li>
+            <li class="sub"><strong>Write the time</strong> on their skin</li>
+          </ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Bleeding stopped?</strong> → Yes · <a href="#sec-3" style="color: var(--red); text-decoration: underline;">Section 3</a> &nbsp;|&nbsp; No · repeat 1–3</div>
+        </li>
+      </ol>
+
+      <div class="fg-callout" style="margin-top: 1.25rem; margin-bottom: 0;">↩ Came here for urgent bleeding? Return to <a href="#sec-1" style="color: var(--red); text-decoration: underline;">Section 1 — Airway</a>.</div>
+    </div>
+
+    <!-- Section 3: D-E-G -->
+    <div class="fg-section" id="sec-3">
+      <div class="fg-section-head">
+        <div class="fg-section-num">3</div>
+        <div class="fg-section-title">D–E–G: Disability, Environment &amp; Glucose</div>
+      </div>
+
+      <div class="fg-sub-title">D — Disability (Neuro Check)</div>
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Ask:</strong> name · time · location · what happened</div>
+          <ul class="fg-step-actions"><li>Wrong / no answer → prepare for evacuation</li></ul>
+        </li>
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Check hands &amp; feet</strong> — movement, sensation, warmth?</div>
+          <ul class="fg-step-actions"><li>Any absent → minimize movement (spine/brain injury risk)</li></ul>
+        </li>
+      </ol>
+
+      <div class="fg-sub-title">E — Environment</div>
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Cold, wet, or major bleeding?</strong></div>
+          <ul class="fg-step-actions">
+            <li>Remove wet clothing</li>
+            <li>Insulate from the ground</li>
+            <li>Wrap in space blanket</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="fg-sub-title">G — Glucose</div>
+      <ol class="fg-steps">
+        <li class="fg-step">
+          <div class="fg-step-q"><strong>Anxious, confused, or sweating?</strong></div>
+          <ul class="fg-step-actions"><li>Administer glucose between teeth and cheeks</li></ul>
+        </li>
+      </ol>
+      <div class="fg-callout" style="margin-top: 1rem; margin-bottom: 0;"><span class="fg-warn">⚠</span> <strong>Untreated hypoglycemia can cause cardiac arrest.</strong></div>
+    </div>
+
+    <!-- Section 4: Evacuation -->
+    <div class="fg-section" id="sec-4">
+      <div class="fg-section-head">
+        <div class="fg-section-num">4</div>
+        <div class="fg-section-title">Evacuation Criteria</div>
+      </div>
+      <p style="margin-bottom: 1.25rem; color: var(--text); font-size: 0.98rem;"><strong>Evacuate immediately if any apply:</strong></p>
+      <div class="evac-grid">
+        <div class="evac-item">Major bleeding or burns</div>
+        <div class="evac-item">Tourniquet or hemostatics used</div>
+        <div class="evac-item">Difficulty breathing</div>
+        <div class="evac-item">Confusion, agitation, anxiety</div>
+        <div class="evac-item">Hands / feet numb or immobile</div>
+        <div class="evac-item">Vitals outside normal ranges</div>
+      </div>
+      <div class="evac-footer">Never be too proud to call for a helicopter and Search &amp; Rescue.</div>
+    </div>
+
+    <!-- Section 5: Vitals -->
+    <div class="fg-section" id="sec-5">
+      <div class="fg-section-head">
+        <div class="fg-section-num">5</div>
+        <div class="fg-section-title">Vitals &amp; Normal Ranges</div>
+      </div>
+      <div class="fg-callout"><span class="fg-warn">⚠</span> Don't let vitals collection delay treatment or evacuation. Write on skin/tape with a Sharpie for 911.</div>
+      <div class="fg-table-wrap">
+        <table class="fg-table">
+          <thead>
+            <tr><th>Vital</th><th>Abbrev.</th><th>Normal Range</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Heart Rate</td><td class="abbrev">HR</td><td>60–100 beats/min</td></tr>
+            <tr><td>Respiration</td><td class="abbrev">RR</td><td>12–20 breaths/min</td></tr>
+            <tr><td>Blood Pressure</td><td class="abbrev">BP</td><td>Strong radial pulse</td></tr>
+            <tr><td>Eyes (Pupils)</td><td class="abbrev">PEARL</td><td>Equal, Round, Reactive to Light</td></tr>
+            <tr><td>Skin</td><td class="abbrev">SCTM</td><td>Warm and Dry</td></tr>
+            <tr><td>Hands &amp; Feet</td><td class="abbrev">CSM</td><td>Circulation, Sensation, Movement</td></tr>
+            <tr><td>Responsiveness</td><td class="abbrev">LoR</td><td>Alert and oriented</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 6: Medications -->
+    <div class="fg-section" id="sec-6">
+      <div class="fg-section-head">
+        <div class="fg-section-num">6</div>
+        <div class="fg-section-title">Medications</div>
+      </div>
+      <div class="fg-table-wrap">
+        <table class="fg-table">
+          <thead>
+            <tr><th>Medication</th><th>Use / Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="med-name">Acetaminophen (Tylenol)</td><td>Fever, pain. Can combine with Ibuprofen.<span class="warn">⚠ Avoid if liver issues</span></td></tr>
+            <tr><td class="med-name">Ibuprofen (Advil)</td><td>Pain, inflammation. Can combine with Acetaminophen.<span class="warn">⚠ Avoid if kidney issues</span></td></tr>
+            <tr><td class="med-name">Aspirin</td><td>Suspected heart attack (angina or MI)<span class="warn">⚠ Avoid if major bleeding</span></td></tr>
+            <tr><td class="med-name">Loperamide HCl</td><td>Diarrhea</td></tr>
+            <tr><td class="med-name">Diphenhydramine</td><td>Allergic reactions, nausea</td></tr>
+            <tr><td class="med-name">Calcium Carbonate</td><td>Acid reflux, heartburn</td></tr>
+            <tr><td class="med-name">Triple Antibiotic (Neosporin)</td><td>Infection prevention, keep wounds moist</td></tr>
+            <tr><td class="med-name">Lidocaine Gel</td><td>Thermal burns</td></tr>
+            <tr><td class="med-name">Benzocaine</td><td>Toothaches, oral pain</td></tr>
+            <tr><td class="med-name">Anti-Itch Gel</td><td>Itching from poisonous plants</td></tr>
+            <tr><td class="med-name">Anti-Sting Wipes</td><td>Bites and stings irritation</td></tr>
+            <tr><td class="med-name">Hydrocortisone 1%</td><td>Eczema, bites, jewelry irritation, general rash</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 7: Blisters -->
+    <div class="fg-section" id="sec-7">
+      <div class="fg-section-head">
+        <div class="fg-section-num">7</div>
+        <div class="fg-section-title">Blister Care</div>
+      </div>
+      <ol class="fg-steps">
+        <li class="fg-step"><div class="fg-step-q">Pop with a <strong>sterile</strong> safety pin</div></li>
+        <li class="fg-step"><div class="fg-step-q">Leave intact skin — remove <strong>only</strong> loose/dead skin</div></li>
+        <li class="fg-step"><div class="fg-step-q">Clean with warm soapy water (if available)</div></li>
+        <li class="fg-step"><div class="fg-step-q">Clean again with an <strong>alcohol wipe</strong></div></li>
+        <li class="fg-step"><div class="fg-step-q">Apply triple antibiotic <strong>over</strong> the blister</div></li>
+        <li class="fg-step"><div class="fg-step-q">Cover with a band-aid</div></li>
+        <li class="fg-step"><div class="fg-step-q">Cut 2+ moleskin <strong>"donuts"</strong> — place <span class="fg-key">around</span> blister, <span class="fg-key">not on it</span>. Stack to create space between blister and force causing blister.</div></li>
+        <li class="fg-step"><div class="fg-step-q">Apply Leukotape or duct tape <strong>over</strong> moleskin to secure</div></li>
+        <li class="fg-step"><div class="fg-step-q">Repeat steps 3–8 every <strong>12–24 hrs</strong></div></li>
+      </ol>
+      <div class="fg-bonus"><strong>💡 Bonus — Blister Prevention:</strong> At first sign of a hot spot, alcohol wipe the area and apply Leukotape directly over it.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TRAINING ── -->
+<section id="training">
+  <div class="container">
+    <div class="section-eyebrow">Get Trained</div>
+    <h2 class="section-title">The kit is the tool.<br>Training is the skill.</h2>
+    <p class="section-intro">A first-aid kit without training is half a kit. Tourniquets, hemostatic gauze, and rescue breathing all require practice to use safely. Before you rely on this in a real emergency, take a course — ideally before your next big trip.</p>
+
+    <div class="training-emphasis">
+      <strong>Strongly recommended before relying on this kit in a real emergency:</strong> at minimum, a Wilderness First Aid (WFA) course and basic CPR / BLS certification. For longer or more remote trips, step up to WFR. For team leaders, guides, and the truly committed — WEMT.
+    </div>
+
+    <!-- Certifications -->
+    <div class="cert-grid">
+      <div class="cert">
+        <div class="cert-abbrev">WFA</div>
+        <div class="cert-name">Wilderness First Aid</div>
+        <span class="cert-hours">~16 hours · 2 days</span>
+        <p class="cert-desc">The entry-level wilderness medicine course. Covers patient assessment, bleeding control, environmental injuries, common backcountry emergencies, and when to evacuate. Renewable every 2 years.</p>
+        <div class="cert-for">Best for: weekend adventurers, parents, scout leaders, anyone with a kit.</div>
+      </div>
+      <div class="cert">
+        <div class="cert-abbrev">WFR</div>
+        <div class="cert-name">Wilderness First Responder</div>
+        <span class="cert-hours">~80 hours · 9–10 days</span>
+        <p class="cert-desc">The gold-standard for outdoor leaders and serious recreational users. Hands-on scenarios, deeper anatomy, trauma management, extended patient care. The industry-standard cert for guides and outdoor educators.</p>
+        <div class="cert-for">Best for: trip leaders, guides, instructors, expedition members, multi-day backcountry users.</div>
+      </div>
+      <div class="cert">
+        <div class="cert-abbrev">WEMT</div>
+        <div class="cert-name">Wilderness EMT</div>
+        <span class="cert-hours">~150–200+ hours</span>
+        <p class="cert-desc">Full EMT-Basic certification plus wilderness-specific modules. Combines licensed pre-hospital emergency care with the autonomy and improvisation required in remote environments. Significant time and cost investment.</p>
+        <div class="cert-for">Best for: professional guides, SAR team members, full-time outdoor instructors, career outdoor medicine.</div>
+      </div>
+    </div>
+
+    <!-- Providers -->
+    <div class="section-eyebrow" style="margin-top: 1rem;">Training Providers</div>
+    <h3 class="section-title" style="font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 0.5rem;">Where to take a course.</h3>
+    <p class="section-intro">These are the providers I trust. All are well-established, employ practicing medical professionals, and are recognized across the outdoor industry. Many run courses through partner organizations (REI, universities, climbing gyms, scout councils) so search nearby — courses are more available than you'd expect.</p>
+
+    <div class="provider-list">
+      <div class="provider">
+        <div class="provider-name">
+          NOLS Wilderness Medicine
+          <a href="https://www.nols.edu/en/wilderness-medicine/" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">WFA</span>
+          <span class="provider-tag">WFR</span>
+          <span class="provider-tag">WEMT</span>
+          <span class="provider-tag">Nationwide</span>
+        </div>
+        <div class="provider-desc">The biggest and most widely recognized wilderness medicine school in the US. Hybrid online + in-person formats available. Their certs are accepted everywhere.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          SOLO Wilderness Medicine
+          <a href="https://www.soloschools.com/" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">WFA</span>
+          <span class="provider-tag">WFR</span>
+          <span class="provider-tag">WEMT</span>
+          <span class="provider-tag">NH + nationwide</span>
+        </div>
+        <div class="provider-desc">The oldest wilderness medicine school in the US (founded 1976). Excellent instructors, strong scenario-based curriculum. Hosts courses across the country.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          AERIE Backcountry Medicine
+          <a href="https://www.aeriemedicine.com/" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">WFA</span>
+          <span class="provider-tag">WFR</span>
+          <span class="provider-tag">Mountain West</span>
+        </div>
+        <div class="provider-desc">Missoula, MT-based. Smaller class sizes, strong reputation in the climbing and guiding community. Active in the Mountain West.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          Desert Mountain Medicine
+          <a href="https://desertmountainmedicine.com/" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">WFA</span>
+          <span class="provider-tag">WFR</span>
+          <span class="provider-tag">Mountain West</span>
+        </div>
+        <div class="provider-desc">Based in the Mountain West with regular courses in Colorado, Utah, Idaho, and Wyoming. Field-heavy curriculum, instructors are practicing wilderness medics.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          Wilderness Medical Associates
+          <a href="https://wildmed.com/" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">WFA</span>
+          <span class="provider-tag">WFR</span>
+          <span class="provider-tag">WEMT</span>
+          <span class="provider-tag">International</span>
+        </div>
+        <div class="provider-desc">International reach with courses across the US, Canada, and abroad. Particularly strong in the Northeast and Canadian guiding community.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          American Red Cross
+          <a href="https://www.redcross.org/take-a-class" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">CPR / BLS</span>
+          <span class="provider-tag">First Aid</span>
+          <span class="provider-tag">Nationwide</span>
+        </div>
+        <div class="provider-desc">For baseline CPR and AED certification, plus a non-wilderness First Aid course. Cheap, widely available, easy to schedule. A solid floor under any wilderness training.</div>
+      </div>
+
+      <div class="provider">
+        <div class="provider-name">
+          American Heart Association
+          <a href="https://cpr.heart.org/en/courses/find-a-course" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="provider-tags">
+          <span class="provider-tag">BLS</span>
+          <span class="provider-tag">CPR / AED</span>
+        </div>
+        <div class="provider-desc">AHA's BLS (Basic Life Support) course is the medical-professional standard for CPR. Find a course through their partner network — the official source for the protocols this guide references.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── VIDEOS (YouTube) ── -->
+<section id="videos">
+  <div class="container">
+    <div class="video-card">
+      <div class="video-card-text">
+        <div class="video-card-top">
+          <span class="video-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </span>
+          <span class="video-coming-soon">Coming Soon</span>
+        </div>
+        <h3 class="video-title">Video walkthroughs — straight from the source.</h3>
+        <p class="video-desc">I'm filming a short video for every tool in the kit — when to reach for it, how to actually apply it under pressure, and the common mistakes to avoid. <strong>The videos aren't live yet</strong> — subscribe to the channel below so you know when they drop.</p>
+        <a class="video-cta" href="https://www.youtube.com/@wild_climbing_medicine" target="_blank" rel="noopener">
+          <span class="video-cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </span>
+          <span>Subscribe on YouTube — @wild_climbing_medicine</span>
+          <span class="video-cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <figure class="video-card-photo">
+        <img src="photos/funny-flexing-web.jpg" alt="Tommy at the top of a climb in full kit" loading="lazy"/>
+        <figcaption>Your host. Allegedly a medical professional.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL DISCLAIMER ── -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="final-disclaimer">
+      <p>This guide and the Superhero First Aid Kit are part of a <strong>v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. They are not a substitute for professional medical training, evaluation, or care. By using either, you assume all risk. See the <a href="index.html#disclaimer">full disclaimer and terms of use</a> (<a href="disclaimer.pdf" target="_blank" rel="noopener">PDF</a>).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-name">Superhero First Aid Systems</div>
+  <div class="footer-note">For the Prepared. For the Caring. &nbsp;·&nbsp; v1.0 prototype &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/@wild_climbing_medicine" target="_blank" rel="noopener">YouTube</a> &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Make field-guide sections 1–7 collapsible.
+  // Wrap each section's post-header content in a body div, attach toggles,
+  // and tie the table-of-contents links to auto-expand their targets.
+  (function initCollapsibleFieldGuide() {
+    const sections = document.querySelectorAll('#field-guide .fg-section');
+    if (!sections.length) return;
+
+    const toggles = []; // collect head/body pairs for expand-all
+
+    sections.forEach(section => {
+      const head = section.querySelector('.fg-section-head');
+      if (!head) return;
+
+      // Add a chevron to the head
+      const chevron = document.createElement('span');
+      chevron.className = 'fg-section-chevron';
+      chevron.setAttribute('aria-hidden', 'true');
+      chevron.textContent = '›';
+      head.appendChild(chevron);
+
+      // Make the head act like a button (keep it as a div so it nests divs fine)
+      head.setAttribute('role', 'button');
+      head.setAttribute('tabindex', '0');
+      head.setAttribute('aria-expanded', 'false');
+
+      // Wrap everything AFTER the head into a body div
+      const bodyId = section.id + '-body';
+      const body = document.createElement('div');
+      body.className = 'fg-section-body';
+      body.id = bodyId;
+      body.hidden = true;
+      head.setAttribute('aria-controls', bodyId);
+
+      let sibling = head.nextElementSibling;
+      const toMove = [];
+      while (sibling) { toMove.push(sibling); sibling = sibling.nextElementSibling; }
+      toMove.forEach(el => body.appendChild(el));
+      section.appendChild(body);
+
+      const setOpen = (open) => {
+        head.setAttribute('aria-expanded', String(open));
+        body.hidden = !open;
+      };
+
+      const toggle = () => setOpen(head.getAttribute('aria-expanded') !== 'true');
+
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+
+      toggles.push({ head, body, setOpen });
+    });
+
+    // Expand-all / collapse-all button
+    const expandAllBtn = document.getElementById('fgExpandAll');
+    if (expandAllBtn) {
+      const label = expandAllBtn.querySelector('.fg-expand-all-label');
+      expandAllBtn.addEventListener('click', () => {
+        const anyClosed = toggles.some(t => t.head.getAttribute('aria-expanded') !== 'true');
+        toggles.forEach(t => t.setOpen(anyClosed));
+        expandAllBtn.setAttribute('aria-pressed', String(anyClosed));
+        if (label) label.textContent = anyClosed ? 'Collapse all sections' : 'Expand all sections';
+      });
+    }
+
+    // When a TOC link or any in-page anchor pointing to #sec-N is clicked,
+    // expand that section first so the scroll lands somewhere meaningful.
+    const expandTargetById = (id) => {
+      const match = toggles.find(t => t.body.id === id + '-body');
+      if (match) match.setOpen(true);
+    };
+    document.querySelectorAll('a[href^="#sec-"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const href = link.getAttribute('href') || '';
+        if (href.startsWith('#')) expandTargetById(href.slice(1));
+      });
+    });
+
+    // Handle direct hash navigation on initial load (e.g. someone links to /after-purchase.html#sec-3)
+    if (window.location.hash && window.location.hash.startsWith('#sec-')) {
+      const id = window.location.hash.slice(1);
+      expandTargetById(id);
+      // Re-scroll after expanding so the now-visible section lands correctly
+      requestAnimationFrame(() => {
+        const target = document.getElementById(id);
+        if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
