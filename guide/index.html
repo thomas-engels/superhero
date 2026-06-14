@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0D1827"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Field Guide"/>
+  <link rel="manifest" href="manifest.json"/>
+  <title>Superhero Field Guide</title>
+  <style>
+    :root {
+      --bg:          #0D1827;
+      --surface:     #15213B;
+      --surface2:    #1C2D4F;
+      --red:         #C8273A;
+      --red-bright:  #E84156;
+      --text:        #E8EEF8;
+      --text-muted:  #8B9BB4;
+      --blue-soft:   #5A8FC4;
+      --amber:       #D4A017;
+      --border:      rgba(255,255,255,0.08);
+      --pink-bg:     rgba(200,39,58,0.14);
+      --pink-border: rgba(200,39,58,0.45);
+      --teal-bg:     rgba(90,143,196,0.12);
+      --teal-border: rgba(90,143,196,0.35);
+      --amber-bg:    rgba(212,160,23,0.12);
+      --amber-border:rgba(212,160,23,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      overflow: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .app { display: flex; flex-direction: column; height: 100dvh; height: 100vh; }
+
+    /* ── HEADER ── */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      padding-top: max(10px, env(safe-area-inset-top));
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .header-logo { width: 30px; height: 30px; flex-shrink: 0; }
+    .header-title { flex: 1; min-width: 0; }
+    .header-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); line-height: 1; }
+    .header-name { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .header-badge { background: var(--red); color: #fff; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.06em; flex-shrink: 0; }
+
+    /* ── SCREENS ── */
+    .screens { flex: 1; position: relative; overflow: hidden; }
+    .screen { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px 16px 24px; opacity: 0; pointer-events: none; transition: opacity 0.18s ease; }
+    .screen.active { opacity: 1; pointer-events: auto; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav { display: flex; background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom); flex-shrink: 0; }
+    .nav-tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 7px 2px; min-height: 50px; border: none; background: none; cursor: pointer; color: var(--text-muted); transition: color 0.12s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    .nav-tab.active { color: var(--red); }
+    .nav-tab-num { font-size: 17px; font-weight: 800; line-height: 1; }
+    .nav-tab-label { font-size: 8px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; text-align: center; line-height: 1.2; }
+
+    /* ── SECTION HEADER ── */
+    .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--red); }
+    .sec-num-badge { background: var(--red); color: #fff; font-size: 20px; font-weight: 800; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; }
+    .sec-title-group { flex: 1; }
+    .sec-icon { font-size: 20px; line-height: 1; margin-bottom: 1px; }
+    .sec-title { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.2; }
+
+    /* ── SUB-NAV PILLS ── */
+    .sub-nav { display: flex; gap: 4px; background: var(--surface2); border-radius: 10px; padding: 4px; margin-bottom: 20px; }
+    .sub-btn { flex: 1; padding: 8px 4px; border: none; background: none; border-radius: 7px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; line-height: 1.3; text-align: center; }
+    .sub-btn.active { background: var(--red); color: #fff; }
+
+    /* ── CALLOUTS ── */
+    .callout { background: var(--teal-bg); border: 1px solid var(--teal-border); border-left: 3px solid var(--teal-border); padding: 11px 14px; border-radius: 8px; font-size: 14px; line-height: 1.5; margin-bottom: 18px; color: #B8D4E8; }
+    .callout .warn { color: var(--red-bright); font-weight: 700; }
+    .callout strong { font-weight: 700; }
+    .callout-warn { background: var(--pink-bg); border-color: var(--pink-border); border-left-color: var(--red); color: #F0B8C0; }
+
+    /* ── STEPS ──
+       li uses flex for badge + content. All content goes in .step-content so
+       it stacks vertically as a single flex child next to the badge. */
+    .steps { list-style: none; padding: 0; counter-reset: step; }
+    .steps > li {
+      counter-increment: step;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .steps > li::before {
+      content: counter(step);
+      background: var(--red);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      min-width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    /* All content after the badge goes here — stacks vertically */
+    .step-content {
+      flex: 1;
+      min-width: 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .step-content strong { font-weight: 700; color: var(--text); }
+
+    /* ── SUB-STEPS (card style) ── */
+    .sub-steps { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+    .sub-step { background: rgba(255,255,255,0.04); border-left: 2px solid rgba(200,39,58,0.5); border-radius: 0 7px 7px 0; padding: 9px 13px; font-size: 15px; line-height: 1.45; color: var(--text); }
+    .sub-step strong { color: var(--text); }
+
+    /* ── CONDITION CARDS ── */
+    .condition-card { border-radius: 10px; border: 1px solid; padding: 16px; margin-bottom: 12px; }
+    .condition-card.danger  { background: var(--pink-bg);  border-color: var(--pink-border);  }
+    .condition-card.caution { background: var(--amber-bg); border-color: var(--amber-border); }
+    .condition-card.ok      { background: var(--teal-bg);  border-color: var(--teal-border);  }
+    .condition-status { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 5px; }
+    .condition-card.danger  .condition-status { color: var(--red-bright); }
+    .condition-card.caution .condition-status { color: var(--amber); }
+    .condition-card.ok      .condition-status { color: var(--blue-soft); }
+    .condition-label { font-size: 17px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    .condition-card.danger  .condition-label { color: #F0B8C0; }
+    .condition-card.caution .condition-label { color: #D4C580; }
+    .condition-card.ok      .condition-label { color: #B8D4E8; }
+    .condition-actions { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .condition-actions li { font-size: 15px; line-height: 1.4; padding-left: 14px; position: relative; }
+    .condition-actions li::before { content: '•'; position: absolute; left: 0; font-weight: 700; }
+    .condition-card.danger  .condition-actions li { color: #F0B8C0; }
+    .condition-card.danger  .condition-actions li::before { color: var(--red); }
+    .condition-card.caution .condition-actions li { color: #D4C580; }
+    .condition-card.caution .condition-actions li::before { color: var(--amber); }
+    .condition-card.ok      .condition-actions li { color: #B8D4E8; }
+    .condition-card.ok      .condition-actions li::before { color: var(--blue-soft); }
+
+    /* ── GOTO / ACTION BUTTONS ── */
+    .goto-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 13px 16px; background: var(--surface2); border: 1px solid rgba(200,39,58,0.3); border-radius: 8px; color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.12s; text-align: left; }
+    .goto-btn:active { background: #253a5e; }
+    .goto-btn .arrow { color: var(--red); font-size: 20px; flex-shrink: 0; }
+    .goto-btn.return { border-color: rgba(90,143,196,0.35); margin-top: 16px; }
+    .goto-btn.return .arrow { color: var(--blue-soft); }
+
+    /* ── PROTOCOL CARD (Tourniquet) ── */
+    .protocol-card { background: var(--pink-bg); border: 1px solid var(--pink-border); border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+    .protocol-head { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+    .protocol-steps { display: flex; flex-direction: column; gap: 8px; }
+    .protocol-step { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.4; color: #F0B8C0; }
+    .pnum { background: var(--red); color: #fff; font-size: 11px; font-weight: 800; min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+    .hl { color: #fff; font-weight: 800; }
+    .key { color: var(--red-bright); font-weight: 800; text-transform: uppercase; }
+
+    /* ── TABLES ── */
+    .fg-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .fg-table thead th { text-align: left; background: var(--surface2); color: var(--blue-soft); padding: 9px 11px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .fg-table tbody td { padding: 10px 11px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.4; }
+    .fg-table tbody tr:last-child td { border-bottom: none; }
+    .fg-table td.abbrev { color: var(--blue-soft); font-weight: 700; white-space: nowrap; }
+    .fg-table td.med-name { font-weight: 700; color: var(--text); white-space: nowrap; }
+    .fg-table .warn-inline { display: block; color: var(--amber); font-size: 12px; margin-top: 3px; }
+    .fg-table .em { font-weight: 700; color: var(--text); }
+
+    /* ── EVACUATION ── */
+    .evac-header { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-bright); text-align: center; margin-bottom: 16px; }
+    .evac-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 16px; }
+    .evac-item { background: var(--pink-bg); border: 1px solid var(--pink-border); padding: 12px 12px 12px 10px; font-size: 14px; font-weight: 600; color: #F0B8C0; border-radius: 8px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.3; }
+    .evac-item::before { content: '●'; color: var(--red); flex-shrink: 0; margin-top: 1px; }
+    .evac-footer { background: var(--teal-bg); border: 1px solid var(--teal-border); padding: 14px 16px; font-size: 15px; font-weight: 600; font-style: italic; color: #B8D4E8; border-radius: 8px; text-align: center; line-height: 1.4; }
+
+    /* ── MISC ── */
+    .bonus { background: var(--amber-bg); border: 1px solid var(--amber-border); border-left: 3px solid var(--amber-border); padding: 13px 15px; font-size: 15px; line-height: 1.5; color: #D4C580; margin-top: 16px; border-radius: 8px; }
+    .bonus strong { color: var(--amber); }
+    .meds-disclaimer { font-size: 11px; line-height: 1.5; color: var(--text-muted); margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.1); }
+
+    /* ── HOME SCREEN ── */
+    .home-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--red); }
+    .home-logo { width: 52px; height: 52px; }
+    .home-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .home-name { font-size: 30px; font-weight: 800; letter-spacing: 0.04em; line-height: 1; }
+
+    .stop-card { background: var(--pink-bg); border: 2px solid var(--red); border-radius: 12px; padding: 15px 15px 12px; margin-bottom: 22px; }
+    .stop-head { font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); text-align: center; margin-bottom: 12px; }
+    .stop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 11px; }
+    .stop-item { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.3; color: #F0B8C0; }
+    .stop-num { background: var(--red); color: #fff; min-width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; border-radius: 4px; flex-shrink: 0; }
+    .stop-item strong { color: #F0B8C0; }
+    .stop-breathe { background: var(--surface2); padding: 9px; text-align: center; font-size: 14px; font-weight: 600; border-radius: 6px; }
+
+    .home-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 9px; }
+    .home-label.critical { color: var(--red); }
+    .home-label.ongoing  { color: var(--blue-soft); }
+
+    .quick-grid { display: grid; gap: 9px; margin-bottom: 18px; }
+    .quick-grid.c4 { grid-template-columns: repeat(4, 1fr); }
+    .quick-grid.c3 { grid-template-columns: repeat(3, 1fr); }
+
+    .quick-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 4px 11px; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: background 0.12s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .quick-btn:active { background: var(--surface2); }
+    .quick-btn.critical { border-color: rgba(200,39,58,0.3); }
+    .quick-btn.ongoing  { border-color: rgba(90,143,196,0.25); }
+    .quick-btn-icon { font-size: 20px; line-height: 1; }
+    .quick-btn-num { font-size: 22px; font-weight: 800; line-height: 1; }
+    .quick-btn.critical .quick-btn-num { color: var(--red); }
+    .quick-btn.ongoing  .quick-btn-num { color: var(--blue-soft); }
+    .quick-btn-label { font-size: 9px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); line-height: 1.25; text-align: center; }
+
+    .home-footer { margin-top: 6px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.1); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); text-align: center; font-weight: 600; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <img class="header-logo" src="logo.svg" alt="Superhero"/>
+    <div class="header-title">
+      <div class="header-eyebrow">Superhero First Aid</div>
+      <div class="header-name" id="headerName">Field Guide</div>
+    </div>
+    <div class="header-badge" id="headerBadge">HOME</div>
+  </header>
+
+  <main class="screens" id="screens">
+
+    <!-- ══ 0: HOME ══ -->
+    <section class="screen active" data-screen="0">
+      <div class="home-brand">
+        <img class="home-logo" src="logo.svg" alt=""/>
+        <div>
+          <div class="home-eyebrow">Superhero First Aid Systems</div>
+          <div class="home-name">FIELD GUIDE</div>
+        </div>
+      </div>
+
+      <div class="stop-card">
+        <div class="stop-head">⚠ Stop — Before You Help</div>
+        <div class="stop-grid">
+          <div class="stop-item"><span class="stop-num">1</span><span><strong>Is the scene safe?</strong></span></div>
+          <div class="stop-item"><span class="stop-num">2</span><span><strong>How many need help?</strong></span></div>
+          <div class="stop-item"><span class="stop-num">3</span><span><strong>Call 911</strong></span></div>
+          <div class="stop-item"><span class="stop-num">4</span><span><strong>Gloves + eye protection</strong></span></div>
+        </div>
+        <div class="stop-breathe">Take a breath — you've got this.</div>
+      </div>
+
+      <div class="home-label critical">⚡ Critical Interventions</div>
+      <div class="quick-grid c4">
+        <button class="quick-btn critical" onclick="goTo(1)">
+          <span class="quick-btn-icon">🫁</span>
+          <span class="quick-btn-num">1</span>
+          <span class="quick-btn-label">Airway<br>Breathing</span>
+        </button>
+        <button class="quick-btn critical" onclick="goTo(3)">
+          <span class="quick-btn-icon">🩸</span>
+          <span class="quick-btn-num">2</span>
+          <span class="quick-btn-label">Bleeding</span>
+        </button>
+        <button class="quick-btn critical" onclick="goTo(4)">
+          <span class="quick-btn-icon">🧠</span>
+          <span class="quick-btn-num">3</span>
+          <span class="quick-btn-label">D · E · G</span>
+        </button>
+        <button class="quick-btn critical" onclick="goTo(7)">
+          <span class="quick-btn-icon">🚁</span>
+          <span class="quick-btn-num">4</span>
+          <span class="quick-btn-label">Evacuation</span>
+        </button>
+      </div>
+
+      <div class="home-label ongoing">🩹 Ongoing Care</div>
+      <div class="quick-grid c3">
+        <button class="quick-btn ongoing" onclick="goTo(8)">
+          <span class="quick-btn-icon">❤️</span>
+          <span class="quick-btn-num">5</span>
+          <span class="quick-btn-label">Vitals</span>
+        </button>
+        <button class="quick-btn ongoing" onclick="goTo(9)">
+          <span class="quick-btn-icon">💊</span>
+          <span class="quick-btn-num">6</span>
+          <span class="quick-btn-label">Medications</span>
+        </button>
+        <button class="quick-btn ongoing" onclick="goTo(10)">
+          <span class="quick-btn-icon">🩹</span>
+          <span class="quick-btn-num">7</span>
+          <span class="quick-btn-label">Blisters</span>
+        </button>
+      </div>
+      <div class="home-footer">⚠ Prototype · Beta v1.0.0 · Not for Clinical Use</div>
+    </section>
+
+    <!-- ══ 1: 1A — AIRWAY ══ -->
+    <section class="screen" data-screen="1">
+      <div class="sec-head">
+        <div class="sec-num-badge">1</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🫁</div>
+          <div class="sec-title">Airway &amp; Breathing</div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="goTo(1)">A — Airway</button>
+        <button class="sub-btn"        onclick="goTo(2)">B — Breathing</button>
+      </div>
+      <div class="callout"><span class="warn">⚡ Major bleeding?</span> Skip ahead to Section 2 first — return here after.</div>
+      <ol class="steps">
+        <li><div class="step-content">
+          <strong>Check &amp; clear</strong> the airway — remove any visible obstruction.
+        </div></li>
+        <li><div class="step-content">
+          <strong>Choking?</strong> Abdominal thrusts from behind until clear.
+        </div></li>
+        <li><div class="step-content">
+          <strong>Unresponsive?</strong> Open the airway:
+          <div class="sub-steps">
+            <div class="sub-step">Jaw-Thrust — or — Head-Tilt, Chin-Lift</div>
+          </div>
+        </div></li>
+      </ol>
+      <button class="goto-btn" onclick="goTo(2)">
+        <span>Next: B — Breathing</span>
+        <span class="arrow">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 2: 1B — BREATHING ══ -->
+    <section class="screen" data-screen="2">
+      <div class="sec-head">
+        <div class="sec-num-badge">1</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">💨</div>
+          <div class="sec-title">Airway &amp; Breathing</div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(1)">A — Airway</button>
+        <button class="sub-btn active" onclick="goTo(2)">B — Breathing</button>
+      </div>
+
+      <div class="condition-card danger">
+        <div class="condition-status">✕ Critical</div>
+        <div class="condition-label">No breath + no pulse</div>
+        <ul class="condition-actions">
+          <li><strong>CPR:</strong> 30 compressions + 2 breaths — repeat</li>
+          <li>Ask 911 or bystanders for an AED</li>
+          <li>Maintain CPR while moving to Section 2</li>
+        </ul>
+        <button class="goto-btn" onclick="goTo(3)">
+          <span>Continue to Section 2 — Bleeding</span>
+          <span class="arrow">›</span>
+        </button>
+      </div>
+
+      <div class="condition-card caution">
+        <div class="condition-status">⚠ Caution</div>
+        <div class="condition-label">No breath, has pulse</div>
+        <ul class="condition-actions">
+          <li>1 rescue breath every 6 seconds</li>
+          <li>Monitor pulse continuously</li>
+          <li>Maintain rescue breaths while moving to Section 2</li>
+        </ul>
+        <button class="goto-btn" onclick="goTo(3)">
+          <span>Continue to Section 2 — Bleeding</span>
+          <span class="arrow">›</span>
+        </button>
+      </div>
+
+      <div class="condition-card ok">
+        <div class="condition-status">✓ Good</div>
+        <div class="condition-label">Breathing + pulse present</div>
+        <button class="goto-btn" onclick="goTo(3)">
+          <span>Continue to Section 2 — Bleeding</span>
+          <span class="arrow">›</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ══ 3: SECTION 2 — BLEEDING ══ -->
+    <section class="screen" data-screen="3">
+      <div class="sec-head">
+        <div class="sec-num-badge">2</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🩸</div>
+          <div class="sec-title">Bleeding / Circulation</div>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><div class="step-content">
+          <strong>Head wound?</strong>
+          <div class="sub-steps">
+            <div class="sub-step">ABD pads on wound · apply gentle pressure</div>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Neck, core, back, or pelvis?</strong>
+          <div class="sub-steps">
+            <div class="sub-step"><strong>Pack</strong> hemostatic gauze deep into the wound · firm, sustained pressure</div>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Arm or leg?</strong>
+          <div class="sub-steps">
+            <div class="sub-step">ABD pads · firm pressure</div>
+            <div class="sub-step">If still bleeding — apply <span class="key">tourniquet</span>:</div>
+          </div>
+          <div class="protocol-card">
+            <div class="protocol-head">🩺 Tourniquet Protocol</div>
+            <div class="protocol-steps">
+              <div class="protocol-step"><span class="pnum">1</span><span>Apply <span class="hl">above the bleeding</span> — <span class="key">never on a joint</span> (knee or elbow)</span></div>
+              <div class="protocol-step"><span class="pnum">2</span><span>Tighten until bleeding <span class="hl">completely stops</span></span></div>
+              <div class="protocol-step"><span class="pnum">3</span><span><span class="hl">Write the time on their skin</span> — 911 needs to know</span></div>
+              <div class="protocol-step"><span class="pnum">4</span><span><span class="key">Do NOT remove</span> — only medical professionals can remove a tourniquet</span></div>
+            </div>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Still bleeding?</strong> Repeat steps 1–3. Controlled → move to Section 3.
+        </div></li>
+      </ol>
+      <button class="goto-btn return" onclick="goTo(1)">
+        <span class="arrow">‹</span>
+        <span>Came here first? Return to Section 1 — Airway</span>
+      </button>
+    </section>
+
+    <!-- ══ 4: 3D — DISABILITY ══ -->
+    <section class="screen" data-screen="4">
+      <div class="sec-head">
+        <div class="sec-num-badge">3</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🧠</div>
+          <div class="sec-title">Disability · Env · Glucose</div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn"        onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn"        onclick="goTo(6)">G — Glucose</button>
+      </div>
+      <ol class="steps">
+        <li><div class="step-content">
+          <strong>Ask:</strong> name · time · location · what happened
+          <div class="sub-steps">
+            <div class="sub-step">Wrong or no answer → prepare for evacuation</div>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Check hands &amp; feet</strong> — movement, sensation, warmth?
+          <div class="sub-steps">
+            <div class="sub-step">Any absent → minimize movement — possible spine or brain injury</div>
+          </div>
+        </div></li>
+      </ol>
+      <button class="goto-btn" onclick="goTo(5)">
+        <span>Next: E — Environment</span>
+        <span class="arrow">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 5: 3E — ENVIRONMENT ══ -->
+    <section class="screen" data-screen="5">
+      <div class="sec-head">
+        <div class="sec-num-badge">3</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🌡️</div>
+          <div class="sec-title">Disability · Env · Glucose</div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn active" onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn"        onclick="goTo(6)">G — Glucose</button>
+      </div>
+      <ol class="steps">
+        <li><div class="step-content">
+          <strong>Cold, wet, or major bleeding?</strong> Prevent hypothermia immediately:
+          <div class="sub-steps">
+            <div class="sub-step">Remove wet clothing</div>
+            <div class="sub-step">Insulate from the ground</div>
+            <div class="sub-step">Wrap in space blanket — shiny side in</div>
+          </div>
+        </div></li>
+      </ol>
+      <button class="goto-btn" onclick="goTo(6)">
+        <span>Next: G — Glucose</span>
+        <span class="arrow">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 6: 3G — GLUCOSE ══ -->
+    <section class="screen" data-screen="6">
+      <div class="sec-head">
+        <div class="sec-num-badge">3</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🍬</div>
+          <div class="sec-title">Disability · Env · Glucose</div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn"        onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn active" onclick="goTo(6)">G — Glucose</button>
+      </div>
+      <div class="condition-card caution">
+        <div class="condition-status">⚠ Check for hypoglycemia</div>
+        <div class="condition-label">Anxious, confused, or sweating?</div>
+        <ul class="condition-actions">
+          <li>Administer glucose between their teeth and cheeks</li>
+          <li>Allow it to absorb — do not give water yet</li>
+        </ul>
+      </div>
+      <div class="callout callout-warn">
+        <strong>⚠ Untreated hypoglycemia can cause cardiac arrest.</strong> When in doubt, give glucose.
+      </div>
+      <button class="goto-btn" onclick="goTo(7)">
+        <span>Continue to Section 4 — Evacuation</span>
+        <span class="arrow">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 7: SECTION 4 — EVACUATION ══ -->
+    <section class="screen" data-screen="7">
+      <div class="sec-head">
+        <div class="sec-num-badge">4</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🚁</div>
+          <div class="sec-title">Evacuation</div>
+        </div>
+      </div>
+      <div class="evac-header">Evacuate immediately if any apply</div>
+      <div class="evac-grid">
+        <div class="evac-item">Major bleeding or burns</div>
+        <div class="evac-item">Tourniquet or hemostatics used</div>
+        <div class="evac-item">Difficulty breathing</div>
+        <div class="evac-item">Confusion, agitation, anxiety</div>
+        <div class="evac-item">Hands/feet numb or immobile</div>
+        <div class="evac-item">Vitals outside normal ranges</div>
+      </div>
+      <div class="evac-footer">Never be too proud to call for a helicopter and Search &amp; Rescue.</div>
+    </section>
+
+    <!-- ══ 8: SECTION 5 — VITALS ══ -->
+    <section class="screen" data-screen="8">
+      <div class="sec-head">
+        <div class="sec-num-badge">5</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">❤️</div>
+          <div class="sec-title">Vitals &amp; Normal Ranges</div>
+        </div>
+      </div>
+      <div class="callout callout-warn">
+        <span class="warn">⚠</span> Don't let vitals delay treatment or evacuation. Write readings on skin or tape with a Sharpie for 911.
+      </div>
+      <table class="fg-table">
+        <thead><tr><th>Vital</th><th>Abbrev.</th><th>Normal Range</th></tr></thead>
+        <tbody>
+          <tr><td>Heart Rate</td><td class="abbrev">HR</td><td><span class="em">60–100</span> bpm</td></tr>
+          <tr><td>Respiration</td><td class="abbrev">RR</td><td><span class="em">12–20</span> breaths/min</td></tr>
+          <tr><td>Blood Pressure</td><td class="abbrev">BP</td><td><span class="em">Strong</span> radial pulse</td></tr>
+          <tr><td>Eyes (Pupils)</td><td class="abbrev">PEARL</td><td>Equal, Round, Reactive to Light</td></tr>
+          <tr><td>Skin</td><td class="abbrev">SCTM</td><td>Warm and Dry</td></tr>
+          <tr><td>Hands &amp; Feet</td><td class="abbrev">CSM</td><td>Circulation, Sensation, Movement</td></tr>
+          <tr><td>Responsiveness</td><td class="abbrev">LoR</td><td>Alert and oriented</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ 9: SECTION 6 — MEDICATIONS ══ -->
+    <section class="screen" data-screen="9">
+      <div class="sec-head">
+        <div class="sec-num-badge">6</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">💊</div>
+          <div class="sec-title">Medications</div>
+        </div>
+      </div>
+      <table class="fg-table">
+        <thead><tr><th>Medication</th><th>Use / Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="med-name">🌡️ Acetaminophen</td><td>Fever, pain. Can combine with Ibuprofen.<span class="warn-inline">⚠ Avoid if liver issues</span></td></tr>
+          <tr><td class="med-name">😣 Ibuprofen</td><td>Pain, inflammation. Can combine with Acetaminophen.<span class="warn-inline">⚠ Avoid if kidney issues</span></td></tr>
+          <tr><td class="med-name">❤️ Aspirin</td><td>Suspected heart attack (angina or MI)<span class="warn-inline">⚠ Avoid if major bleeding</span></td></tr>
+          <tr><td class="med-name">💊 Loperamide</td><td>Diarrhea</td></tr>
+          <tr><td class="med-name">🤧 Diphenhydramine</td><td>Allergic reactions, nausea</td></tr>
+          <tr><td class="med-name">🔥 Calcium Carbonate</td><td>Acid reflux, heartburn</td></tr>
+          <tr><td class="med-name">🦠 Triple Antibiotic</td><td>Infection prevention, keep wounds moist</td></tr>
+          <tr><td class="med-name">💧 Lidocaine Gel</td><td>Thermal burns</td></tr>
+          <tr><td class="med-name">🦷 Benzocaine</td><td>Toothaches, oral pain</td></tr>
+          <tr><td class="med-name">🌿 Anti-Itch Gel</td><td>Itching from poisonous plants</td></tr>
+          <tr><td class="med-name">🐝 Anti-Sting Wipes</td><td>Bites and stings</td></tr>
+          <tr><td class="med-name">💍 Hydrocortisone 1%</td><td>Eczema, bites, rash, jewelry irritation</td></tr>
+        </tbody>
+      </table>
+      <div class="meds-disclaimer">This guide is for informational purposes only — not a substitute for formal first aid training. Professional CPR and Wilderness First Aid (WFA) training strongly recommended. CPR protocols are updated regularly; always reference the American Heart Association (heart.org) as the official authority.</div>
+    </section>
+
+    <!-- ══ 10: SECTION 7 — BLISTERS ══ -->
+    <section class="screen" data-screen="10">
+      <div class="sec-head">
+        <div class="sec-num-badge">7</div>
+        <div class="sec-title-group">
+          <div class="sec-icon">🩹</div>
+          <div class="sec-title">Blisters</div>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><div class="step-content">Pop with a <strong>sterile</strong> safety pin</div></li>
+        <li><div class="step-content">Leave intact skin — remove <strong>only</strong> loose or dead skin</div></li>
+        <li><div class="step-content">Clean with warm soapy water, if available</div></li>
+        <li><div class="step-content">Clean again with an <strong>alcohol wipe</strong></div></li>
+        <li><div class="step-content">Apply triple antibiotic <strong>over</strong> the blister</div></li>
+        <li><div class="step-content">Cover with a band-aid</div></li>
+        <li><div class="step-content">
+          Cut 2+ moleskin <strong>"donuts"</strong> and place <span class="key">around</span> the blister, <span class="key">not on it</span>
+          <div class="sub-steps">
+            <div class="sub-step">Stack donuts to create a raised ring that lifts pressure off the blister</div>
+          </div>
+        </div></li>
+        <li><div class="step-content">Apply Leukotape or duct tape <strong>over</strong> the moleskin to secure</div></li>
+        <li><div class="step-content">Repeat steps <strong>3–8</strong> every <strong>12–24 hours</strong></div></li>
+      </ol>
+      <div class="bonus"><strong>💡 Blister Prevention:</strong> At the first sign of a hot spot — alcohol wipe the area and apply Leukotape directly over it before a blister forms.</div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-tab active" onclick="goTo(0)">
+      <span class="nav-tab-num">⌂</span>
+      <span class="nav-tab-label">Home</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(1)">
+      <span class="nav-tab-num">1</span>
+      <span class="nav-tab-label">Airway</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(3)">
+      <span class="nav-tab-num">2</span>
+      <span class="nav-tab-label">Bleeding</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(4)">
+      <span class="nav-tab-num">3</span>
+      <span class="nav-tab-label">D·E·G</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(7)">
+      <span class="nav-tab-num">4</span>
+      <span class="nav-tab-label">Evac</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(8)">
+      <span class="nav-tab-num">5</span>
+      <span class="nav-tab-label">Vitals</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(9)">
+      <span class="nav-tab-num">6</span>
+      <span class="nav-tab-label">Meds</span>
+    </button>
+    <button class="nav-tab" onclick="goTo(10)">
+      <span class="nav-tab-num">7</span>
+      <span class="nav-tab-label">Blisters</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  const TOTAL = 11;
+  const SCREEN_TAB = [0, 1, 1, 2, 3, 3, 3, 4, 5, 6, 7];
+  const INFO = [
+    { name: 'Field Guide',             badge: 'HOME'  },
+    { name: 'A — Airway',             badge: 'SEC 1' },
+    { name: 'B — Breathing',          badge: 'SEC 1' },
+    { name: 'Bleeding / Circulation', badge: 'SEC 2' },
+    { name: 'D — Disability',         badge: 'SEC 3' },
+    { name: 'E — Environment',        badge: 'SEC 3' },
+    { name: 'G — Glucose',            badge: 'SEC 3' },
+    { name: 'Evacuation',             badge: 'SEC 4' },
+    { name: 'Vitals',                 badge: 'SEC 5' },
+    { name: 'Medications',            badge: 'SEC 6' },
+    { name: 'Blisters',              badge: 'SEC 7' },
+  ];
+
+  let current = 0;
+  const screens = document.querySelectorAll('.screen');
+  const tabs    = document.querySelectorAll('.nav-tab');
+  const headerName  = document.getElementById('headerName');
+  const headerBadge = document.getElementById('headerBadge');
+
+  function goTo(n) {
+    if (n < 0 || n >= TOTAL || n === current) return;
+    screens[current].classList.remove('active');
+    tabs[SCREEN_TAB[current]].classList.remove('active');
+    current = n;
+    screens[current].classList.add('active');
+    screens[current].scrollTop = 0;
+    tabs[SCREEN_TAB[current]].classList.add('active');
+    headerName.textContent  = INFO[n].name;
+    headerBadge.textContent = INFO[n].badge;
+  }
+
+  let sx = 0, sy = 0;
+  const mainEl = document.getElementById('screens');
+  mainEl.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  mainEl.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 48) {
+      if (dx < 0 && current < TOTAL - 1) goTo(current + 1);
+      if (dx > 0 && current > 0)         goTo(current - 1);
+    }
+  }, { passive: true });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' && current < TOTAL - 1) goTo(current + 1);
+    if (e.key === 'ArrowLeft'  && current > 0)         goTo(current - 1);
+  });
+</script>
+</body>
+</html>

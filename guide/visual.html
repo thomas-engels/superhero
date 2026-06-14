@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0D1827"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Visual Guide"/>
+  <link rel="manifest" href="manifest.json"/>
+  <title>Superhero Visual Guide</title>
+  <style>
+    :root {
+      --bg:#0D1827; --surface:#15213B; --surface2:#1C2D4F;
+      --red:#C8273A; --red-bright:#E84156; --text:#E8EEF8;
+      --text-muted:#8B9BB4; --blue:#5A8FC4; --amber:#D4A017;
+      --border:rgba(255,255,255,0.08);
+      --pk-bg:rgba(200,39,58,0.14); --pk-bd:rgba(200,39,58,0.45);
+      --tl-bg:rgba(90,143,196,0.12); --tl-bd:rgba(90,143,196,0.35);
+      --am-bg:rgba(212,160,23,0.12); --am-bd:rgba(212,160,23,0.4);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:var(--bg);color:var(--text);
+      font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+      overflow:hidden;-webkit-text-size-adjust:100%}
+    .app{display:flex;flex-direction:column;height:100dvh;height:100vh}
+
+    /* HEADER */
+    .app-header{display:flex;align-items:center;gap:12px;padding:10px 16px;
+      padding-top:max(10px,env(safe-area-inset-top));background:var(--surface);
+      border-bottom:1px solid var(--border);flex-shrink:0}
+    .header-logo{width:30px;height:30px}
+    .header-title{flex:1;min-width:0}
+    .header-eyebrow{font-size:9px;font-weight:600;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--text-muted);line-height:1}
+    .header-name{font-size:15px;font-weight:700}
+    .header-badge{background:var(--red);color:#fff;font-size:10px;font-weight:800;
+      padding:3px 10px;border-radius:20px;letter-spacing:.06em;flex-shrink:0}
+
+    /* SCREENS */
+    .screens{flex:1;position:relative;overflow:hidden}
+    .screen{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+      padding:14px 14px 20px;opacity:0;pointer-events:none;transition:opacity .18s ease}
+    .screen.active{opacity:1;pointer-events:auto}
+
+    /* BOTTOM NAV */
+    .bottom-nav{display:flex;background:var(--surface);border-top:1px solid var(--border);
+      padding-bottom:env(safe-area-inset-bottom);flex-shrink:0}
+    .nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;padding:7px 2px;min-height:50px;border:none;background:none;
+      cursor:pointer;color:var(--text-muted);transition:color .12s;
+      -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    .nav-tab.active{color:var(--red)}
+    .nav-tab-num{font-size:17px;font-weight:800;line-height:1}
+    .nav-tab-label{font-size:8px;font-weight:600;letter-spacing:.04em;
+      text-transform:uppercase;margin-top:2px;text-align:center;line-height:1.2}
+
+    /* SECTION HEADER */
+    .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+      padding-bottom:12px;border-bottom:2px solid var(--red)}
+    .sec-num{background:var(--red);color:#fff;font-size:18px;font-weight:800;
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      border-radius:8px;flex-shrink:0}
+    .sec-title-wrap .sec-icon{font-size:18px;line-height:1}
+    .sec-title{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+    /* SUB-NAV */
+    .sub-nav{display:flex;gap:4px;background:var(--surface2);border-radius:10px;
+      padding:4px;margin-bottom:14px}
+    .sub-btn{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;
+      font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+      color:var(--text-muted);cursor:pointer;transition:all .15s;text-align:center;
+      -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    .sub-btn.active{background:var(--red);color:#fff}
+
+    /* GOTO BTN */
+    .goto-btn{display:flex;align-items:center;justify-content:space-between;width:100%;
+      padding:12px 16px;background:var(--surface2);border:1px solid rgba(200,39,58,.3);
+      border-radius:8px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;
+      -webkit-tap-highlight-color:transparent;touch-action:manipulation;margin-top:10px}
+    .goto-btn .arr{color:var(--red);font-size:20px}
+    .goto-btn.ret{border-color:rgba(90,143,196,.35)}
+    .goto-btn.ret .arr{color:var(--blue)}
+
+    /* ── ACTION CARDS (icon left, text right) ── */
+    .ac{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+      padding:14px;display:flex;align-items:center;gap:14px;margin-bottom:10px}
+    .ac.crit{border-color:var(--pk-bd);background:var(--pk-bg)}
+    .ac.warn{border-color:var(--am-bd);background:var(--am-bg)}
+    .ac.ok  {border-color:var(--tl-bd);background:var(--tl-bg)}
+    .ac-ico{font-size:52px;line-height:1;flex-shrink:0}
+    .ac-body{flex:1;min-width:0}
+    .ac-lbl{font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;
+      line-height:1.2;margin-bottom:3px}
+    .ac.crit .ac-lbl{color:#F0B8C0}
+    .ac.warn .ac-lbl{color:#D4C580}
+    .ac.ok   .ac-lbl{color:#B8D4E8}
+    .ac-sub{font-size:13px;color:var(--text-muted);line-height:1.3}
+
+    /* ── STATUS CARDS (Breathing) ── */
+    .sc{border-radius:14px;border:1px solid;padding:16px 14px;margin-bottom:10px;
+      display:flex;align-items:center;gap:14px}
+    .sc.crit{background:var(--pk-bg);border-color:var(--pk-bd)}
+    .sc.warn{background:var(--am-bg);border-color:var(--am-bd)}
+    .sc.ok  {background:var(--tl-bg);border-color:var(--tl-bd)}
+    .sc-dot{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;
+      justify-content:center;font-size:24px;flex-shrink:0}
+    .sc.crit .sc-dot{background:rgba(200,39,58,.3)}
+    .sc.warn .sc-dot{background:rgba(212,160,23,.3)}
+    .sc.ok   .sc-dot{background:rgba(90,143,196,.3)}
+    .sc-cond{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+    .sc.crit .sc-cond{color:#F0B8C0}
+    .sc.warn .sc-cond{color:#D4C580}
+    .sc.ok   .sc-cond{color:#B8D4E8}
+    .sc-act{font-size:22px;font-weight:800;line-height:1.1;color:#fff}
+    .sc.ok .sc-act{color:#B8D4E8}
+    .sc-det{font-size:12px;color:var(--text-muted);margin-top:3px}
+
+    /* ── ZONE GRID (Bleeding) ── */
+    .zone-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+    .zone-card{background:var(--surface);border:1px solid var(--pk-bd);border-radius:12px;
+      padding:14px 6px;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:6px}
+    .zone-card.tq{background:rgba(200,39,58,.2);border-color:rgba(200,39,58,.6)}
+    .z-ico{font-size:40px;line-height:1}
+    .z-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text);line-height:1.2}
+    .z-act{font-size:11px;color:#F0B8C0;font-weight:600;line-height:1.4}
+
+    /* ── TOURNIQUET STRIP ── */
+    .tq-strip{background:var(--pk-bg);border:1px solid var(--pk-bd);border-radius:12px;padding:14px}
+    .tq-head{font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--red);
+      text-transform:uppercase;text-align:center;margin-bottom:12px}
+    .tq-steps{display:flex;gap:8px}
+    .tq-step{flex:1;background:rgba(0,0,0,.2);border-radius:10px;padding:12px 6px;
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px}
+    .tq-ico{font-size:26px;line-height:1}
+    .tq-num{background:var(--red);color:#fff;font-size:10px;font-weight:800;
+      width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:4px}
+    .tq-lbl{font-size:10px;font-weight:700;text-transform:uppercase;color:#F0B8C0;
+      letter-spacing:.03em;line-height:1.3}
+
+    /* ── DEG — AVPU ── */
+    .deg-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:14px;margin-bottom:10px}
+    .deg-tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--blue);margin-bottom:10px}
+    .avpu-row{display:flex;gap:6px}
+    .av-item{flex:1;background:var(--surface2);border-radius:8px;padding:10px 4px;
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}
+    .av-item.ok  {border:1px solid var(--tl-bd)}
+    .av-item.bad {border:1px solid var(--pk-bd)}
+    .av-let{font-size:26px;font-weight:800;line-height:1}
+    .av-item.ok  .av-let{color:#B8D4E8}
+    .av-item.bad .av-let{color:#F0B8C0}
+    .av-word{font-size:9px;font-weight:600;text-transform:uppercase;
+      color:var(--text-muted);letter-spacing:.04em;line-height:1.2}
+    .deg-note{font-size:12px;color:var(--text-muted);margin-top:10px;line-height:1.4}
+    .deg-note strong{color:var(--red-bright)}
+    .csm-row{display:flex;gap:6px;margin-top:0}
+    .csm-item{flex:1;background:var(--surface2);border-radius:8px;padding:10px 4px;
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}
+    .csm-ico{font-size:26px}
+    .csm-lbl{font-size:9px;font-weight:700;text-transform:uppercase;
+      color:var(--text-muted);letter-spacing:.04em}
+
+    /* ── ENVIRONMENT ── */
+    .env-flow{display:flex;flex-direction:column;gap:8px}
+    .env-step{background:var(--tl-bg);border:1px solid var(--tl-bd);border-radius:12px;
+      padding:16px 14px;display:flex;align-items:center;gap:14px}
+    .env-ico{font-size:46px;line-height:1}
+    .env-lbl{font-size:18px;font-weight:800;text-transform:uppercase;
+      letter-spacing:.02em;color:#B8D4E8;line-height:1.2}
+    .env-sub{font-size:12px;color:var(--text-muted);margin-top:3px}
+
+    /* ── GLUCOSE ── */
+    .gluc-big{background:var(--am-bg);border:2px solid var(--am-bd);border-radius:16px;
+      padding:20px 16px;text-align:center;margin-bottom:12px}
+    .gluc-ico{font-size:68px;margin-bottom:8px}
+    .gluc-title{font-size:22px;font-weight:800;text-transform:uppercase;
+      letter-spacing:.06em;color:var(--amber);margin-bottom:10px}
+    .gluc-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+    .gluc-tag{background:rgba(212,160,23,.2);border:1px solid var(--am-bd);
+      border-radius:20px;padding:5px 12px;font-size:13px;font-weight:700;color:#D4C580}
+    .gluc-act{background:var(--amber);color:#000;border-radius:10px;padding:13px;
+      font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+
+    /* ── EVACUATION ── */
+    .evac-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .evac-tile{background:var(--pk-bg);border:1px solid var(--pk-bd);border-radius:12px;
+      padding:14px 10px;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:6px}
+    .evac-ico{font-size:38px}
+    .evac-lbl{font-size:12px;font-weight:700;text-transform:uppercase;
+      color:#F0B8C0;line-height:1.3;letter-spacing:.03em}
+    .evac-call{background:var(--red);color:#fff;border-radius:12px;padding:15px;
+      text-align:center;font-size:18px;font-weight:800;letter-spacing:.06em;
+      text-transform:uppercase;margin-top:10px}
+
+    /* ── VITALS ── */
+    .vitals-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .vcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:14px 10px;display:flex;flex-direction:column;align-items:center;
+      text-align:center;gap:4px}
+    .v-ico{font-size:30px}
+    .v-abbr{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+    .v-val{font-size:18px;font-weight:800;color:var(--text);line-height:1.1}
+    .v-unit{font-size:10px;color:var(--text-muted)}
+
+    /* ── MEDS ── */
+    .meds-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .med{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:12px;display:flex;align-items:center;gap:10px}
+    .med-ico{font-size:28px;flex-shrink:0}
+    .med-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.2}
+    .med-use{font-size:10px;color:var(--text-muted);line-height:1.3;margin-top:2px}
+    .med-warn{color:var(--amber);display:block;margin-top:2px}
+
+    /* ── BLISTERS ── */
+    .b-flow{display:grid;gap:7px}
+    .bstep{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:11px 13px;display:flex;align-items:center;gap:11px}
+    .b-num{background:var(--red);color:#fff;min-width:26px;height:26px;
+      display:flex;align-items:center;justify-content:center;border-radius:5px;
+      font-size:12px;font-weight:800;flex-shrink:0}
+    .b-ico{font-size:26px;flex-shrink:0}
+    .b-txt{font-size:14px;font-weight:600;line-height:1.3;flex:1}
+    .b-txt strong{color:var(--red-bright)}
+
+    /* ── HOME ── */
+    .home-brand{display:flex;align-items:center;gap:14px;margin-bottom:16px;
+      padding-bottom:14px;border-bottom:2px solid var(--red)}
+    .home-logo{width:48px;height:48px}
+    .home-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+    .home-name{font-size:28px;font-weight:800;letter-spacing:.04em;line-height:1}
+    .stop-box{background:var(--pk-bg);border:2px solid var(--red);border-radius:14px;
+      padding:14px;margin-bottom:16px}
+    .stop-hd{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--red);
+      text-align:center;text-transform:uppercase;margin-bottom:12px}
+    .stop-items{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    .stop-item{background:rgba(0,0,0,.15);border-radius:10px;padding:12px 6px;
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px}
+    .stop-ico{font-size:30px}
+    .stop-lbl{font-size:11px;font-weight:700;color:#F0B8C0;text-transform:uppercase;
+      letter-spacing:.03em;line-height:1.2}
+    .stop-foot{text-align:center;font-size:13px;font-weight:600;
+      color:var(--text-muted);font-style:italic}
+    .hl{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+    .hl.crit{color:var(--red)} .hl.care{color:var(--blue)}
+    .sec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+    .sec-grid.c3{grid-template-columns:repeat(3,1fr)}
+    .sec-btn{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+      padding:12px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;
+      cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+      transition:background .12s}
+    .sec-btn:active{background:var(--surface2)}
+    .sec-btn.crit{border-color:rgba(200,39,58,.3)}
+    .sec-btn.care{border-color:rgba(90,143,196,.25)}
+    .sec-ico{font-size:24px}
+    .sec-num2{font-size:20px;font-weight:800;line-height:1}
+    .sec-btn.crit .sec-num2{color:var(--red)}
+    .sec-btn.care .sec-num2{color:var(--blue)}
+    .sec-lbl{font-size:9px;font-weight:700;text-transform:uppercase;
+      color:var(--text-muted);letter-spacing:.03em;text-align:center;line-height:1.3}
+    .home-foot{text-align:center;font-size:10px;color:var(--amber);font-weight:600;
+      text-transform:uppercase;letter-spacing:.1em;margin-top:6px;
+      padding-top:12px;border-top:1px dashed rgba(255,255,255,.1)}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <img class="header-logo" src="logo.svg" alt="Superhero"/>
+    <div class="header-title">
+      <div class="header-eyebrow">Superhero First Aid</div>
+      <div class="header-name" id="headerName">Visual Guide</div>
+    </div>
+    <div class="header-badge" id="headerBadge">HOME</div>
+  </header>
+
+  <main class="screens" id="screens">
+
+    <!-- ══ 0: HOME ══ -->
+    <section class="screen active" data-screen="0">
+      <div class="home-brand">
+        <img class="home-logo" src="logo.svg" alt=""/>
+        <div>
+          <div class="home-eyebrow">Superhero First Aid Systems</div>
+          <div class="home-name">VISUAL GUIDE</div>
+        </div>
+      </div>
+
+      <div class="stop-box">
+        <div class="stop-hd">⚠ Stop First</div>
+        <div class="stop-items">
+          <div class="stop-item"><span class="stop-ico">👀</span><span class="stop-lbl">Scene Safe?</span></div>
+          <div class="stop-item"><span class="stop-ico">👥</span><span class="stop-lbl">Count Injured</span></div>
+          <div class="stop-item"><span class="stop-ico">📞</span><span class="stop-lbl">Call 911</span></div>
+          <div class="stop-item"><span class="stop-ico">🧤</span><span class="stop-lbl">Gloves On</span></div>
+        </div>
+        <div class="stop-foot">Take a breath — you've got this.</div>
+      </div>
+
+      <div class="hl crit">⚡ Critical</div>
+      <div class="sec-grid">
+        <button class="sec-btn crit" onclick="goTo(1)"><span class="sec-ico">🫁</span><span class="sec-num2">1</span><span class="sec-lbl">Airway</span></button>
+        <button class="sec-btn crit" onclick="goTo(3)"><span class="sec-ico">🩸</span><span class="sec-num2">2</span><span class="sec-lbl">Bleeding</span></button>
+        <button class="sec-btn crit" onclick="goTo(4)"><span class="sec-ico">🧠</span><span class="sec-num2">3</span><span class="sec-lbl">D·E·G</span></button>
+        <button class="sec-btn crit" onclick="goTo(7)"><span class="sec-ico">🚁</span><span class="sec-num2">4</span><span class="sec-lbl">Evac</span></button>
+      </div>
+
+      <div class="hl care">🩹 Ongoing</div>
+      <div class="sec-grid c3">
+        <button class="sec-btn care" onclick="goTo(8)"><span class="sec-ico">❤️</span><span class="sec-num2">5</span><span class="sec-lbl">Vitals</span></button>
+        <button class="sec-btn care" onclick="goTo(9)"><span class="sec-ico">💊</span><span class="sec-num2">6</span><span class="sec-lbl">Meds</span></button>
+        <button class="sec-btn care" onclick="goTo(10)"><span class="sec-ico">🩹</span><span class="sec-num2">7</span><span class="sec-lbl">Blisters</span></button>
+      </div>
+      <div class="home-foot">⚠ Beta v1.0 · Not for Clinical Use</div>
+    </section>
+
+    <!-- ══ 1: AIRWAY ══ -->
+    <section class="screen" data-screen="1">
+      <div class="sec-head">
+        <div class="sec-num">1</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🫁</div><div class="sec-title">Airway &amp; Breathing</div></div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="goTo(1)">A — Airway</button>
+        <button class="sub-btn"        onclick="goTo(2)">B — Breathing</button>
+      </div>
+
+      <div class="ac crit" style="cursor:pointer" onclick="goTo(3)">
+        <span class="ac-ico">🩸</span>
+        <div class="ac-body">
+          <div class="ac-lbl">Major Bleeding?</div>
+          <div class="ac-sub">Go to Section 2 first — return after</div>
+        </div>
+        <span style="color:var(--red);font-size:24px;flex-shrink:0">›</span>
+      </div>
+
+      <div class="ac">
+        <span class="ac-ico">👁️</span>
+        <div class="ac-body">
+          <div class="ac-lbl" style="color:var(--text)">Look &amp; Clear</div>
+          <div class="ac-sub">Remove any obstruction</div>
+        </div>
+      </div>
+
+      <div class="ac">
+        <span class="ac-ico">👊</span>
+        <div class="ac-body">
+          <div class="ac-lbl" style="color:var(--text)">Choking?</div>
+          <div class="ac-sub">Abdominal thrusts from behind</div>
+        </div>
+      </div>
+
+      <div class="ac">
+        <span class="ac-ico">🤲</span>
+        <div class="ac-body">
+          <div class="ac-lbl" style="color:var(--text)">Unresponsive?</div>
+          <div class="ac-sub">Jaw-thrust — or — Head-tilt, chin-lift</div>
+        </div>
+      </div>
+
+      <button class="goto-btn" onclick="goTo(2)">
+        <span>Next: B — Breathing</span><span class="arr">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 2: BREATHING ══ -->
+    <section class="screen" data-screen="2">
+      <div class="sec-head">
+        <div class="sec-num">1</div>
+        <div class="sec-title-wrap"><div class="sec-icon">💨</div><div class="sec-title">Airway &amp; Breathing</div></div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(1)">A — Airway</button>
+        <button class="sub-btn active" onclick="goTo(2)">B — Breathing</button>
+      </div>
+
+      <div class="sc crit">
+        <div class="sc-dot">✕</div>
+        <div>
+          <div class="sc-cond">No breath · no pulse</div>
+          <div class="sc-act">CPR</div>
+          <div class="sc-det">30 compressions · 2 breaths · repeat</div>
+        </div>
+      </div>
+
+      <div class="sc warn">
+        <div class="sc-dot">〜</div>
+        <div>
+          <div class="sc-cond">No breath · has pulse</div>
+          <div class="sc-act">Rescue Breaths</div>
+          <div class="sc-det">1 breath every 6 seconds</div>
+        </div>
+      </div>
+
+      <div class="sc ok">
+        <div class="sc-dot">✓</div>
+        <div>
+          <div class="sc-cond">Breathing + pulse</div>
+          <div class="sc-act">Monitor</div>
+          <div class="sc-det">Continue to Section 2</div>
+        </div>
+      </div>
+
+      <button class="goto-btn" onclick="goTo(3)">
+        <span>Continue: Section 2 — Bleeding</span><span class="arr">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 3: BLEEDING ══ -->
+    <section class="screen" data-screen="3">
+      <div class="sec-head">
+        <div class="sec-num">2</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🩸</div><div class="sec-title">Bleeding / Circulation</div></div>
+      </div>
+
+      <div class="zone-grid">
+        <div class="zone-card">
+          <span class="z-ico">🧠</span>
+          <span class="z-lbl">Head</span>
+          <span class="z-act">ABD pad<br/>Gentle pressure</span>
+        </div>
+        <div class="zone-card">
+          <span class="z-ico">🫀</span>
+          <span class="z-lbl">Core / Neck</span>
+          <span class="z-act">Pack gauze deep<br/>Firm pressure</span>
+        </div>
+        <div class="zone-card tq">
+          <span class="z-ico">💪</span>
+          <span class="z-lbl">Arm / Leg</span>
+          <span class="z-act">Pressure →<br/>Tourniquet</span>
+        </div>
+      </div>
+
+      <div class="tq-strip">
+        <div class="tq-head">🩺 Tourniquet Protocol</div>
+        <div class="tq-steps">
+          <div class="tq-step">
+            <span class="tq-ico">⬆️</span>
+            <span class="tq-num">1</span>
+            <span class="tq-lbl">Above<br/>Bleeding</span>
+          </div>
+          <div class="tq-step">
+            <span class="tq-ico">⚙️</span>
+            <span class="tq-num">2</span>
+            <span class="tq-lbl">Tighten<br/>Until Stops</span>
+          </div>
+          <div class="tq-step">
+            <span class="tq-ico">🖊️</span>
+            <span class="tq-num">3</span>
+            <span class="tq-lbl">Write Time<br/>on Skin</span>
+          </div>
+          <div class="tq-step" style="border:1px solid rgba(212,160,23,.4);background:rgba(212,160,23,.1)">
+            <span class="tq-ico">🚫</span>
+            <span class="tq-num" style="background:var(--amber)">!</span>
+            <span class="tq-lbl" style="color:#D4C580">Do NOT<br/>Remove</span>
+          </div>
+        </div>
+        <div style="background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);border-radius:7px;padding:8px 10px;margin-top:9px;font-size:11px;font-weight:700;color:#D4C580;text-align:center;letter-spacing:.04em">
+          ⚠ NEVER on a joint — knee or elbow
+        </div>
+      </div>
+
+      <button class="goto-btn ret" onclick="goTo(1)">
+        <span class="arr">‹</span>
+        <span>Skipped Airway? Return to Section 1</span>
+      </button>
+    </section>
+
+    <!-- ══ 4: DISABILITY ══ -->
+    <section class="screen" data-screen="4">
+      <div class="sec-head">
+        <div class="sec-num">3</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🧠</div><div class="sec-title">Disability · Env · Glucose</div></div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn"        onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn"        onclick="goTo(6)">G — Glucose</button>
+      </div>
+
+      <div class="deg-block">
+        <div class="deg-tag">Ask: name · time · location · what happened?</div>
+        <div class="avpu-row">
+          <div class="av-item ok" ><span class="av-let">A</span><span class="av-word">Alert</span></div>
+          <div class="av-item ok" ><span class="av-let">V</span><span class="av-word">Voice</span></div>
+          <div class="av-item bad"><span class="av-let">P</span><span class="av-word">Pain</span></div>
+          <div class="av-item bad"><span class="av-let">U</span><span class="av-word">Unresponsive</span></div>
+        </div>
+        <div class="deg-note"><strong>P or U → evacuate now.</strong> Wrong answer → prepare to move.</div>
+      </div>
+
+      <div class="deg-block">
+        <div class="deg-tag">Check hands &amp; feet (CSM)</div>
+        <div class="csm-row">
+          <div class="csm-item"><span class="csm-ico">🩸</span><span class="csm-lbl">Circulation</span></div>
+          <div class="csm-item"><span class="csm-ico">🤏</span><span class="csm-lbl">Sensation</span></div>
+          <div class="csm-item"><span class="csm-ico">✌️</span><span class="csm-lbl">Movement</span></div>
+        </div>
+        <div class="deg-note"><strong>Any absent → minimize movement.</strong> Possible spine injury.</div>
+      </div>
+
+      <button class="goto-btn" onclick="goTo(5)">
+        <span>Next: E — Environment</span><span class="arr">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 5: ENVIRONMENT ══ -->
+    <section class="screen" data-screen="5">
+      <div class="sec-head">
+        <div class="sec-num">3</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🌡️</div><div class="sec-title">Disability · Env · Glucose</div></div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn active" onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn"        onclick="goTo(6)">G — Glucose</button>
+      </div>
+
+      <div class="env-flow">
+        <div class="env-step">
+          <span class="env-ico">👕</span>
+          <div>
+            <div class="env-lbl">Remove Wet Clothes</div>
+            <div class="env-sub">Cold, wet, or major bleeding</div>
+          </div>
+        </div>
+        <div class="env-step">
+          <span class="env-ico">🪨</span>
+          <div>
+            <div class="env-lbl">Insulate from Ground</div>
+            <div class="env-sub">Ground pulls heat fast</div>
+          </div>
+        </div>
+        <div class="env-step">
+          <span class="env-ico">🥈</span>
+          <div>
+            <div class="env-lbl">Space Blanket</div>
+            <div class="env-sub">Shiny side facing in</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="goto-btn" onclick="goTo(6)">
+        <span>Next: G — Glucose</span><span class="arr">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 6: GLUCOSE ══ -->
+    <section class="screen" data-screen="6">
+      <div class="sec-head">
+        <div class="sec-num">3</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🍬</div><div class="sec-title">Disability · Env · Glucose</div></div>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn"        onclick="goTo(4)">D — Disability</button>
+        <button class="sub-btn"        onclick="goTo(5)">E — Environment</button>
+        <button class="sub-btn active" onclick="goTo(6)">G — Glucose</button>
+      </div>
+
+      <div class="gluc-big">
+        <div class="gluc-ico">🍬</div>
+        <div class="gluc-title">Low Blood Sugar?</div>
+        <div class="gluc-tags">
+          <span class="gluc-tag">😰 Sweating</span>
+          <span class="gluc-tag">😵 Confused</span>
+          <span class="gluc-tag">😟 Anxious</span>
+        </div>
+        <div class="gluc-act">Give Glucose Now</div>
+      </div>
+
+      <div class="ac crit">
+        <span class="ac-ico">⚠️</span>
+        <div class="ac-body">
+          <div class="ac-lbl">When in doubt</div>
+          <div class="ac-sub">Untreated hypoglycemia → cardiac arrest</div>
+        </div>
+      </div>
+
+      <button class="goto-btn" onclick="goTo(7)">
+        <span>Continue: Section 4 — Evacuation</span><span class="arr">›</span>
+      </button>
+    </section>
+
+    <!-- ══ 7: EVACUATION ══ -->
+    <section class="screen" data-screen="7">
+      <div class="sec-head">
+        <div class="sec-num">4</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🚁</div><div class="sec-title">Evacuation</div></div>
+      </div>
+
+      <div class="evac-grid">
+        <div class="evac-tile"><span class="evac-ico">🩸</span><span class="evac-lbl">Major Bleeding or Burns</span></div>
+        <div class="evac-tile"><span class="evac-ico">🩺</span><span class="evac-lbl">Used Tourniquet or Hemostatics</span></div>
+        <div class="evac-tile"><span class="evac-ico">💨</span><span class="evac-lbl">Trouble Breathing</span></div>
+        <div class="evac-tile"><span class="evac-ico">😵</span><span class="evac-lbl">Confused or Agitated</span></div>
+        <div class="evac-tile"><span class="evac-ico">🖐️</span><span class="evac-lbl">Numb or Immobile Hands/Feet</span></div>
+        <div class="evac-tile"><span class="evac-ico">📊</span><span class="evac-lbl">Vitals Out of Range</span></div>
+      </div>
+      <div class="evac-call">🚁 Call 911 / SAR Now</div>
+    </section>
+
+    <!-- ══ 8: VITALS ══ -->
+    <section class="screen" data-screen="8">
+      <div class="sec-head">
+        <div class="sec-num">5</div>
+        <div class="sec-title-wrap"><div class="sec-icon">❤️</div><div class="sec-title">Vitals</div></div>
+      </div>
+
+      <div class="vitals-grid">
+        <div class="vcard"><span class="v-ico">❤️</span><span class="v-abbr">Heart Rate</span><span class="v-val">60–100</span><span class="v-unit">bpm</span></div>
+        <div class="vcard"><span class="v-ico">💨</span><span class="v-abbr">Respiration</span><span class="v-val">12–20</span><span class="v-unit">breaths/min</span></div>
+        <div class="vcard"><span class="v-ico">💉</span><span class="v-abbr">Blood Pressure</span><span class="v-val" style="font-size:14px">Strong Radial Pulse</span></div>
+        <div class="vcard"><span class="v-ico">👁️</span><span class="v-abbr">Eyes (PEARL)</span><span class="v-val" style="font-size:13px">Equal &amp; Reactive</span></div>
+        <div class="vcard"><span class="v-ico">🖐️</span><span class="v-abbr">Skin (SCTM)</span><span class="v-val" style="font-size:14px">Warm &amp; Dry</span></div>
+        <div class="vcard"><span class="v-ico">🧠</span><span class="v-abbr">Awareness</span><span class="v-val" style="font-size:13px">Alert &amp; Oriented</span></div>
+      </div>
+
+      <div class="ac" style="margin-top:10px">
+        <span class="ac-ico">🖊️</span>
+        <div class="ac-body">
+          <div class="ac-lbl" style="color:var(--text)">Write Vitals on Skin</div>
+          <div class="ac-sub">Mark time · 911 needs to know</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 9: MEDICATIONS ══ -->
+    <section class="screen" data-screen="9">
+      <div class="sec-head">
+        <div class="sec-num">6</div>
+        <div class="sec-title-wrap"><div class="sec-icon">💊</div><div class="sec-title">Medications</div></div>
+      </div>
+
+      <div class="meds-grid">
+        <div class="med"><span class="med-ico">🌡️</span><div><div class="med-name">Acetaminophen</div><div class="med-use">Fever · pain<span class="med-warn">⚠ Avoid: liver issues</span></div></div></div>
+        <div class="med"><span class="med-ico">😣</span><div><div class="med-name">Ibuprofen</div><div class="med-use">Pain · inflammation<span class="med-warn">⚠ Avoid: kidney issues</span></div></div></div>
+        <div class="med"><span class="med-ico">❤️</span><div><div class="med-name">Aspirin</div><div class="med-use">Heart attack<span class="med-warn">⚠ Avoid: major bleeding</span></div></div></div>
+        <div class="med"><span class="med-ico">💊</span><div><div class="med-name">Loperamide</div><div class="med-use">Diarrhea</div></div></div>
+        <div class="med"><span class="med-ico">🤧</span><div><div class="med-name">Diphenhydramine</div><div class="med-use">Allergic reactions · nausea</div></div></div>
+        <div class="med"><span class="med-ico">🔥</span><div><div class="med-name">Calcium Carbonate</div><div class="med-use">Acid reflux · heartburn</div></div></div>
+        <div class="med"><span class="med-ico">🦠</span><div><div class="med-name">Triple Antibiotic</div><div class="med-use">Wound care · keep moist</div></div></div>
+        <div class="med"><span class="med-ico">💧</span><div><div class="med-name">Lidocaine Gel</div><div class="med-use">Thermal burns</div></div></div>
+        <div class="med"><span class="med-ico">🦷</span><div><div class="med-name">Benzocaine</div><div class="med-use">Toothache · oral pain</div></div></div>
+        <div class="med"><span class="med-ico">🌿</span><div><div class="med-name">Anti-Itch Gel</div><div class="med-use">Poison plants</div></div></div>
+        <div class="med"><span class="med-ico">🐝</span><div><div class="med-name">Anti-Sting Wipes</div><div class="med-use">Bites &amp; stings</div></div></div>
+        <div class="med"><span class="med-ico">💍</span><div><div class="med-name">Hydrocortisone 1%</div><div class="med-use">Eczema · rash · bites</div></div></div>
+      </div>
+    </section>
+
+    <!-- ══ 10: BLISTERS ══ -->
+    <section class="screen" data-screen="10">
+      <div class="sec-head">
+        <div class="sec-num">7</div>
+        <div class="sec-title-wrap"><div class="sec-icon">🩹</div><div class="sec-title">Blisters</div></div>
+      </div>
+
+      <div class="b-flow">
+        <div class="bstep"><span class="b-num">1</span><span class="b-ico">📍</span><span class="b-txt">Pop with <strong>sterile</strong> pin</span></div>
+        <div class="bstep"><span class="b-num">2</span><span class="b-ico">✂️</span><span class="b-txt">Remove <strong>only</strong> loose skin</span></div>
+        <div class="bstep"><span class="b-num">3</span><span class="b-ico">🚿</span><span class="b-txt">Wash with soap + water</span></div>
+        <div class="bstep"><span class="b-num">4</span><span class="b-ico">🧴</span><span class="b-txt">Wipe with <strong>alcohol</strong></span></div>
+        <div class="bstep"><span class="b-num">5</span><span class="b-ico">🦠</span><span class="b-txt">Triple antibiotic over blister</span></div>
+        <div class="bstep"><span class="b-num">6</span><span class="b-ico">🩹</span><span class="b-txt">Cover with band-aid</span></div>
+        <div class="bstep"><span class="b-num">7</span><span class="b-ico">⭕</span><span class="b-txt">Moleskin <strong>donuts</strong> around blister, <strong>not on</strong> it</span></div>
+        <div class="bstep"><span class="b-num">8</span><span class="b-ico">🩼</span><span class="b-txt">Leukotape <strong>over</strong> moleskin</span></div>
+        <div class="bstep"><span class="b-num">9</span><span class="b-ico">🔁</span><span class="b-txt">Repeat 3–8 every <strong>12–24 hrs</strong></span></div>
+      </div>
+
+      <div class="ac warn" style="margin-top:10px">
+        <span class="ac-ico">💡</span>
+        <div class="ac-body">
+          <div class="ac-lbl">Prevent Hot Spots</div>
+          <div class="ac-sub">Alcohol wipe + Leukotape before it blisters</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-tab active" onclick="goTo(0)"><span class="nav-tab-num">⌂</span><span class="nav-tab-label">Home</span></button>
+    <button class="nav-tab" onclick="goTo(1)"><span class="nav-tab-num">1</span><span class="nav-tab-label">Airway</span></button>
+    <button class="nav-tab" onclick="goTo(3)"><span class="nav-tab-num">2</span><span class="nav-tab-label">Bleeding</span></button>
+    <button class="nav-tab" onclick="goTo(4)"><span class="nav-tab-num">3</span><span class="nav-tab-label">D·E·G</span></button>
+    <button class="nav-tab" onclick="goTo(7)"><span class="nav-tab-num">4</span><span class="nav-tab-label">Evac</span></button>
+    <button class="nav-tab" onclick="goTo(8)"><span class="nav-tab-num">5</span><span class="nav-tab-label">Vitals</span></button>
+    <button class="nav-tab" onclick="goTo(9)"><span class="nav-tab-num">6</span><span class="nav-tab-label">Meds</span></button>
+    <button class="nav-tab" onclick="goTo(10)"><span class="nav-tab-num">7</span><span class="nav-tab-label">Blisters</span></button>
+  </nav>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+  const TOTAL = 11;
+  const SCREEN_TAB = [0,1,1,2,3,3,3,4,5,6,7];
+  const INFO = [
+    {name:'Visual Guide',badge:'HOME'},{name:'A — Airway',badge:'SEC 1'},
+    {name:'B — Breathing',badge:'SEC 1'},{name:'Bleeding / Circulation',badge:'SEC 2'},
+    {name:'D — Disability',badge:'SEC 3'},{name:'E — Environment',badge:'SEC 3'},
+    {name:'G — Glucose',badge:'SEC 3'},{name:'Evacuation',badge:'SEC 4'},
+    {name:'Vitals',badge:'SEC 5'},{name:'Medications',badge:'SEC 6'},
+    {name:'Blisters',badge:'SEC 7'},
+  ];
+  let current = 0;
+  const screens = document.querySelectorAll('.screen');
+  const tabs    = document.querySelectorAll('.nav-tab');
+  const hName   = document.getElementById('headerName');
+  const hBadge  = document.getElementById('headerBadge');
+
+  function goTo(n){
+    if(n<0||n>=TOTAL||n===current) return;
+    screens[current].classList.remove('active');
+    tabs[SCREEN_TAB[current]].classList.remove('active');
+    current=n;
+    screens[current].classList.add('active');
+    screens[current].scrollTop=0;
+    tabs[SCREEN_TAB[current]].classList.add('active');
+    hName.textContent=INFO[n].name;
+    hBadge.textContent=INFO[n].badge;
+  }
+
+  let sx=0,sy=0;
+  const mainEl=document.getElementById('screens');
+  mainEl.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  mainEl.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>48){
+      if(dx<0&&current<TOTAL-1) goTo(current+1);
+      if(dx>0&&current>0) goTo(current-1);
+    }
+  },{passive:true});
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'&&current<TOTAL-1) goTo(current+1);
+    if(e.key==='ArrowLeft'&&current>0) goTo(current-1);
+  });
+</script>
+</body>
+</html>
