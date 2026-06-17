@@ -1201,7 +1201,7 @@
               <tr>
                 <td>Educational Content</td>
                 <td class="partial">Basic</td>
-                <td class="yes">✓ Personally created video for EACH tool in the kit and field guide</td>
+                <td class="yes">✓ Companion emergency guidance app</td>
               </tr>
             </tbody>
           </table>
@@ -1453,6 +1453,183 @@
   </div>
 </aside>
 
+<!-- ── COMPANION APP ── -->
+<section id="companion-app" style="background: var(--mid);">
+  <div class="container">
+    <div class="row g-5 align-items-center reveal">
+
+      <!-- Phone mockup -->
+      <div class="col-12 col-md-5 d-flex justify-content-center">
+        <div style="filter:drop-shadow(0 20px 60px rgba(224,32,32,0.18)) drop-shadow(0 8px 30px rgba(0,0,0,0.6));">
+          <svg width="260" height="520" viewBox="0 0 260 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Superhero Field Guide PWA on iPhone">
+            <!-- Phone body -->
+            <rect x="2" y="2" width="256" height="516" rx="42" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="2"/>
+            <rect x="10" y="10" width="240" height="500" rx="36" fill="#0D1827"/>
+            <!-- Dynamic island -->
+            <rect x="95" y="18" width="70" height="20" rx="10" fill="#1c1c1e"/>
+            <!-- Status bar -->
+            <text x="22" y="34" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="9" font-weight="700">9:41</text>
+            <rect x="202" y="25" width="24" height="11" rx="2" fill="none" stroke="#E8EEF8" stroke-width="1.2"/>
+            <rect x="203" y="26" width="16" height="9" rx="1" fill="#4ade80"/>
+            <rect x="227" y="28" width="2" height="5" rx="1" fill="#E8EEF8"/>
+            <!-- App header -->
+            <rect x="10" y="44" width="240" height="48" fill="#15213B"/>
+            <line x1="10" y1="92" x2="250" y2="92" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <circle cx="32" cy="68" r="12" fill="rgba(200,39,58,0.2)" stroke="rgba(200,39,58,0.4)" stroke-width="1"/>
+            <text x="32" y="73" text-anchor="middle" fill="#C8273A" font-family="sans-serif" font-size="13">✚</text>
+            <text x="50" y="62" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="7" font-weight="600" letter-spacing="1.5">SUPERHERO</text>
+            <text x="50" y="77" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="13" font-weight="700">Field Guide</text>
+            <rect x="196" y="59" width="42" height="18" rx="9" fill="#C8273A"/>
+            <text x="217" y="72" text-anchor="middle" fill="white" font-family="'DM Sans',sans-serif" font-size="9" font-weight="800" letter-spacing="0.5">HOME</text>
+            <!-- Stop card -->
+            <rect x="18" y="102" width="224" height="96" rx="10" fill="rgba(200,39,58,0.14)" stroke="rgba(200,39,58,0.45)" stroke-width="1"/>
+            <text x="130" y="121" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="9.5" font-weight="800" letter-spacing="1">⚠ STOP — BEFORE YOU HELP</text>
+            <text x="28" y="139" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="9"><tspan font-weight="800" fill="#C8273A">1</tspan>  Is the scene safe?</text>
+            <text x="28" y="154" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="9"><tspan font-weight="800" fill="#C8273A">2</tspan>  How many need help?</text>
+            <text x="140" y="139" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="9"><tspan font-weight="800" fill="#C8273A">3</tspan>  Call 911</text>
+            <text x="140" y="154" fill="#E8EEF8" font-family="'DM Sans',sans-serif" font-size="9"><tspan font-weight="800" fill="#C8273A">4</tspan>  Gloves on</text>
+            <text x="130" y="184" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="8" font-style="italic">Take a breath — you've got this.</text>
+            <!-- Critical label -->
+            <text x="18" y="213" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="8" font-weight="700" letter-spacing="0.5">⚡ CRITICAL INTERVENTIONS</text>
+            <!-- Critical buttons (4 in a row) -->
+            <rect x="18"  y="220" width="51" height="64" rx="9" fill="#15213B" stroke="rgba(200,39,58,0.3)" stroke-width="1"/>
+            <text x="43"  y="241" text-anchor="middle" font-family="sans-serif" font-size="17">🫁</text>
+            <text x="43"  y="257" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">1</text>
+            <text x="43"  y="269" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">AIRWAY</text>
+            <rect x="75"  y="220" width="51" height="64" rx="9" fill="#15213B" stroke="rgba(200,39,58,0.3)" stroke-width="1"/>
+            <text x="100" y="241" text-anchor="middle" font-family="sans-serif" font-size="17">🩸</text>
+            <text x="100" y="257" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">2</text>
+            <text x="100" y="269" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">BLEEDING</text>
+            <rect x="132" y="220" width="51" height="64" rx="9" fill="#15213B" stroke="rgba(200,39,58,0.3)" stroke-width="1"/>
+            <text x="157" y="241" text-anchor="middle" font-family="sans-serif" font-size="17">🧠</text>
+            <text x="157" y="257" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">3</text>
+            <text x="157" y="269" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">D·E·G</text>
+            <rect x="189" y="220" width="53" height="64" rx="9" fill="#15213B" stroke="rgba(200,39,58,0.3)" stroke-width="1"/>
+            <text x="215" y="241" text-anchor="middle" font-family="sans-serif" font-size="17">🚁</text>
+            <text x="215" y="257" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">4</text>
+            <text x="215" y="269" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">EVAC</text>
+            <!-- Ongoing label -->
+            <text x="18" y="303" fill="#5A8FC4" font-family="'DM Sans',sans-serif" font-size="8" font-weight="700" letter-spacing="0.5">🩹 ONGOING CARE</text>
+            <!-- Ongoing buttons (3 in a row) -->
+            <rect x="18"  y="310" width="68" height="60" rx="9" fill="#15213B" stroke="rgba(90,143,196,0.25)" stroke-width="1"/>
+            <text x="52"  y="330" text-anchor="middle" font-family="sans-serif" font-size="17">❤️</text>
+            <text x="52"  y="346" text-anchor="middle" fill="#5A8FC4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">5</text>
+            <text x="52"  y="358" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">VITALS</text>
+            <rect x="92"  y="310" width="68" height="60" rx="9" fill="#15213B" stroke="rgba(90,143,196,0.25)" stroke-width="1"/>
+            <text x="126" y="330" text-anchor="middle" font-family="sans-serif" font-size="17">💊</text>
+            <text x="126" y="346" text-anchor="middle" fill="#5A8FC4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">6</text>
+            <text x="126" y="358" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">MEDS</text>
+            <rect x="166" y="310" width="76" height="60" rx="9" fill="#15213B" stroke="rgba(90,143,196,0.25)" stroke-width="1"/>
+            <text x="204" y="330" text-anchor="middle" font-family="sans-serif" font-size="17">🩹</text>
+            <text x="204" y="346" text-anchor="middle" fill="#5A8FC4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">7</text>
+            <text x="204" y="358" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6.5" font-weight="700">BLISTERS</text>
+            <!-- Bottom nav -->
+            <rect x="10" y="444" width="240" height="56" fill="#15213B"/>
+            <line x1="10" y1="444" x2="250" y2="444" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <text x="25"  y="464" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">⌂</text>
+            <text x="25"  y="475" text-anchor="middle" fill="#C8273A" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">HOME</text>
+            <text x="55"  y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">1</text>
+            <text x="55"  y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">AIRWAY</text>
+            <text x="85"  y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">2</text>
+            <text x="85"  y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">BLEED</text>
+            <text x="115" y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">3</text>
+            <text x="115" y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">D·E·G</text>
+            <text x="145" y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">4</text>
+            <text x="145" y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">EVAC</text>
+            <text x="175" y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">5</text>
+            <text x="175" y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">VITALS</text>
+            <text x="205" y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">6</text>
+            <text x="205" y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">MEDS</text>
+            <text x="235" y="464" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="15" font-weight="800">7</text>
+            <text x="235" y="475" text-anchor="middle" fill="#8B9BB4" font-family="'DM Sans',sans-serif" font-size="6" font-weight="700">BLISTERS</text>
+            <!-- Home indicator -->
+            <rect x="90" y="500" width="80" height="4" rx="2" fill="#2a2a2a"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Copy + QR -->
+      <div class="col-12 col-md-7">
+        <div class="section-label">The Companion App</div>
+        <div class="section-title">Scan. Open.<br>You've got this.</div>
+        <p class="section-body" style="margin-bottom:2rem;">Every kit ships with a QR code on the bag. One scan opens a step-by-step emergency guidance web app in any browser — no download, no account. Each tool has clear, manufacturer-backed instructions available exactly when you need them.</p>
+
+        <div style="display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.5rem;">
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12); border:1px solid rgba(224,32,32,0.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">⚡</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:#fff; margin-bottom:0.15rem;">Instant access — no app store</div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">Opens in any mobile browser. Works on any phone, no download required.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12); border:1px solid rgba(224,32,32,0.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">🧭</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:#fff; margin-bottom:0.15rem;">Step-by-step emergency guidance</div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">Calm, clear instructions for each tool — exactly when you need them most.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12); border:1px solid rgba(224,32,32,0.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📋</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:#fff; margin-bottom:0.15rem;">Manufacturer-backed instructions</div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">Usage guidance sourced directly from the tool manufacturers — accurate, authoritative, trusted.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- QR code placeholder -->
+        <div style="display:inline-flex; align-items:center; gap:1.5rem; background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:1.25rem 1.5rem;">
+          <svg width="90" height="90" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-label="QR code placeholder">
+            <rect x="4"  y="4"  width="24" height="24" rx="3" fill="none" stroke="#e8e8e8" stroke-width="2.5"/>
+            <rect x="9"  y="9"  width="14" height="14" rx="1.5" fill="#e8e8e8"/>
+            <rect x="62" y="4"  width="24" height="24" rx="3" fill="none" stroke="#e8e8e8" stroke-width="2.5"/>
+            <rect x="67" y="9"  width="14" height="14" rx="1.5" fill="#e8e8e8"/>
+            <rect x="4"  y="62" width="24" height="24" rx="3" fill="none" stroke="#e8e8e8" stroke-width="2.5"/>
+            <rect x="9"  y="67" width="14" height="14" rx="1.5" fill="#e8e8e8"/>
+            <rect x="34" y="4"  width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="42" y="4"  width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="50" y="8"  width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="34" y="12" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="50" y="18" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="42" y="20" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="4"  y="34" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="12" y="34" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="20" y="38" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="34" y="34" width="22" height="22" rx="3" fill="rgba(224,32,32,0.15)" stroke="rgba(224,32,32,0.35)" stroke-width="1"/>
+            <text x="45" y="49" text-anchor="middle" fill="#E02020" font-family="sans-serif" font-size="11">✚</text>
+            <rect x="62" y="34" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="70" y="34" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="81" y="38" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="62" y="42" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="81" y="46" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="70" y="50" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="34" y="62" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="42" y="70" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="50" y="62" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="62" y="70" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="70" y="62" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="81" y="70" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="34" y="78" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="62" y="81" width="5" height="5" rx="1" fill="#e8e8e8"/>
+            <rect x="81" y="81" width="5" height="5" rx="1" fill="#e8e8e8"/>
+          </svg>
+          <div>
+            <div style="font-weight:700; font-size:0.9rem; color:#fff; margin-bottom:0.3rem;">QR code on every kit</div>
+            <div style="font-size:0.82rem; color:var(--muted); line-height:1.55;">Printed on the bag —<br>scan to open the app instantly.</div>
+            <div style="margin-top:0.6rem; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); font-weight:700;">App coming soon</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── PRICING ── -->
 <section id="pricing">
   <div class="container">
@@ -1560,7 +1737,7 @@
           <div class="faq-q" onclick="toggleFaq(this)">
             Do I need training? <span class="faq-arrow">+</span>
           </div>
-          <div class="faq-a">You don't need to be an EMT, but a basic first aid and CPR class is strongly recommended. You're also expected to review all educational materials — video tutorials for each item, articles, and field guide — included with the kit.</div>
+          <div class="faq-a">You don't need to be an EMT, but a basic first aid and CPR class is strongly recommended. Each kit includes the field guide and access to a companion emergency guidance app. For tool-specific usage, refer to the manufacturer's instructions included with each item.</div>
         </div>
 
         <div class="faq-item">
@@ -1661,8 +1838,7 @@
             to kill you, and amazingly you cannot find a first aid kit at your local outdoor store that can control arterial bleeding; let alone control the bleeding for an extensive
             8-10 hour SAR helicopter rescue in mountainous terrain.
             <br><br>
-            I've been carrying DIY, custom first aid kits for real emergencies for the last 7 years (real story — this kit was on hand when a free-soloist fell 60 ft in Eldorado Canyon, Colorado). The Superhero First Aid Kit equips anyone to respond when serious emergencies happen — to be a superhero in the moment. You don't need to be an EMT to use the Superhero First Aid Kit. My custom videos and
-            field guide will give you the bare minimum knowledge to apply these tools in real emergencies. No outcome can be guaranteed — but having the right tools, right mindset, and right training is what allows you to act when it matters.
+            I've been carrying DIY, custom first aid kits for real emergencies for the last 7 years (real story — this kit was on hand when a free-soloist fell 60 ft in Eldorado Canyon, Colorado). The Superhero First Aid Kit equips anyone to respond when serious emergencies happen — to be a superhero in the moment. A companion emergency guidance app and manufacturer training resources will give you what you need to use these tools confidently. No outcome can be guaranteed — but having the right tools, right mindset, and right training is what allows you to act when it matters.
           </p>
 <!--          <p style="color: var(&#45;&#45;muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">-->
 
@@ -1736,7 +1912,7 @@
       </li>
       <li>
         <h3>Educational, not medical advice.</h3>
-        <p>This kit and its accompanying materials — videos, field guide, and any written content — are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation.</p>
+        <p>This kit and its accompanying materials — including the companion emergency guidance app, field guide, and any written content — are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation. For tool-specific usage guidance, always refer to the manufacturer's instructions included with each item.</p>
       </li>
       <li>
         <h3>Training is your responsibility.</h3>

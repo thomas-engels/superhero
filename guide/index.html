@@ -225,6 +225,40 @@
     .quick-btn-label { font-size: 9px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); line-height: 1.25; text-align: center; }
 
     .home-footer { margin-top: 6px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.1); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); text-align: center; font-weight: 600; }
+
+    /* ── EXPANDABLE DETAIL BLOCKS ── */
+    .detail-toggle {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      margin-top: 10px; padding: 9px 12px;
+      background: rgba(90,143,196,0.07); border: 1px solid rgba(90,143,196,0.22);
+      border-radius: 7px; color: var(--blue-soft);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      cursor: pointer; text-align: left;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+      transition: background 0.12s;
+    }
+    .detail-toggle:active { background: rgba(90,143,196,0.14); }
+    .detail-toggle-icon { font-size: 16px; transition: transform 0.2s ease; flex-shrink: 0; line-height: 1; }
+    .detail-toggle[aria-expanded="true"] .detail-toggle-icon { transform: rotate(90deg); }
+    .detail-block {
+      display: none; margin-top: 8px;
+      background: rgba(90,143,196,0.06); border: 1px solid rgba(90,143,196,0.18);
+      border-radius: 8px; padding: 13px 14px;
+    }
+    .detail-block.open { display: block; animation: detail-fade 0.2s ease; }
+    @keyframes detail-fade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+    .detail-source {
+      display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--blue-soft); opacity: 0.8;
+      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(90,143,196,0.18);
+    }
+    .detail-steps { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .detail-step { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.45; color: #B8D4E8; }
+    .dnum { background: rgba(90,143,196,0.25); color: var(--blue-soft); font-size: 10px; font-weight: 800; min-width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+    .detail-step strong { color: var(--text); font-weight: 700; }
+    .detail-subhead { font-size: 12px; font-weight: 700; color: var(--text); margin: 10px 0 6px; }
+    .detail-note { margin-top: 10px; font-size: 11px; color: var(--text-muted); font-style: italic; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 8px; line-height: 1.5; }
+    .detail-link { color: var(--blue-soft); text-decoration: none; }
   </style>
 </head>
 <body>
@@ -333,6 +367,24 @@
           <div class="sub-steps">
             <div class="sub-step">Jaw-Thrust — or — Head-Tilt, Chin-Lift</div>
           </div>
+          <button class="detail-toggle" aria-expanded="false" data-detail="detail-airway" onclick="toggleDetail(this)">
+            <span class="detail-toggle-icon">›</span>
+            <span>Technique detail · AHA BLS</span>
+          </button>
+          <div class="detail-block" id="detail-airway">
+            <span class="detail-source">American Heart Association · BLS Provider Guidelines</span>
+            <div class="detail-subhead">Head-Tilt, Chin-Lift (no suspected spine injury)</div>
+            <ol class="detail-steps">
+              <li class="detail-step"><span class="dnum">1</span><span>Place one hand on the forehead and tilt the head back gently.</span></li>
+              <li class="detail-step"><span class="dnum">2</span><span>Lift the chin upward with two fingers under the bony part — not soft tissue.</span></li>
+            </ol>
+            <div class="detail-subhead">Jaw-Thrust (suspected spine injury)</div>
+            <ol class="detail-steps">
+              <li class="detail-step"><span class="dnum">1</span><span>Place fingers behind the angle of the jaw on both sides.</span></li>
+              <li class="detail-step"><span class="dnum">2</span><span>Thrust the jaw forward <strong>without tilting the head</strong> or moving the neck.</span></li>
+            </ol>
+            <div class="detail-note">If jaw-thrust does not open the airway and there is no breathing, switch to head-tilt chin-lift — an open airway takes priority.</div>
+          </div>
         </div></li>
       </ol>
       <button class="goto-btn" onclick="goTo(2)">
@@ -363,6 +415,21 @@
           <li>Ask 911 or bystanders for an AED</li>
           <li>Maintain CPR while moving to Section 2</li>
         </ul>
+        <button class="detail-toggle" aria-expanded="false" data-detail="detail-cpr" onclick="toggleDetail(this)">
+          <span class="detail-toggle-icon">›</span>
+          <span>CPR technique detail · AHA BLS</span>
+        </button>
+        <div class="detail-block" id="detail-cpr">
+          <span class="detail-source">American Heart Association · BLS Provider Guidelines (Adults)</span>
+          <ol class="detail-steps">
+            <li class="detail-step"><span class="dnum">1</span><span>Heel of dominant hand on the <strong>lower half of the sternum</strong>. Second hand on top, fingers interlaced and lifted off the chest.</span></li>
+            <li class="detail-step"><span class="dnum">2</span><span>Compress <strong>at least 2 inches</strong> (5 cm) deep at <strong>100–120/min</strong>. Allow full chest recoil — don't lean between compressions.</span></li>
+            <li class="detail-step"><span class="dnum">3</span><span>Minimize interruptions. Any pause (breaths, AED check) should be <strong>under 10 seconds</strong>.</span></li>
+            <li class="detail-step"><span class="dnum">4</span><span>Rescue breaths: tilt head, lift chin, create seal over mouth, give 1 breath over 1 second — chest should visibly rise.</span></li>
+            <li class="detail-step"><span class="dnum">5</span><span>Continue 30:2 until AED is ready, EMS takes over, patient regains normal breathing, or you are physically unable to continue.</span></li>
+          </ol>
+          <div class="detail-note">AED: power on, attach pads, follow prompts. Resume compressions immediately after any shock — do not wait to check pulse.</div>
+        </div>
         <button class="goto-btn" onclick="goTo(3)">
           <span>Continue to Section 2 — Bleeding</span>
           <span class="arrow">›</span>
@@ -414,6 +481,21 @@
           <div class="sub-steps">
             <div class="sub-step"><strong>Pack</strong> hemostatic gauze deep into the wound · firm, sustained pressure</div>
           </div>
+          <button class="detail-toggle" aria-expanded="false" data-detail="detail-hem" onclick="toggleDetail(this)">
+            <span class="detail-toggle-icon">›</span>
+            <span>Wound packing technique · QuikClot IFU</span>
+          </button>
+          <div class="detail-block" id="detail-hem">
+            <span class="detail-source">Z-Medica · QuikClot® Combat Gauze IFU</span>
+            <ol class="detail-steps">
+              <li class="detail-step"><span class="dnum">1</span><span>Identify the deepest point of the wound.</span></li>
+              <li class="detail-step"><span class="dnum">2</span><span>Pack the gauze starting at the deepest point — use a finger to push it in firmly and continuously.</span></li>
+              <li class="detail-step"><span class="dnum">3</span><span>Continue packing until the wound cavity is <strong>completely filled</strong>.</span></li>
+              <li class="detail-step"><span class="dnum">4</span><span>Apply <strong>firm, direct pressure</strong> for a minimum of <strong>3 minutes</strong> without releasing.</span></li>
+              <li class="detail-step"><span class="dnum">5</span><span><strong>Do not remove</strong> the gauze. Apply additional dressing over it and secure.</span></li>
+            </ol>
+            <div class="detail-note">⚠ Hemostatic gauze is for junctional wounds (neck, groin, armpit, shoulder, pelvis) where a tourniquet cannot be applied.</div>
+          </div>
         </div></li>
         <li><div class="step-content">
           <strong>Arm or leg?</strong>
@@ -428,6 +510,21 @@
               <div class="protocol-step"><span class="pnum">2</span><span>Tighten until bleeding <span class="hl">completely stops</span></span></div>
               <div class="protocol-step"><span class="pnum">3</span><span><span class="hl">Write the time on their skin</span> — 911 needs to know</span></div>
               <div class="protocol-step"><span class="pnum">4</span><span><span class="key">Do NOT remove</span> — only medical professionals can remove a tourniquet</span></div>
+            </div>
+            <button class="detail-toggle" aria-expanded="false" data-detail="detail-tq" onclick="toggleDetail(this)">
+              <span class="detail-toggle-icon">›</span>
+              <span>CAT® step-by-step · North American Rescue</span>
+            </button>
+            <div class="detail-block" id="detail-tq">
+              <span class="detail-source">North American Rescue · CAT® Gen 7 Tourniquet IFU</span>
+              <ol class="detail-steps">
+                <li class="detail-step"><span class="dnum">1</span><span>Slide the limb through the loop. Position <strong>2–3 inches above</strong> the wound — never on a joint.</span></li>
+                <li class="detail-step"><span class="dnum">2</span><span>Pull the free-running end of the self-adhering band <strong>as tight as possible</strong>, then press the velcro to secure it.</span></li>
+                <li class="detail-step"><span class="dnum">3</span><span>Turn the windlass rod <strong>until bleeding completely stops</strong> or the distal pulse is no longer palpable.</span></li>
+                <li class="detail-step"><span class="dnum">4</span><span>Lock the rod into the windlass clip. Secure the strap over the rod.</span></li>
+                <li class="detail-step"><span class="dnum">5</span><span>Write the <strong>time of application</strong> on the windlass strap with a marker. Report time to EMS on arrival.</span></li>
+              </ol>
+              <div class="detail-note">⚠ Do NOT remove in the field. Only EMS / medical personnel can safely remove a tourniquet — removal can cause sudden cardiac arrest from reperfusion.</div>
             </div>
           </div>
         </div></li>
@@ -496,6 +593,20 @@
             <div class="sub-step">Remove wet clothing</div>
             <div class="sub-step">Insulate from the ground</div>
             <div class="sub-step">Wrap in space blanket — shiny side in</div>
+          </div>
+          <button class="detail-toggle" aria-expanded="false" data-detail="detail-blanket" onclick="toggleDetail(this)">
+            <span class="detail-toggle-icon">›</span>
+            <span>Emergency blanket usage · Heatsheets® IFU</span>
+          </button>
+          <div class="detail-block" id="detail-blanket">
+            <span class="detail-source">Adventure Medical Kits · Heatsheets® Emergency Blanket IFU</span>
+            <ol class="detail-steps">
+              <li class="detail-step"><span class="dnum">1</span><span>Remove wet clothing before wrapping when possible — wet fabric accelerates heat loss.</span></li>
+              <li class="detail-step"><span class="dnum">2</span><span><strong>Insulate from the ground first.</strong> Cold ground pulls heat faster than cold air. Use pack, clothing, or debris.</span></li>
+              <li class="detail-step"><span class="dnum">3</span><span>Wrap the blanket fully around the body including the head, leaving only the face exposed. Tuck edges under.</span></li>
+              <li class="detail-step"><span class="dnum">4</span><span>For severe hypothermia: a second blanket can form a sleeping bag-style wrap for full body coverage.</span></li>
+            </ol>
+            <div class="detail-note">The space blanket reflects up to 90% of radiated body heat. It is not an insulator on its own — always combine with ground insulation.</div>
           </div>
         </div></li>
       </ol>
@@ -704,6 +815,12 @@
   const tabs    = document.querySelectorAll('.nav-tab');
   const headerName  = document.getElementById('headerName');
   const headerBadge = document.getElementById('headerBadge');
+
+  function toggleDetail(btn) {
+    const block = document.getElementById(btn.getAttribute('data-detail'));
+    const open = block.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
 
   function goTo(n) {
     if (n < 0 || n >= TOTAL || n === current) return;
