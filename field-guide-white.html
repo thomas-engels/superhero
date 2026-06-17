@@ -225,8 +225,8 @@
     }
     table.fg-table thead th {
       text-align: left;
-      background: var(--blue-soft);
-      color: var(--blue);
+      background: var(--teal-bg);
+      color: var(--teal-ink);
       padding: 0.04in 0.07in;
       font-size: 8pt;
       font-weight: 700;
@@ -316,7 +316,9 @@
       align-items: center;
       justify-content: center;
       gap: 0.14in;
-      padding-bottom: 0.07in;
+      padding: 0.09in 0.14in;
+      background: var(--bg-panel);
+      border-radius: 3px;
       border-bottom: 2pt solid var(--red);
       margin-bottom: 0.1in;
     }
@@ -330,7 +332,7 @@
       font-weight: 600;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.72);
       margin-bottom: 0.03in;
     }
     .title-brand-name {
@@ -338,7 +340,7 @@
       font-size: 26pt;
       font-weight: 800;
       letter-spacing: 0.05em;
-      color: var(--ink);
+      color: #fff;
       line-height: 0.95;
     }
 
@@ -555,7 +557,7 @@
         </div>
       </div>
 
-      <div class="title-footer">⚠ Prototype · Beta v1.0.0 · For Testing Only · Not for Clinical Use</div>
+      <div class="title-footer">⚠ Prototype · Beta v1.0.1 · For Testing Only · Not for Clinical Use</div>
     </div>
 
     <!-- BOTTOM-LEFT: SECTION 6 — MEDICATIONS -->
@@ -694,15 +696,20 @@
       </div>
       <ol class="steps">
         <li><strong>Head wound?</strong>
-          <ul class="step-actions"><li>ABD pads on wound · gentle pressure</li></ul>
+          <ul class="step-actions">
+            <li>ABD pads on wound · gentle pressure</li>
+            <li class="warn-inline" style="color:var(--red); font-weight:700;">Do NOT pack — brain tissue is fragile</li>
+          </ul>
         </li>
         <li><strong>Neck, core, back, pelvis?</strong>
-          <ul class="step-actions"><li><strong>Pack</strong> hemostatic gauze deep · firm pressure</li></ul>
+          <ul class="step-actions">
+            <li><strong>Pack</strong> z-folded gauze deep · ABD pads on top · firm pressure</li>
+          </ul>
         </li>
         <li><strong>Arm or leg?</strong>
           <ul class="step-actions">
             <li><strong>A.</strong> ABD pads · firm pressure</li>
-            <li><strong>B.</strong> No stop → <span class="key">tourniquet</span> as high as possible on limb</li>
+            <li><strong>B.</strong> If direct pressure isn't stopping the bleeding → <span class="key">tourniquet</span> as high as possible on limb</li>
             <li><strong>C.</strong> Not on a knee or elbow joint</li>
             <li><strong>D.</strong> Tighten until bleeding <strong>stops</strong></li>
             <li><strong>E.</strong> <strong>Write the time</strong> on their skin</li>
