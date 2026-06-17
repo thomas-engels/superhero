@@ -800,6 +800,41 @@
       font-size: 0.78rem;
       margin-top: 0.75rem;
     }
+    .cart-form {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-form-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .cart-form-field { margin-bottom: 0.6rem; }
+    .cart-form-field:last-child { margin-bottom: 0; }
+    .cart-form-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .cart-form-input {
+      width: 100%;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      padding: 0.45rem 0.75rem;
+    }
+    .cart-form-input:focus {
+      outline: none;
+      border-color: rgba(224,32,32,0.6);
+    }
 
     .price-tier-toggle {
       display: flex;
@@ -1413,12 +1448,9 @@
     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
       <ul class="navbar-nav align-items-lg-center gap-lg-1">
         <li class="nav-item"><a class="nav-link" href="#why">The Difference</a></li>
-        <li class="nav-item"><a class="nav-link" href="#experience">The Why</a></li>
         <li class="nav-item"><a class="nav-link" href="#the-bag">Design</a></li>
         <li class="nav-item"><a class="nav-link" href="#pricing">Kits</a></li>
         <li class="nav-item"><a class="nav-link" href="after-purchase.html">Knowledge &amp; Training</a></li>
-        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#pricing">Get a Kit</a></li>
       </ul>
     </div>
@@ -1819,6 +1851,14 @@
             <div>
               <div style="font-weight:700; font-size:0.95rem; color:#fff; margin-bottom:0.15rem;">Manufacturer-backed instructions</div>
               <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">Usage guidance sourced directly from the tool manufacturers — accurate, authoritative, trusted.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12); border:1px solid rgba(224,32,32,0.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;">📶</div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; color:#fff; margin-bottom:0.15rem;">Works offline — no signal needed</div>
+              <div style="color:var(--muted); font-size:0.88rem; line-height:1.6;">Save it to your home screen and it's available anywhere — no cell service, no WiFi, no problem.</div>
             </div>
           </div>
 
@@ -2316,12 +2356,35 @@
   <div class="cart-body" id="cartBody">
     <p class="cart-empty">Your cart is empty.</p>
   </div>
+  <div class="cart-form" id="cartForm" hidden>
+    <div class="cart-form-title">Your Info</div>
+    <div class="cart-form-field">
+      <label class="cart-form-label" for="cfName">Full name</label>
+      <input class="cart-form-input" id="cfName" type="text" placeholder="Jane Smith" autocomplete="name">
+    </div>
+    <div class="cart-form-field">
+      <label class="cart-form-label" for="cfEmail">Email</label>
+      <input class="cart-form-input" id="cfEmail" type="email" placeholder="jane@example.com" autocomplete="email">
+    </div>
+    <div class="cart-form-field">
+      <label class="cart-form-label" for="cfPhone">Phone</label>
+      <input class="cart-form-input" id="cfPhone" type="tel" placeholder="612-555-1234" autocomplete="tel">
+    </div>
+    <div class="cart-form-field">
+      <label class="cart-form-label" for="cfAddress">Shipping address (PO boxes welcome)</label>
+      <input class="cart-form-input" id="cfAddress" type="text" placeholder="123 Main St, Minneapolis MN 55401" autocomplete="street-address">
+    </div>
+  </div>
   <div class="cart-footer" id="cartFooter" hidden>
     <div class="cart-total-row">
       <span class="cart-total-label">Total</span>
       <span class="cart-total-amount" id="cartTotal">$0</span>
     </div>
-    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" target="_blank" rel="noopener noreferrer">Pay via Venmo</a>
+    <label style="display:flex; align-items:flex-start; gap:0.6rem; margin-bottom:1rem; cursor:pointer; font-size:0.82rem; color:var(--muted); line-height:1.5;">
+      <input type="checkbox" id="cartTermsCheck" style="margin-top:0.2rem; accent-color:var(--red); flex-shrink:0;">
+      I agree to the <a href="#disclaimer" onclick="closeCart()" style="color:var(--red); text-decoration:underline;">disclaimer &amp; terms of use</a>
+    </label>
+    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" target="_blank" rel="noopener noreferrer" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
     <p class="cart-checkout-note">You'll be taken to Venmo to complete your order.</p>
   </div>
 </div>
@@ -2668,7 +2731,7 @@
       priceOriginal.textContent = '$' + base;
       priceOriginal.hidden = false;
       priceAmountEl.textContent = '$' + discounted;
-      discountNote.textContent = Math.round(rate * 100) + '% discount applied — mention ' + discountLabels[roleKey] + ' in your Venmo note';
+      discountNote.textContent = Math.round(rate * 100) + '% discount applied';
       discountApplied.classList.add('visible');
     } else {
       priceOriginal.hidden = true;
@@ -2695,6 +2758,17 @@
   const cartBadge    = document.getElementById('cartBadge');
   const cartBody     = document.getElementById('cartBody');
   const cartFooter   = document.getElementById('cartFooter');
+  const cartForm     = document.getElementById('cartForm');
+  const cfName       = document.getElementById('cfName');
+  const cfEmail      = document.getElementById('cfEmail');
+  const cfPhone      = document.getElementById('cfPhone');
+  const cfAddress    = document.getElementById('cfAddress');
+  [cfName, cfEmail, cfPhone, cfAddress].forEach(el => el.addEventListener('input', renderCart));
+  const cartTermsCheck = document.getElementById('cartTermsCheck');
+  cartTermsCheck.addEventListener('change', () => {
+    cartCheckout.style.opacity = cartTermsCheck.checked ? '1' : '0.4';
+    cartCheckout.style.pointerEvents = cartTermsCheck.checked ? '' : 'none';
+  });
   const cartTotal    = document.getElementById('cartTotal');
   const cartCheckout = document.getElementById('cartCheckoutBtn');
   const cartBackdrop = document.getElementById('cartBackdrop');
@@ -2740,6 +2814,7 @@
 
     if (lines.length === 0) {
       cartBody.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      cartForm.hidden = true;
       cartFooter.hidden = true;
       return;
     }
@@ -2771,13 +2846,23 @@
       <div style="font-weight:700; color:var(--text);">$${shipping}</div>
     </div>`;
     cartBody.innerHTML = html;
+    cartForm.hidden = false;
     cartFooter.hidden = false;
     cartTotal.textContent = '$' + grandTotal;
 
-    const noteParts = lines.map(l => l.qty + 'x ' + l.name);
-    if (rate > 0 && roleKey) noteParts.push(discountLabels[roleKey] + ' discount');
-    noteParts.push('Shipping Address (PO boxes allowed): ');
-    const note = encodeURIComponent(noteParts.join(' | '));
+    const name    = cfName?.value.trim();
+    const email   = cfEmail?.value.trim();
+    const phone   = cfPhone?.value.trim();
+    const address = cfAddress?.value.trim();
+    const itemStr = lines.map(l => l.qty + 'x ' + l.name).join(', ');
+    const noteParts = ['Items: ' + itemStr];
+    if (rate > 0 && roleKey) noteParts.push('Discount: ' + Math.round(rate * 100) + '% ' + discountLabels[roleKey]);
+    noteParts.push('Name: ' + (name || '(required)'));
+    noteParts.push('Email: ' + (email || '(required)'));
+    noteParts.push('Phone: ' + (phone || '(required)'));
+    noteParts.push('Shipping Address: ' + (address || '(required)'));
+    noteParts.push('I agree to Superhero First Aid Systems Disclaimer and Terms of Use.');
+    const note = encodeURIComponent(noteParts.join('  |  '));
     cartCheckout.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + grandTotal + '&note=' + note;
   }
 
