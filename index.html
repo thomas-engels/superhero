@@ -406,6 +406,12 @@
       object-fit: contain;
       padding: 0.5rem;
     }
+    .bag-slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .bag-nav {
       position: absolute;
@@ -518,6 +524,7 @@
     }
     .price-cta {
       display: block;
+      width: 100%;
       text-align: center;
       background: var(--red);
       color: #fff;
@@ -536,6 +543,264 @@
       max-width: 640px;
       margin: 0 auto;
     }
+
+    /* Order flow diagram */
+    .order-flow { padding-top: 0.5rem; }
+    .order-flow-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+    }
+    .flow-steps { position: relative; }
+    .flow-step {
+      display: flex;
+      gap: 1rem;
+      position: relative;
+      padding-bottom: 1.6rem;
+    }
+    .flow-step:last-child { padding-bottom: 0; }
+    .flow-step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 28px;
+    }
+    .flow-node {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .flow-node.conditional {
+      background: transparent;
+      border: 2px solid var(--amber);
+      color: var(--amber);
+    }
+    .flow-line {
+      flex: 1;
+      width: 2px;
+      background: var(--border);
+      margin-top: 4px;
+    }
+    .flow-step-right { padding-top: 3px; }
+    .flow-step-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .flow-step-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 0.2rem;
+    }
+    .flow-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid var(--amber);
+      border-radius: 3px;
+      padding: 1px 5px;
+      white-space: nowrap;
+    }
+
+    /* ── CART ── */
+    .cart-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.7rem 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+      transition: transform 0.15s, background 0.15s;
+    }
+    .cart-fab:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .cart-fab.hidden { display: none; }
+    .cart-badge {
+      background: #fff;
+      color: var(--red);
+      border-radius: 50%;
+      width: 1.3rem;
+      height: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+    .cart-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1001;
+      display: none;
+    }
+    .cart-backdrop.open { display: block; }
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(420px, 100vw);
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      z-index: 1002;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.28s ease;
+    }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin: 0;
+    }
+    .cart-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.6rem;
+      cursor: pointer;
+      padding: 0.1rem 0.4rem;
+      line-height: 1;
+    }
+    .cart-close:hover { color: var(--text); }
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+    }
+    .cart-empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 0.95rem;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+    .cart-item-price { color: var(--muted); font-size: 0.83rem; margin-top: 0.15rem; }
+    .cart-qty-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.2rem 0.35rem;
+    }
+    .cart-qty-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.15rem;
+      cursor: pointer;
+      padding: 0.05rem 0.3rem;
+      line-height: 1;
+    }
+    .cart-qty-btn:hover { color: var(--red); }
+    .cart-qty-num {
+      min-width: 1.4rem;
+      text-align: center;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .cart-discount-note {
+      color: #4ade80;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-top: 0.75rem;
+    }
+    .cart-footer {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .cart-total-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .cart-total-label { font-weight: 700; color: var(--text); font-size: 1rem; }
+    .cart-total-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .cart-checkout-btn {
+      display: block;
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      text-align: center;
+      padding: 0.9rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .cart-checkout-btn:hover { background: var(--red-dark); color: #fff; }
+    .cart-checkout-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+    }
+
     .price-tier-toggle {
       display: flex;
       background: var(--card-bg);
@@ -624,7 +889,9 @@
     /* Private-beta banner above the kits */
     .beta-banner {
       margin-top: 1.5rem;
-      max-width: 720px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
       display: flex;
       align-items: flex-start;
       gap: 0.85rem;
@@ -672,6 +939,59 @@
     }
 
     /* Expandable kit contents */
+    /* Discount selector */
+    .discount-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0.75rem 0 0.25rem;
+      flex-wrap: wrap;
+    }
+    .discount-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .discount-select {
+      flex: 1;
+      min-width: 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      padding: 0.45rem 0.75rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238B9BB4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+    }
+    .discount-select:focus { outline: none; border-color: var(--red); }
+    .discount-applied {
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: #4ade80;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+    .discount-applied.visible { display: flex; }
+    .price-amount-original {
+      font-size: 1.4rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
     .contents-toggle {
       display: flex;
       align-items: center;
@@ -1099,7 +1419,7 @@
         <li class="nav-item"><a class="nav-link" href="after-purchase.html">Knowledge &amp; Training</a></li>
         <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#contact">Order Now</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="#pricing">Get a Kit</a></li>
       </ul>
     </div>
   </div>
@@ -1121,6 +1441,9 @@
     </div>
   </div>
 </section>
+
+
+
 
 <!-- ── WHY DIFFERENT ── -->
 <section id="why">
@@ -1160,16 +1483,11 @@
               <tr class="highlight-row">
                 <td>Hemostatic agents</td>
                 <td class="no">✕ None</td>
-                <td class="yes">✓ Combat grade</td>
+                <td class="partial">✓ Professional tier</td>
               </tr>
               <tr>
                 <td>Hypothermia</td>
                 <td class="no">✕ None</td>
-                <td class="yes">✓ Comabt grade</td>
-              </tr>
-              <tr class="highligh-row">
-                <td>Fracture stabilization</td>
-                <td class="partial">⚠ Rare</td>
                 <td class="yes">✓ Combat grade</td>
               </tr>
               <tr class="highlight-row">
@@ -1239,65 +1557,7 @@
   </div>
 </section>
 
-<!-- ── EXPERIENCE ── -->
-<section id="experience">
-  <div class="container">
 
-    <div class="reveal mb-5">
-      <div class="section-label">Inspired By Real Experience</div>
-      <div class="section-title">The Mission</div>
-      <p class="section-body">
-        Empower you during real emergencies.
-
-        <br><br>
-        Every item in this kit earned its place by helping people on their worst days.
-      </p>
-    </div>
-
-    <div class="row g-3 reveal">
-      <div class="col-6 col-md-4 col-lg">
-        <div class="exp-card">
-          <div class="exp-icon">🚑</div>
-          <div class="exp-title">EMT</div>
-          <div class="exp-years">Certified</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg">
-        <div class="exp-card">
-          <div class="exp-icon">⛷️</div>
-          <div class="exp-title">Ski Patrol</div>
-          <div class="exp-years">Extreme Weather</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg">
-        <div class="exp-card">
-          <div class="exp-icon">🧗</div>
-          <div class="exp-title">Ice Climbing</div>
-          <div class="exp-years">Vertical Terrain</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-6 col-lg">
-        <div class="exp-card">
-          <div class="exp-icon">🚵</div>
-          <div class="exp-title">Mountain Biking</div>
-          <div class="exp-years">High-Speed Risk</div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg">
-        <div class="exp-card">
-          <div class="exp-icon">🎿</div>
-          <div class="exp-title">Backcountry Skiing</div>
-          <div class="exp-years">Remote Exposure</div>
-        </div>
-      </div>
-    </div>
-
-<!--    <figure class="photo-banner reveal">-->
-<!--      <img src="photos/adv-flatirons.jpg" alt="Flatirons at sunset above Boulder, Colorado" loading="lazy"/>-->
-<!--    </figure>-->
-
-  </div>
-</section>
 
 <!-- ── THE BAG ── -->
 <section id="the-bag">
@@ -1321,6 +1581,9 @@
               <img src="photos/opening-web.jpg" alt="Superhero First Aid Systems 1L kit — branded Hyperlite Zippy bag"/>
             </div>
             <div class="bag-slide">
+              <video src="videos/unzipping.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div class="bag-slide">
               <img src="photos/cams-web.jpg" alt="Bag clipped to climbing harness with cams and quickdraws" loading="lazy"/>
             </div>
             <div class="bag-slide">
@@ -1337,10 +1600,11 @@
           <button class="bag-nav next" type="button" aria-label="Next photo" data-bag-dir="1">›</button>
           <div class="bag-dots" id="bagDots">
             <button type="button" class="bag-dot active" data-slide="0" aria-label="Photo 1"></button>
-            <button type="button" class="bag-dot" data-slide="1" aria-label="Photo 2"></button>
-            <button type="button" class="bag-dot" data-slide="2" aria-label="Photo 3"></button>
-            <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 4"></button>
-            <button type="button" class="bag-dot" data-slide="4" aria-label="Photo 5"></button>
+            <button type="button" class="bag-dot" data-slide="1" aria-label="Video"></button>
+            <button type="button" class="bag-dot" data-slide="2" aria-label="Photo 2"></button>
+            <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 3"></button>
+            <button type="button" class="bag-dot" data-slide="4" aria-label="Photo 4"></button>
+            <button type="button" class="bag-dot" data-slide="5" aria-label="Photo 5"></button>
           </div>
         </div>
         <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
@@ -1425,33 +1689,11 @@
       </div>
     </div>
 
-    <!-- YouTube — zipper demo -->
-    <div class="row justify-content-center mt-5 reveal">
-      <div class="col-12 col-lg-10">
-        <div style="position:relative; padding-bottom:56.25%; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
-          <iframe
-            src="https://www.youtube.com/embed/jI_n220pNp4"
-            style="position:absolute; top:0; left:0; width:100%; height:100%;"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            title="Superhero First Aid Systems — single-hand zipper access demo">
-          </iframe>
-        </div>
-        <div style="font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-align:center; margin-top:0.75rem;">Single-hand zipper access</div>
-      </div>
-    </div>
 
   </div>
 </section>
 
-<!-- ── PHOTO STRIP ── -->
-<aside class="photo-strip reveal" aria-hidden="true">
-  <img src="photos/adv-mtb.jpg" alt="" loading="lazy"/>
-  <div class="photo-strip-quote">
-    <span>Always by your side like your furry best friend.</span>
-  </div>
-</aside>
+
 
 <!-- ── COMPANION APP ── -->
 <section id="companion-app" style="background: var(--mid);">
@@ -1630,6 +1872,7 @@
   </div>
 </section>
 
+
 <!-- ── PRICING ── -->
 <section id="pricing">
   <div class="container">
@@ -1646,29 +1889,45 @@
 
     <div class="price-picker reveal">
       <div class="price-tier-toggle" role="tablist" aria-label="Choose a kit tier">
-        <button class="tier-btn" type="button" role="tab" data-tier="basic" aria-selected="false">Side-Kick</button>
-        <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Hero</button>
-        <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Superhero</button>
+        <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Superhero</button>
+        <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Superhero Professional</button>
       </div>
 
       <div class="price-card-single" id="priceCard">
         <div class="price-badge" data-tier-badge>Recommended</div>
-        <div class="price-name" data-tier-name>Hero Kit</div>
-        <div class="price-amount" data-tier-amount>$225</div>
+        <div class="price-name" data-tier-name>Superhero Kit</div>
+        <div class="price-amount">
+          <span class="price-amount-original" id="priceOriginal" hidden></span><span data-tier-amount>$199</span>
+        </div>
         <div class="price-specs">
           <span class="price-pill" data-tier-weight>14 oz · 1L</span>
           <span class="price-pill" data-tier-coverage>1 person</span>
         </div>
-        <div class="price-coverage-note" data-tier-coverage-note hidden>Covers up to 3 people when paired with two Hero kits.</div>
-        <div class="price-desc" data-tier-desc>Only what you need, nothing you don’t. Ultralight, critical-intervention tools built for life-threatening emergencies when minutes matter most.</div>
+        <div class="price-coverage-note" data-tier-coverage-note hidden></div>
+        <div class="discount-row">
+          <span class="discount-label">Discount</span>
+          <select class="discount-select" id="discountSelect" aria-label="Select discount category">
+            <option value="">None</option>
+            <option value="0.20">Healthcare worker — 20% off</option>
+            <option value="0.20">Educator — 20% off</option>
+            <option value="0.20">Police / Law enforcement — 20% off</option>
+            <option value="0.20">Military / Veteran — 20% off</option>
+            <option value="0.20">Search &amp; Rescue — 20% off</option>
+            <option value="0.10">CPR certified — 10% off</option>
+          </select>
+        </div>
+        <div class="discount-applied" id="discountApplied">
+          <span>✓</span><span id="discountNote"></span>
+        </div>
+        <div class="price-desc" data-tier-desc>Only what you need, nothing you don’t. Critical-intervention tools built for life-threatening emergencies when minutes matter most.</div>
         <div class="price-ideal" data-tier-ideal>Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
-        <a href="#contact" class="price-cta">Order Now</a>
+        <button type="button" class="price-cta" onclick="addToCart()">Add to Cart</button>
         <button type="button"
                 class="contents-toggle"
                 id="contentsToggle"
                 aria-expanded="false"
                 aria-controls="kitContents">
-          <span class="contents-toggle-label">View what's inside</span>
+          <span class="contents-toggle-label">View what’s inside</span>
           <span class="contents-toggle-icon" aria-hidden="true">›</span>
         </button>
         <div class="contents-panel" id="kitContents" hidden>
@@ -1679,47 +1938,103 @@
 
   </div>
 </section>
+
+
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="container">
-    <div class="reveal">
-      <div class="section-label">Ready to Order</div>
-      <div class="section-title">Be prepared. Be a superhero.</div>
-<!--      <p class="section-body">Place your order through the form below.</p>-->
+    <div class="row g-5 align-items-start reveal">
 
-      <a class="order-cta"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSeCmJn4cH63RdqNcN_hRFTQtWqvG3ZD8AI5K8ADFOwjTSaM9g/viewform?usp=dialog"
-         target="_blank"
-         rel="noopener noreferrer">
-        Place Your Order
-        <span class="order-cta-arrow" aria-hidden="true">→</span>
-      </a>
+      <!-- Left: CTA + contact -->
+      <div class="col-12 col-lg-6">
+        <div class="section-label">Ready to Order</div>
+        <div class="section-title">Be prepared.<br>Be a superhero.</div>
 
-      <div class="contact-methods-label">Questions?</div>
-      <div class="contact-methods">
-        <div class="contact-method">
-          <a href="tel:6513951906">
-            <span class="contact-method-label">Call or Text</span>
-            <span class="contact-method-value">(651) 395-1906</span>
-          </a>
-        </div>
-        <div class="contact-method">
-          <a href="mailto:tbengels@gmail.com">
-            <span class="contact-method-label">Email</span>
-            <span class="contact-method-value">tbengels@gmail.com</span>
-          </a>
+<p class="section-body">
+          Healthcare, educator, police, military, and SAR discounts available.</p>
+
+        <button type="button" class="order-cta" onclick="openCart()">
+          View Your Cart
+          <span class="order-cta-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="disclaimer">
+          This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. <strong>This is a v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. Bag design, colors, logo, and contents are evolving based on feedback. This is not a commercial product.
+        </p>
+      </div>
+
+      <!-- Right: Order flow -->
+      <div class="col-12 col-lg-5 offset-lg-1">
+        <div class="order-flow">
+          <div class="order-flow-label">How ordering works</div>
+          <div class="flow-steps">
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node">1</div>
+                <div class="flow-line"></div>
+              </div>
+              <div class="flow-step-right">
+                <div class="flow-step-title">Choose your kit</div>
+                <div class="flow-step-desc">Select Superhero or Superhero Professional and reach out via the contact form, text, or email.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node">2</div>
+                <div class="flow-line"></div>
+              </div>
+              <div class="flow-step-right">
+                <div class="flow-step-title">Pay via Venmo</div>
+                <div class="flow-step-desc">Send payment to <strong>@superhero_first_aid_systems</strong> — include your kit choice and shipping address in the note.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node conditional">✓</div>
+                <div class="flow-line"></div>
+              </div>
+              <div class="flow-step-right">
+                <div class="flow-step-title">
+                  Credential verification
+                  <span class="flow-badge">Pro only</span>
+                </div>
+                <div class="flow-step-desc">Professional kits require proof of training — WFR, WAFA, EMT, or equivalent. We'll reach out within 24 hours to confirm.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node">3</div>
+                <div class="flow-line"></div>
+              </div>
+              <div class="flow-step-right">
+                <div class="flow-step-title">Into production</div>
+                <div class="flow-step-desc">Every kit is handbuilt to order. Current capacity is <strong>20 kits / month</strong> — your spot is held from the moment payment clears.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node">4</div>
+              </div>
+              <div class="flow-step-right">
+                <div class="flow-step-title">Ships to you</div>
+                <div class="flow-step-desc">Estimated <strong>4 weeks</strong> from order date. You'll get a tracking number when it ships.</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <p class="section-body">
-        Healthcare, educator, police, military, and SAR discounts available.</p>
-
-      <p class="disclaimer">
-        This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. <strong>This is a v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. Bag design, colors, logo, and contents are evolving based on feedback. This is not a commercial product.
-      </p>
     </div>
   </div>
 </section>
+
+
 
 <!-- ── FAQ ── -->
 <section id="faq">
@@ -1744,7 +2059,7 @@
           <div class="faq-q" onclick="toggleFaq(this)">
             Can you customize it? <span class="faq-arrow">+</span>
           </div>
-          <div class="faq-a">While I recommend the <i>Hero</i> tier for every activity (even while driving your car), I can work with you to create the perfect kit for your specific needs.</div>
+          <div class="faq-a">While I recommend the <i>Superhero</i> kit for every activity (even while driving your car), I can work with you to create the perfect kit for your specific needs.</div>
         </div>
 
         <div class="faq-item">
@@ -1753,8 +2068,7 @@
           </div>
           <div class="faq-a">I strongly recommend one kit per person.
             Multiple kits eliminate the "single point of failure" risk (e.g., someone forgets the first aid kit or drops it in a river), increase speed of treatment when your group is spread out, and can be combined for severe injuries — some injuries require multiple tourniquets to stop a bleed.
-          <br><br>If you're doing an overnight trip, the best practice would be one <i>Hero</i> Kit per person and
-          one <i>Superhero</i> Kit to be shared across 3 people. Scale as needed.</div>
+          <br><br>For group trips, one kit per person is the gold standard — some injuries require multiple tourniquets to stop a bleed. Scale as needed.</div>
         </div>
 
         <div class="faq-item">
@@ -1775,16 +2089,34 @@
           <div class="faq-q" onclick="toggleFaq(this)">
             What about comfort items like tweezers or SAM splints? <span class="faq-arrow">+</span>
           </div>
-          <div class="faq-a">The <i>Hero</i> Kit focuses on critical interventions while staying ultralight.
-            If you're planning to do multi-day trips, I recommend bringing the <i>Superhero</i> Kit in addition to the <i>Hero</i> Kit; ensuring small issues
-          like sunburn, bug bites, and blisters don't force you to cut your trip short.</div>
+          <div class="faq-a">Both kits focus on critical interventions and stay ultralight. The <i>Superhero Professional</i> adds hemostatic gauze for junctional wound packing — an advanced skill best used by those with formal training. For comfort items specific to longer trips (splints, blister care, etc.), reach out to discuss a custom kit.</div>
         </div>
 
       </div>
     </div>
 
+    <div class="reveal mt-5 pt-4" style="border-top: 1px solid var(--border);">
+      <div class="contact-methods-label">Still have a question?</div>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <a href="tel:6513951906">
+            <span class="contact-method-label">Call or Text</span>
+            <span class="contact-method-value">(651) 395-1906</span>
+          </a>
+        </div>
+        <div class="contact-method">
+          <a href="mailto:tbengels@gmail.com">
+            <span class="contact-method-label">Email</span>
+            <span class="contact-method-value">tbengels@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
+
+
 
 <!-- ── ABOUT ── -->
 <section id="about">
@@ -1876,6 +2208,8 @@
   </div>
 </section>
 
+
+
 <!-- ── DISCLAIMER ── -->
 <section id="disclaimer">
   <div class="container">
@@ -1964,6 +2298,36 @@
 </footer>
 
 <!-- Bootstrap JS -->
+<!-- Cart FAB -->
+<button type="button" class="cart-fab" id="cartFab" onclick="openCart()" aria-label="View cart">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  Cart <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<!-- Cart backdrop -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+
+<!-- Cart panel -->
+<div class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart">×</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <p class="cart-empty">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer" id="cartFooter" hidden>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">$0</span>
+    </div>
+    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" target="_blank" rel="noopener noreferrer">Pay via Venmo</a>
+    <p class="cart-checkout-note">You'll be taken to Venmo to complete your order.</p>
+  </div>
+</div>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -2095,63 +2459,33 @@
 
   // Pricing tier picker
   const tierData = {
-    basic: {
-      name: 'Side-Kick Kit',
-      amount: '$125',
-      weight: '8 oz · 1L',
-      coverage: '1 person',
-      coverageNote: '',
-      desc: "For the scrapes, bruises, and other injuries that don’t require a visit to the emergency department.",
-      ideal: 'Ideal for easy hikes in mild weather and flat terrain.',
-      cta: 'Order Now',
-    },
     standard: {
-      name: 'Hero Kit',
-      amount: '$225',
+      name: 'Superhero Kit',
+      amount: '$199',
       weight: '14 oz · 1L',
       coverage: '1 person',
       coverageNote: '',
-      desc: 'Only what you need, nothing you don’t. Critical-intervention tools built for life-threatening emergencies when minutes matter most.',
+      desc: 'Only what you need, nothing you don\'t. Critical-intervention tools built for life-threatening emergencies when minutes matter most.',
       ideal: 'Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.',
       cta: 'Order Now',
     },
     pro: {
-      name: 'Superhero Kit',
-      amount: '$350',
-      weight: '14 oz (1L) + 16 oz (2L)',
-      coverage: '3 people',
-      coverageNote: '* Up to 3 people when paired with two Hero kits.',
-      desc: "For the long fight—critical-intervention tools plus systems for pain management, wound care, and extended-trip resilience when the mission doesn’t end at sunset.",
-      ideal: 'Ideal for multi-day trips and remote expeditions.',
+      name: 'Superhero Professional',
+      amount: '$249',
+      weight: '14 oz · 1L',
+      coverage: '1 person',
+      coverageNote: '',
+      desc: 'Everything in the Superhero kit, plus hemostatic gauze for junctional wounds. For those with the training to deploy it.',
+      ideal: 'Ideal for credentialed responders, WFR/WAFA graduates, EMTs, and SAR personnel.',
       cta: 'Order Now',
     },
   };
 
   // Kit contents per tier, grouped by purpose
   const tierContents = {
-    basic: [
-      { name: 'Wound Care', items: [
-        { name: 'Sterile gauze pads', purpose: 'Cover and clean minor wounds' },
-        { name: 'Gauze rolls', purpose: 'Wrap and secure dressings' },
-        { name: 'ABD trauma pads', purpose: 'Absorb heavy bleeding from large wounds' },
-        { name: 'Adhesive bandages', purpose: 'Cover cuts, scrapes, and blisters' },
-        { name: 'Cohesive wrap', purpose: 'Self-adhering wrap that won’t stick to skin' },
-        { name: 'Cloth medical tape', purpose: 'Fasten gauze and bandages' },
-      ]},
-      { name: 'Medications', items: [
-        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen, aspirin' },
-        { name: 'Allergy support', purpose: 'Diphenhydramine for stings and reactions' },
-      ]},
-      { name: 'Tools', items: [
-        { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
-        { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
-        { name: 'Ultralight zip pouch', purpose: 'Organizes the kit' },
-      ]},
-    ],
     standard: [
       { name: 'Bleeding & Trauma', items: [
         { name: 'Tourniquet (windlass)', purpose: 'Stop life-threatening limb bleeding' },
-        { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds along core, back, and groin' },
         { name: 'Slishman Pressure wrap', purpose: 'Compress and control major bleeds' },
       ]},
       { name: 'Environment & Body', items: [
@@ -2182,16 +2516,8 @@
     pro: [
       { name: 'Bleeding & Trauma', items: [
         { name: 'Tourniquet (windlass)', purpose: 'Stop life-threatening limb bleeding' },
-        { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds' },
-        { name: 'Pressure wrap', purpose: 'Compress and control major bleeds' },
-        { name: 'Coban', purpose: 'Secure dressings and apply pressure to wounds' },
-        { name: 'SAM splint', purpose: 'Immobilize fractures and sprains' },
-        { name: 'Triangular Slings', purpose: 'Immobilize fractures and sprains' }
-      ]},
-      { name: 'Burns & Skin', items: [
-        { name: 'Burn gel (lidocaine)', purpose: 'Numb and cool burns' },
-        { name: 'Non-adherent burn barrier', purpose: 'Cover burns without sticking' },
-        { name: 'Hydrocortisone cream', purpose: 'Reduce itching and inflammation' },
+        { name: 'Hemostatic gauze', purpose: 'Clot severe arterial wounds along core, back, and groin' },
+        { name: 'Slishman Pressure wrap', purpose: 'Compress and control major bleeds' },
       ]},
       { name: 'Environment & Body', items: [
         { name: 'Hypothermia wrap', purpose: 'Reflect heat and prevent shock' },
@@ -2199,43 +2525,23 @@
         { name: 'Electrolytes', purpose: 'Replace salts lost from sweat or illness' },
       ]},
       { name: 'Wound Care', items: [
-        { name: 'Sterile gauze pads', purpose: 'Cover and clean minor wounds' },
         { name: 'Gauze rolls', purpose: 'Wrap and secure dressings' },
         { name: 'ABD trauma pads', purpose: 'Absorb heavy bleeding from large wounds' },
         { name: 'Adhesive bandages', purpose: 'Cover cuts, scrapes, and blisters' },
         { name: 'Cloth medical tape', purpose: 'Fasten gauze and bandages' },
-        { name: 'Antiseptic wipes', purpose: 'Disinfect wounds before dressing' },
-        { name: 'Alcohol prep pads', purpose: 'Sterilize skin or instruments' },
-        { name: 'Irrigation syringe', purpose: 'Flush debris from wounds' },
-        { name: 'Steri-Strips', purpose: 'Small laceration closures' },
       ]},
       { name: 'Medications', items: [
-        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen, aspirin' },
-        { name: 'Allergy support', purpose: 'Diphenhydramine for stings and reactions' },
+        { name: 'Pain relief', purpose: 'Ibuprofen, acetaminophen' },
+        { name: 'Cardiac support', purpose: 'Aspirin for heart attacks and angina' },
+        { name: 'Allergy support', purpose: 'Diphenhydramine for stings, reactions, and nausea' },
         { name: 'GI support', purpose: 'Loperamide for diarrhea and antacids for upset stomachs' },
-        { name: 'Oral and tooth pain', purpose: 'Benzocaine for numbing' },
-        { name: 'Eye drops', purpose: 'Flush eyes and relieve irritation' },
-        { name: 'Anti-Itch', purpose: 'Alleviate skin irritation from Eczema and poisonous plants' },
-        { name: 'Sting-Relief', purpose: 'Alleviate skin irritation from bites and stings' },
-
-      ]},
-      { name: 'Blisters & Comfort', items: [
-        { name: 'Moleskin', purpose: 'Create donut-hole to remove pressure on blister' },
-        { name: 'Leukotape strip', purpose: 'Tough tape for blister prevention' },
-        { name: 'Anti-chafe Ointment', purpose: 'Prevent skin chafing' },
-      ]},
-      { name: 'Sun & Bugs', items: [
-        { name: 'Sunscreen', purpose: 'Block UV burns' },
-        { name: 'DEET wipe (30%)', purpose: 'Repel mosquitoes and ticks' },
-        { name: 'Lip balm', purpose: 'Protect lips from sun and wind' },
       ]},
       { name: 'Tools', items: [
         { name: 'Mini EMT shears', purpose: 'Cut clothing, gauze, and tape' },
-        { name: 'Mini Tweezers', purpose: 'Remove splinters, dirt from wounds, ticks, etc.' },
         { name: 'Non-latex gloves', purpose: 'Protect from contamination' },
-        { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes' },
+        { name: 'Mini Sharpie', purpose: 'Mark tourniquet time and notes on dressings' },
         { name: 'Duct tape', purpose: 'Universal repair' },
-        { name: 'Ultralight zip pouches', purpose: '1L + 2L for flexible packing' },
+        { name: 'Ultralight zip pouch', purpose: 'Organizes the kit' },
       ]},
     ],
   };
@@ -2315,6 +2621,166 @@
     });
   }
 
+  // Discount selector
+  const discountSelect  = document.getElementById('discountSelect');
+  const discountApplied = document.getElementById('discountApplied');
+  const discountNote    = document.getElementById('discountNote');
+  const priceOriginal   = document.getElementById('priceOriginal');
+  const priceAmountEl   = priceCard ? priceCard.querySelector('[data-tier-amount]') : null;
+
+  const basePrices = { standard: 199, pro: 249 };
+  const discountLabels = {
+    'Healthcare worker': 'healthcare worker',
+    'Educator': 'educator',
+    'Police / Law enforcement': 'police / law enforcement',
+    'Military / Veteran': 'military / veteran',
+    'Search & Rescue': 'SAR',
+    'CPR certified': 'CPR certification',
+  };
+
+  const orderCta = document.getElementById('orderCta');
+  const kitNames  = { standard: 'Superhero Kit', pro: 'Superhero Professional' };
+
+  function buildVenmoUrl() {
+    if (!priceCard || !orderCta) return;
+    const tier     = priceCard.dataset.tierActive || 'standard';
+    const base     = basePrices[tier] || 199;
+    const rate     = parseFloat(discountSelect?.value) || 0;
+    const amount   = rate > 0 ? Math.round(base * (1 - rate)) : base;
+    const kitName  = kitNames[tier] || 'Superhero Kit';
+    const roleKey  = discountSelect ? Object.keys(discountLabels).find(k => (discountSelect.options[discountSelect.selectedIndex]?.text || '').startsWith(k)) : null;
+    const noteParts = [kitName];
+    if (roleKey) noteParts.push(discountLabels[roleKey] + ' discount');
+    const note = encodeURIComponent(noteParts.join(' - '));
+    orderCta.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + amount + '&note=' + note;
+  }
+
+  function applyDiscount() {
+    if (!priceCard || !discountSelect || !priceAmountEl) return;
+    const tier = priceCard.dataset.tierActive || 'standard';
+    const base = basePrices[tier] || 199;
+    const rate = parseFloat(discountSelect.value) || 0;
+    const selectedText = discountSelect.options[discountSelect.selectedIndex]?.text || '';
+    const roleKey = Object.keys(discountLabels).find(k => selectedText.startsWith(k));
+
+    if (rate > 0 && roleKey) {
+      const discounted = Math.round(base * (1 - rate));
+      priceOriginal.textContent = '$' + base;
+      priceOriginal.hidden = false;
+      priceAmountEl.textContent = '$' + discounted;
+      discountNote.textContent = Math.round(rate * 100) + '% discount applied — mention ' + discountLabels[roleKey] + ' in your Venmo note';
+      discountApplied.classList.add('visible');
+    } else {
+      priceOriginal.hidden = true;
+      priceAmountEl.textContent = '$' + base;
+      discountApplied.classList.remove('visible');
+    }
+    buildVenmoUrl();
+    renderCart();
+  }
+
+  if (discountSelect) discountSelect.addEventListener('change', applyDiscount);
+
+  // Re-apply discount when tier changes (patch into existing tier swap)
+  const _origRenderContents = renderContents;
+  // After tier swap, recalculate price
+  const tierBtns = document.querySelectorAll('.tier-btn');
+  tierBtns.forEach(btn => btn.addEventListener('click', () => setTimeout(() => { applyDiscount(); buildVenmoUrl(); renderCart(); }, 250)));
+
+  // Set initial Venmo URL on page load
+  buildVenmoUrl();
+
+  // --- Cart ---
+  const cartFab      = document.getElementById('cartFab');
+  const cartBadge    = document.getElementById('cartBadge');
+  const cartBody     = document.getElementById('cartBody');
+  const cartFooter   = document.getElementById('cartFooter');
+  const cartTotal    = document.getElementById('cartTotal');
+  const cartCheckout = document.getElementById('cartCheckoutBtn');
+  const cartBackdrop = document.getElementById('cartBackdrop');
+  const cartPanel    = document.getElementById('cartPanel');
+  const cartState    = { standard: 0, pro: 0 };
+
+  function openCart() {
+    cartPanel.classList.add('open');
+    cartBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    cartPanel.classList.remove('open');
+    cartBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function addToCart() {
+    const tier = priceCard ? (priceCard.dataset.tierActive || 'standard') : 'standard';
+    cartState[tier] = (cartState[tier] || 0) + 1;
+    renderCart();
+    openCart();
+  }
+  function updateQty(tier, delta) {
+    cartState[tier] = Math.max(0, (cartState[tier] || 0) + delta);
+    renderCart();
+  }
+  function renderCart() {
+    const rate    = parseFloat(discountSelect?.value) || 0;
+    const selText = discountSelect ? (discountSelect.options[discountSelect.selectedIndex]?.text || '') : '';
+    const roleKey = Object.keys(discountLabels).find(k => selText.startsWith(k));
+    let subtotal  = 0;
+    const lines   = [];
+    for (const [tier, qty] of Object.entries(cartState)) {
+      if (qty <= 0) continue;
+      const base      = basePrices[tier] || 199;
+      const unitPrice = rate > 0 ? Math.round(base * (1 - rate)) : base;
+      subtotal += unitPrice * qty;
+      lines.push({ tier, qty, unitPrice, name: kitNames[tier] });
+    }
+    const totalQty = lines.reduce((s, l) => s + l.qty, 0);
+    cartBadge.textContent = totalQty;
+    if (totalQty > 0) cartFab.classList.remove('hidden');
+
+    if (lines.length === 0) {
+      cartBody.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      cartFooter.hidden = true;
+      return;
+    }
+
+    let html = '';
+    for (const item of lines) {
+      html += `<div class="cart-item">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">$${item.unitPrice} each · $${item.unitPrice * item.qty}</div>
+        </div>
+        <div class="cart-qty-stepper">
+          <button class="cart-qty-btn" onclick="updateQty('${item.tier}',-1)" aria-label="Remove one">−</button>
+          <span class="cart-qty-num">${item.qty}</span>
+          <button class="cart-qty-btn" onclick="updateQty('${item.tier}',1)" aria-label="Add one">+</button>
+        </div>
+      </div>`;
+    }
+    if (rate > 0 && roleKey) {
+      html += `<p class="cart-discount-note">✓ ${Math.round(rate * 100)}% discount applied</p>`;
+    }
+    const shipping = 20;
+    const grandTotal = subtotal + shipping;
+    html += `<div class="cart-item" style="opacity:0.7;">
+      <div class="cart-item-info">
+        <div class="cart-item-name" style="font-weight:500;">Shipping</div>
+        <div class="cart-item-price">flat rate</div>
+      </div>
+      <div style="font-weight:700; color:var(--text);">$${shipping}</div>
+    </div>`;
+    cartBody.innerHTML = html;
+    cartFooter.hidden = false;
+    cartTotal.textContent = '$' + grandTotal;
+
+    const noteParts = lines.map(l => l.qty + 'x ' + l.name);
+    if (rate > 0 && roleKey) noteParts.push(discountLabels[roleKey] + ' discount');
+    noteParts.push('Shipping Address (PO boxes allowed): ');
+    const note = encodeURIComponent(noteParts.join(' | '));
+    cartCheckout.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + grandTotal + '&note=' + note;
+  }
+
   // Contents toggle (expand/collapse)
   const contentsToggle = document.getElementById('contentsToggle');
   if (contentsToggle && contentsPanel) {
@@ -2354,6 +2820,7 @@
     if (window.location.hash === '#disclaimer') expandDisclaimer();
   }
 </script>
+
 
 </body>
 </html>
