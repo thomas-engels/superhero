@@ -1513,9 +1513,9 @@
                 <td class="yes">✓ Combat grade</td>
               </tr>
               <tr class="highlight-row">
-                <td>Hemostatic agents</td>
+                <td>Hemostatic agents*</td>
                 <td class="no">✕ None</td>
-                <td class="partial">✓ Professional tier</td>
+                <td class="yes">✓ Combat grade</td>
               </tr>
               <tr>
                 <td>Hypothermia</td>
@@ -1546,14 +1546,19 @@
               <tr class="highlight-row">
                 <td>Bag material</td>
                 <td class="partial">⚠ Heavy Cordura</td>
-                <td class="yes">✓ Dyneema — ultralight + stormproof</td>
+                <td class="yes">✓ Dyneema — ultralight + waterproof</td>
               </tr>
               <tr>
                 <td>Educational Content</td>
                 <td class="partial">Basic</td>
-                <td class="yes">✓ Companion emergency guidance app</td>
+                <td class="yes">✓ Phone application AND physical waterproof field guide</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="font-size:0.75rem; color:var(--muted); padding:0.65rem 1rem; border-top:1px solid var(--border);">*Only available in Professional tier kit</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
@@ -1962,6 +1967,10 @@
         <div class="price-desc" data-tier-desc>Only what you need, nothing you don’t. Critical-intervention tools built for life-threatening emergencies when minutes matter most.</div>
         <div class="price-ideal" data-tier-ideal>Ideal for climbers, hikers, trail runners, bikers, paddlers, skiers and snowboarders.</div>
         <button type="button" class="price-cta" onclick="addToCart()">Add to Cart</button>
+        <a href="returns.html" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:0.4rem; margin-top:0.6rem; font-size:0.78rem; color:var(--muted); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Satisfaction guaranteed — free returns within 30 days</span>
+        </a>
         <button type="button"
                 class="contents-toggle"
                 id="contentsToggle"
@@ -1999,7 +2008,7 @@
         </button>
 
         <p class="disclaimer">
-          This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="#disclaimer" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. <strong>This is a v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. Bag design, colors, logo, and contents are evolving based on feedback. This is not a commercial product.
+          This kit is designed for emergency preparedness in pre-hospital environments. It is not a substitute for medical training or professional care. Some components (such as tourniquets and hemostatic dressings) require prerequisite knowledge to use safely. By purchasing, you assume all risk and agree to the <a href="disclaimer.html" target="_blank" rel="noopener" style="color: var(--red); text-decoration: underline;">full disclaimer and terms of use</a>. <strong>This is a v1.0 prototype in private beta</strong> — distributed to friends, family, and trusted testers only. Bag design, colors, logo, and contents are evolving based on feedback. This is not a commercial product.
         </p>
       </div>
 
@@ -2016,7 +2025,7 @@
               </div>
               <div class="flow-step-right">
                 <div class="flow-step-title">Choose your kit</div>
-                <div class="flow-step-desc">Select Superhero or Superhero Professional and reach out via the contact form, text, or email.</div>
+                <div class="flow-step-desc">Select Superhero or Superhero Professional and add it to your cart.</div>
               </div>
             </div>
 
@@ -2026,8 +2035,19 @@
                 <div class="flow-line"></div>
               </div>
               <div class="flow-step-right">
+                <div class="flow-step-title">Enter your info</div>
+                <div class="flow-step-desc">Fill in your name, email, phone, and shipping address in the cart. PO boxes welcome.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step-left">
+                <div class="flow-node">3</div>
+                <div class="flow-line"></div>
+              </div>
+              <div class="flow-step-right">
                 <div class="flow-step-title">Pay via Venmo</div>
-                <div class="flow-step-desc">Send payment to <strong>@superhero_first_aid_systems</strong> — include your kit choice and shipping address in the note.</div>
+                <div class="flow-step-desc">Hit "Pay via Venmo" — your order details, shipping info, and terms agreement are pre-filled in the note to <strong>@superhero_first_aid_systems</strong>.</div>
               </div>
             </div>
 
@@ -2047,7 +2067,7 @@
 
             <div class="flow-step">
               <div class="flow-step-left">
-                <div class="flow-node">3</div>
+                <div class="flow-node">4</div>
                 <div class="flow-line"></div>
               </div>
               <div class="flow-step-right">
@@ -2058,7 +2078,7 @@
 
             <div class="flow-step">
               <div class="flow-step-left">
-                <div class="flow-node">4</div>
+                <div class="flow-node">5</div>
               </div>
               <div class="flow-step-right">
                 <div class="flow-step-title">Ships to you</div>
@@ -2250,7 +2270,7 @@
 
 
 
-<!-- ── DISCLAIMER ── -->
+<!-- ── DISCLAIMER (content moved to disclaimer.html) ── -->
 <section id="disclaimer">
   <div class="container">
     <div class="reveal mb-5">
@@ -2260,14 +2280,10 @@
     </div>
 
     <div class="disclaimer-actions reveal">
-      <button type="button"
-              class="disclaimer-toggle"
-              id="disclaimerToggle"
-              aria-expanded="false"
-              aria-controls="disclaimerPanel">
+      <a class="disclaimer-toggle" href="disclaimer.html" target="_blank" rel="noopener" style="text-decoration:none;">
         <span class="disclaimer-toggle-label">Read full disclaimer</span>
         <span class="disclaimer-toggle-icon" aria-hidden="true">›</span>
-      </button>
+      </a>
       <a class="disclaimer-download"
          href="disclaimer.pdf"
          target="_blank"
@@ -2331,15 +2347,66 @@
   </div>
 </section>
 
+<!-- ── RETURN POLICY ── -->
+<section id="returns">
+  <div class="container">
+    <div class="reveal mb-5">
+      <div class="section-label">Satisfaction Guaranteed</div>
+      <div class="section-title">Return<br>policy.</div>
+      <p class="section-body">We stand behind every kit. If you're not satisfied, we'll make it right.</p>
+    </div>
+
+    <div class="disclaimer-actions reveal">
+      <a class="disclaimer-toggle" href="returns.html" target="_blank" rel="noopener" style="text-decoration:none;">
+        <span class="disclaimer-toggle-label">Read return policy</span>
+        <span class="disclaimer-toggle-icon" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <div class="disclaimer-panel" id="returnPanel" hidden>
+      <ol class="disclaimer-list">
+        <li>
+          <h3>30-day free returns.</h3>
+          <p>If you're not fully satisfied with your Superhero First Aid Kit, you may return it within <strong>30 days</strong> of receiving it for a full refund — no questions asked. Returns are free; we'll cover the cost of return shipping.</p>
+        </li>
+        <li>
+          <h3>How to initiate a return.</h3>
+          <p>Reach out via email at <a href="mailto:tbengels@gmail.com" style="color:var(--red);">tbengels@gmail.com</a> or text <a href="tel:6513951906" style="color:var(--red);">651-395-1906</a> with your name and order details. We'll reply within 24 hours and email you a pre-printed return shipping label — just print it, pack the kit, and drop it at any UPS or FedEx location. No cost to you.</p>
+        </li>
+        <li>
+          <h3>Kit condition.</h3>
+          <p>Please return the kit with all original components included and unmodified. Once we receive and confirm everything is in order, your full refund will be issued to your original Venmo account within 2 business days.</p>
+        </li>
+        <li>
+          <h3>Used or deployed components.</h3>
+          <p>If any component was used in an emergency, please still reach out — we'll work with you on a case-by-case basis. Your safety and satisfaction matter more than the kit.</p>
+        </li>
+        <li>
+          <h3>Questions.</h3>
+          <p>Any questions about a return? Contact us directly — we're a small operation and we'll always do right by you.</p>
+        </li>
+      </ol>
+      <p class="disclaimer-updated">Last updated: June 2026.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-name">Superhero First Aid Systems</div>
   <div class="footer-note">For the Prepared. For the Caring. &nbsp;·&nbsp; v1.0 prototype &nbsp;·&nbsp; <a href="https://www.youtube.com/@wild_climbing_medicine" target="_blank" rel="noopener" style="color: var(--red);">YouTube</a> &nbsp;·&nbsp; &copy; 2026</div>
+  <div style="margin-top:0.6rem; font-size:0.8rem;">
+    <a href="disclaimer.html" target="_blank" rel="noopener" style="color: var(--red); text-decoration:none;">Disclaimer &amp; Terms</a>
+    &nbsp;·&nbsp;
+    <a href="returns.html" target="_blank" rel="noopener" style="color: var(--red); text-decoration:none;">Return Policy</a>
+    &nbsp;·&nbsp;
+    <a href="privacy.html" target="_blank" rel="noopener" style="color: var(--red); text-decoration:none;">Privacy Policy</a>
+  </div>
 </footer>
 
 <!-- Bootstrap JS -->
 <!-- Cart FAB -->
-<button type="button" class="cart-fab" id="cartFab" onclick="openCart()" aria-label="View cart">
+<button type="button" class="cart-fab hidden" id="cartFab" onclick="openCart()" aria-label="View cart">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
   Cart <span class="cart-badge" id="cartBadge">0</span>
 </button>
@@ -2382,7 +2449,7 @@
     </div>
     <label style="display:flex; align-items:flex-start; gap:0.6rem; margin-bottom:1rem; cursor:pointer; font-size:0.82rem; color:var(--muted); line-height:1.5;">
       <input type="checkbox" id="cartTermsCheck" style="margin-top:0.2rem; accent-color:var(--red); flex-shrink:0;">
-      I agree to the <a href="#disclaimer" onclick="closeCart()" style="color:var(--red); text-decoration:underline;">disclaimer &amp; terms of use</a>
+      I agree to the <a href="disclaimer.html" target="_blank" rel="noopener" style="color:var(--red); text-decoration:underline;">disclaimer &amp; terms of use</a>
     </label>
     <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" target="_blank" rel="noopener noreferrer" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
     <p class="cart-checkout-note">You'll be taken to Venmo to complete your order.</p>
@@ -2814,6 +2881,7 @@
     if (totalQty > 0) cartFab.classList.remove('hidden');
 
     if (lines.length === 0) {
+      cartFab.classList.add('hidden');
       cartBody.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
       cartForm.hidden = true;
       cartFooter.hidden = true;
@@ -2904,6 +2972,23 @@
     });
     // Handle direct navigation with #disclaimer in the URL
     if (window.location.hash === '#disclaimer') expandDisclaimer();
+  }
+
+  // Return policy toggle
+  const returnToggle = document.getElementById('returnToggle');
+  const returnPanel  = document.getElementById('returnPanel');
+  if (returnToggle && returnPanel) {
+    returnToggle.addEventListener('click', () => {
+      const isOpen = returnToggle.getAttribute('aria-expanded') === 'true';
+      returnToggle.setAttribute('aria-expanded', String(!isOpen));
+      returnToggle.querySelector('.disclaimer-toggle-label').textContent = isOpen ? 'Read return policy' : 'Hide return policy';
+      returnPanel.hidden = isOpen;
+    });
+    if (window.location.hash === '#returns') {
+      returnToggle.setAttribute('aria-expanded', 'true');
+      returnToggle.querySelector('.disclaimer-toggle-label').textContent = 'Hide return policy';
+      returnPanel.hidden = false;
+    }
   }
 </script>
 
