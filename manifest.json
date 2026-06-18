@@ -1,6 +1,6 @@
 {
   "name": "Superhero First Aid",
-  "short_name": "Superhero FA",
+  "short_name": "First Aid",
   "description": "Emergency guidance for the Superhero First Aid Kit",
   "start_url": "app.html",
   "display": "standalone",
