@@ -728,50 +728,12 @@
       background: linear-gradient(160deg, #1e0808, var(--card-bg));
       border: 1px solid var(--red);
       border-radius: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 240px;
-      gap: 1.75rem;
-      align-items: center;
-    }
-    .video-card-text { min-width: 0; }
-    .video-card-photo {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-    }
-    .video-card-photo img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      filter: saturate(1.05) contrast(1.04);
-    }
-    .video-card-photo figcaption {
-      font-size: 0.74rem;
-      color: var(--muted);
-      font-style: italic;
-      text-align: center;
-      line-height: 1.4;
-    }
-    @media (max-width: 768px) {
-      .video-card { grid-template-columns: 1fr; gap: 1.5rem; }
-      .video-card-photo { order: 2; max-width: 220px; margin: 0 auto; }
     }
     .video-card-top {
       display: flex;
       align-items: center;
       gap: 0.85rem;
       margin-bottom: 1rem;
-    }
-    .video-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--red);
-      line-height: 0;
     }
     .video-coming-soon {
       font-size: 0.68rem;
@@ -801,36 +763,8 @@
       max-width: 640px;
     }
     .video-desc strong { color: var(--red); font-weight: 700; }
-    .video-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: var(--red);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      padding: 0.9rem 1.4rem;
-      border-radius: 6px;
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 14px rgba(224,32,32,0.25);
-    }
-    .video-cta:hover {
-      background: var(--red-dark);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(224,32,32,0.4);
-    }
-    .video-cta-icon {
-      display: inline-flex;
-      line-height: 0;
-    }
-    .video-cta-arrow { transition: transform 0.2s ease; }
-    .video-cta:hover .video-cta-arrow { transform: translateX(4px); }
     @media (max-width: 576px) {
       .video-card { padding: 1.6rem 1.4rem; }
-      .video-cta { font-size: 0.82rem; padding: 0.85rem 1.1rem; gap: 0.55rem; }
     }
 
     /* ── FOOTER ── */
@@ -882,13 +816,10 @@
     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
       <ul class="navbar-nav align-items-lg-center gap-lg-1">
         <li class="nav-item"><a class="nav-link" href="index.html#why">The Difference</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#experience">The Why</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#the-bag">Design</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#pricing">Kits</a></li>
         <li class="nav-item"><a class="nav-link" href="after-purchase.html">Knowledge &amp; Training</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
-        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="index.html#contact">Order Now</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="index.html#pricing">Get a Kit</a></li>
       </ul>
     </div>
   </div>

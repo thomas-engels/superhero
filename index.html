@@ -22,6 +22,7 @@
       --border:   rgba(255,255,255,0.08);
       --text:     #e8e8e8;
       --muted:    #888;
+      --amber:    #fbbf24;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -143,12 +144,6 @@
       background: var(--red);
       margin: 1.5rem auto;
     }
-<!--    .hero-content {-->
-<!--      height: 100vh;-->
-<!--      display: flex;-->
-<!--      align-items: center;-->
-<!--      justify-content: center;-->
-<!--    }-->
     .hero-tagline {
       max-width: 540px;
       margin: 0 auto 2rem;
@@ -250,124 +245,6 @@
     .stat-desc { font-size: 0.88rem; color: var(--muted); }
 
     /* ── EXPERIENCE ── */
-    #experience { background: var(--mid); }
-    .exp-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem 1rem;
-      text-align: center;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .exp-card:hover { transform: translateY(-4px); border-color: var(--red); }
-    .exp-icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
-    .exp-title { font-weight: 700; font-size: 1rem; color: #fff; }
-    .exp-years { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
-
-    /* ── PHOTO ACCENTS ── */
-    /* Banner photo at end of a section */
-    .photo-banner {
-      position: relative;
-      margin: 3rem 0 0;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      aspect-ratio: 21 / 9;
-      isolation: isolate;
-    }
-    .photo-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05) contrast(1.04);
-      transition: transform 0.8s ease;
-    }
-    .photo-banner:hover img { transform: scale(1.02); }
-    .photo-banner::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-      pointer-events: none;
-    }
-
-    /* Slim full-width break strip with quote overlay */
-    .photo-strip {
-      position: relative;
-      height: clamp(220px, 28vh, 320px);
-      overflow: hidden;
-      isolation: isolate;
-      display: block;
-    }
-    .photo-strip img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05) contrast(1.05) brightness(0.78);
-    }
-    .photo-strip::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.55) 100%);
-      pointer-events: none;
-    }
-    .photo-strip-quote {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      z-index: 1;
-      padding: 0 1.5rem;
-    }
-    .photo-strip-quote span {
-      font-family: 'Bebas Neue', sans-serif;
-      color: #fff;
-      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
-      letter-spacing: 0.08em;
-      text-shadow: 0 2px 14px rgba(0,0,0,0.75);
-    }
-    .photo-strip-quote em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    /* Inline portrait inside About section */
-    .about-intro::after { content: ''; display: block; clear: both; }
-    .about-portrait {
-      float: right;
-      width: 280px;
-      margin: 0.25rem 0 1rem 1.75rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      aspect-ratio: 4 / 5;
-    }
-    .about-portrait img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05) contrast(1.04);
-    }
-
-    @media (max-width: 768px) {
-      .photo-banner { aspect-ratio: 16 / 9; margin-top: 2.25rem; }
-      .about-portrait {
-        float: none;
-        width: 100%;
-        margin: 0 0 1.5rem 0;
-        aspect-ratio: 16 / 10;
-      }
-    }
-    @media (max-width: 576px) {
-      .photo-banner { aspect-ratio: 4 / 3; }
-    }
-
     /* ── BAG IMAGE CAROUSEL ── */
     .bag-carousel {
       position: relative;
@@ -1527,12 +1404,6 @@
                 <td class="no">✕ None</td>
                 <td class="yes">✓ Strong, fast-acting</td>
               </tr>
-<!--              <tr>-->
-<!--                <td>Wound closure</td>-->
-<!--                <td class="partial">⚠ Rare</td>-->
-<!--                <td class="yes">✓ Steri-strips</td>-->
-<!--              </tr>-->
-
               <tr class="highlight-row">
                 <td>Dehydration / Hyponatremia</td>
                 <td class="no">✕ None</td>
@@ -1618,9 +1489,6 @@
               <img src="photos/opening-web.jpg" alt="Superhero First Aid Systems 1L kit — branded Hyperlite Zippy bag"/>
             </div>
             <div class="bag-slide">
-              <video src="videos/unzipping.mp4" autoplay muted loop playsinline preload="metadata" poster="photos/opening-web.jpg"></video>
-            </div>
-            <div class="bag-slide">
               <img src="photos/cams-web.jpg" alt="Bag clipped to climbing harness with cams and quickdraws" loading="lazy"/>
             </div>
             <div class="bag-slide">
@@ -1637,11 +1505,10 @@
           <button class="bag-nav next" type="button" aria-label="Next photo" data-bag-dir="1">›</button>
           <div class="bag-dots" id="bagDots">
             <button type="button" class="bag-dot active" data-slide="0" aria-label="Photo 1"></button>
-            <button type="button" class="bag-dot" data-slide="1" aria-label="Video"></button>
-            <button type="button" class="bag-dot" data-slide="2" aria-label="Photo 2"></button>
-            <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 3"></button>
-            <button type="button" class="bag-dot" data-slide="4" aria-label="Photo 4"></button>
-            <button type="button" class="bag-dot" data-slide="5" aria-label="Photo 5"></button>
+            <button type="button" class="bag-dot" data-slide="1" aria-label="Photo 2"></button>
+            <button type="button" class="bag-dot" data-slide="2" aria-label="Photo 3"></button>
+            <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 4"></button>
+            <button type="button" class="bag-dot" data-slide="4" aria-label="Photo 5"></button>
           </div>
         </div>
         <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
@@ -1690,21 +1557,6 @@
               </div>
             </div>
           </div>
-
-<!--          <div style="display:flex; gap:1rem; align-items:flex-start;">-->
-<!--            <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);-->
-<!--                        border:1px solid rgba(224,32,32,0.3); border-radius:6px;-->
-<!--                        display:flex; align-items:center; justify-content:center;-->
-<!--                        font-size:1rem;">🏔️</div>-->
-<!--            <div>-->
-<!--              <div style="font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">-->
-<!--                Sized for the kit, not the other way around-->
-<!--              </div>-->
-<!--              <div style="color:var(&#45;&#45;muted); font-size:0.88rem; line-height:1.6;">-->
-<!--                1L is enough to hold the power of the Superhero Kit. Contents are grouped together internally using binders; making it wicked easy for you to find the right tool for the injury or illness.-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
 
           <div style="display:flex; gap:1rem; align-items:flex-start;">
             <div style="min-width:36px; height:36px; background:rgba(224,32,32,0.12);
@@ -2232,12 +2084,6 @@
             <br><br>
             I've been carrying DIY, custom first aid kits for real emergencies for the last 7 years (real story — this kit was on hand when a free-soloist fell 60 ft in Eldorado Canyon, Colorado). The Superhero First Aid Kit equips anyone to respond when serious emergencies happen — to be a superhero in the moment. A companion emergency guidance app and manufacturer training resources will give you what you need to use these tools confidently. No outcome can be guaranteed — but having the right tools, right mindset, and right training is what allows you to act when it matters.
           </p>
-<!--          <p style="color: var(&#45;&#45;muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem;">-->
-
-<!--            Superhero First Aid Systems exists because the right kit didn't. So we-->
-<!--            built it — then refined it until we'd trust it with our own lives.-->
-<!--          </p>-->
-
           <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
             <span style="font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
                          color: var(--muted); background: rgba(255,255,255,0.04);
@@ -2294,56 +2140,6 @@
       </a>
     </div>
 
-    <div class="disclaimer-panel" id="disclaimerPanel" hidden>
-    <ol class="disclaimer-list">
-      <li>
-        <h3>Private beta &mdash; this is a prototype, not a commercial product.</h3>
-        <p>The Superhero First Aid Kit is currently a <strong>v1.0 prototype</strong> distributed only to friends, family, and trusted testers as part of a private beta. It is not a commercial product. By accepting a kit, you understand the bag, components, packaging, branding, and educational materials are <strong>subject to change without notice</strong> as the product evolves based on feedback. No representations are made about the kit's completeness, durability, regulatory compliance, or readiness for general use.</p>
-      </li>
-      <li>
-        <h3>Educational, not medical advice.</h3>
-        <p>This kit and its accompanying materials — including the companion emergency guidance app, field guide, and any written content — are intended for general emergency preparedness in pre-hospital environments. They are <strong>not</strong> a substitute for professional medical training, evaluation, or care, and do not constitute medical advice for any specific person or situation. For tool-specific usage guidance, always refer to the manufacturer's instructions included with each item.</p>
-      </li>
-      <li>
-        <h3>Training is your responsibility.</h3>
-        <p>Several components — including tourniquets, hemostatic gauze, and pressure wraps — are intended for life-threatening emergencies and require prior knowledge to use safely. Improper use can cause additional injury, including tissue or nerve damage, or death. Before relying on this kit in a real emergency, you are strongly encouraged to complete recognized training such as Wilderness First Aid (WFA), Wilderness First Responder (WFR), EMT-Basic, or Red Cross / AHA BLS &amp; CPR.</p>
-      </li>
-      <li>
-        <h3>You voluntarily assume all risk.</h3>
-        <p>Emergencies and the activities this kit is designed for (climbing, skiing, biking, paddling, diving, backcountry travel, and similar) are inherently dangerous. By purchasing or using this kit, you voluntarily accept all risk of injury, illness, death, loss, or property damage — to yourself or to others — that may arise from the use, misuse, or failure to use any part of it. No outcome is guaranteed; first aid is not a substitute for definitive medical care.</p>
-      </li>
-      <li>
-        <h3>Limitation of liability.</h3>
-        <p>To the fullest extent permitted by law, Thomas Engels, Superhero First Aid Systems, and any affiliated individuals or entities shall <strong>not</strong> be liable for any direct, indirect, incidental, consequential, special, or punitive damages — including but not limited to bodily injury, illness, disability, death, emotional distress, or property loss — arising from or related to the purchase, use, misuse, or failure to use this kit, its components, or any associated educational materials. This limitation applies even if such parties have been advised of the possibility of such damages.</p>
-      </li>
-      <li>
-        <h3>Your ongoing responsibilities.</h3>
-        <p>You are responsible for: inspecting the kit and its contents upon receipt; replacing expired medications and components; knowing your own and others' medical history, allergies, and medication interactions before administering any item; complying with all federal, state, and local laws regarding kit contents in your jurisdiction; and seeking definitive medical care as soon as possible after any emergency intervention.</p>
-      </li>
-      <li>
-        <h3>No warranty.</h3>
-        <p>This kit is provided "as is" and "as available." No warranty, express or implied — including merchantability, fitness for a particular purpose, or ability to prevent injury or death — is made by Thomas Engels or Superhero First Aid Systems.</p>
-      </li>
-      <li>
-        <h3>Indemnification.</h3>
-        <p>You agree to indemnify and hold harmless Thomas Engels and Superhero First Aid Systems from any and all claims, demands, damages, costs, and expenses (including reasonable attorneys' fees) arising from your use or misuse of the kit, your violation of these terms, or your violation of any applicable law.</p>
-      </li>
-      <li>
-        <h3>Modifications void suitability.</h3>
-        <p>Modifying the kit, substituting components, or combining it with non-approved materials voids any implied suitability for emergency use and shifts full responsibility for the modified kit's performance to you.</p>
-      </li>
-      <li>
-        <h3>Severability.</h3>
-        <p>If any provision of this disclaimer is found unenforceable under applicable law, the remaining provisions remain in full force and effect.</p>
-      </li>
-      <li>
-        <h3>Acknowledgment.</h3>
-        <p>By purchasing or accepting a Superhero First Aid Kit, you confirm that you have read, understood, and agreed to all of the above.</p>
-      </li>
-    </ol>
-
-    <p class="disclaimer-updated">Last updated: May 2026. Terms may be updated; the version in effect at the time of purchase applies.</p>
-    </div>
   </div>
 </section>
 
@@ -2363,31 +2159,6 @@
       </a>
     </div>
 
-    <div class="disclaimer-panel" id="returnPanel" hidden>
-      <ol class="disclaimer-list">
-        <li>
-          <h3>30-day free returns.</h3>
-          <p>If you're not fully satisfied with your Superhero First Aid Kit, you may return it within <strong>30 days</strong> of receiving it for a full refund — no questions asked. Returns are free; we'll cover the cost of return shipping.</p>
-        </li>
-        <li>
-          <h3>How to initiate a return.</h3>
-          <p>Reach out via email at <a href="mailto:tbengels@gmail.com" style="color:var(--red);">tbengels@gmail.com</a> or text <a href="tel:6513951906" style="color:var(--red);">651-395-1906</a> with your name and order details. We'll reply within 24 hours and email you a pre-printed return shipping label — just print it, pack the kit, and drop it at any UPS or FedEx location. No cost to you.</p>
-        </li>
-        <li>
-          <h3>Kit condition.</h3>
-          <p>Please return the kit with all original components included and unmodified. Once we receive and confirm everything is in order, your full refund will be issued to your original Venmo account within 2 business days.</p>
-        </li>
-        <li>
-          <h3>Used or deployed components.</h3>
-          <p>If any component was used in an emergency, please still reach out — we'll work with you on a case-by-case basis. Your safety and satisfaction matter more than the kit.</p>
-        </li>
-        <li>
-          <h3>Questions.</h3>
-          <p>Any questions about a return? Contact us directly — we're a small operation and we'll always do right by you.</p>
-        </li>
-      </ol>
-      <p class="disclaimer-updated">Last updated: June 2026.</p>
-    </div>
   </div>
 </section>
 
@@ -2532,18 +2303,6 @@
     });
   })();
 
-  // Gallery carousel nav (legacy)
-  document.querySelectorAll('.carousel-nav').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const track = document.getElementById(btn.dataset.track);
-      if (!track) return;
-      const tile = track.querySelector('.gallery-tile');
-      if (!tile) return;
-      const dir = btn.classList.contains('next') ? 1 : -1;
-      const step = tile.offsetWidth + 14;
-      track.scrollBy({ left: step * dir, behavior: 'smooth' });
-    });
-  });
 
   // Bag carousel
   (function initBagCarousel() {
@@ -2769,22 +2528,7 @@
     'CPR certified': 'CPR certification',
   };
 
-  const orderCta = document.getElementById('orderCta');
-  const kitNames  = { standard: 'Superhero Kit', pro: 'Superhero Professional' };
-
-  function buildVenmoUrl() {
-    if (!priceCard || !orderCta) return;
-    const tier     = priceCard.dataset.tierActive || 'standard';
-    const base     = basePrices[tier] || 199;
-    const rate     = parseFloat(discountSelect?.value) || 0;
-    const amount   = rate > 0 ? Math.round(base * (1 - rate)) : base;
-    const kitName  = kitNames[tier] || 'Superhero Kit';
-    const roleKey  = discountSelect ? Object.keys(discountLabels).find(k => (discountSelect.options[discountSelect.selectedIndex]?.text || '').startsWith(k)) : null;
-    const noteParts = [kitName];
-    if (roleKey) noteParts.push(discountLabels[roleKey] + ' discount');
-    const note = encodeURIComponent(noteParts.join(' - '));
-    orderCta.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + amount + '&note=' + note;
-  }
+  const kitNames = { standard: 'Superhero Kit', pro: 'Superhero Professional' };
 
   function applyDiscount() {
     if (!priceCard || !discountSelect || !priceAmountEl) return;
@@ -2806,20 +2550,13 @@
       priceAmountEl.textContent = '$' + base;
       discountApplied.classList.remove('visible');
     }
-    buildVenmoUrl();
     renderCart();
   }
 
   if (discountSelect) discountSelect.addEventListener('change', applyDiscount);
 
-  // Re-apply discount when tier changes (patch into existing tier swap)
-  const _origRenderContents = renderContents;
-  // After tier swap, recalculate price
   const tierBtns = document.querySelectorAll('.tier-btn');
-  tierBtns.forEach(btn => btn.addEventListener('click', () => setTimeout(() => { applyDiscount(); buildVenmoUrl(); renderCart(); }, 250)));
-
-  // Set initial Venmo URL on page load
-  buildVenmoUrl();
+  tierBtns.forEach(btn => btn.addEventListener('click', () => setTimeout(() => { applyDiscount(); renderCart(); }, 250)));
 
   // --- Cart ---
   const cartFab      = document.getElementById('cartFab');
@@ -2947,49 +2684,6 @@
     });
   }
 
-  // Disclaimer toggle (expand/collapse)
-  const disclaimerToggle = document.getElementById('disclaimerToggle');
-  const disclaimerPanel = document.getElementById('disclaimerPanel');
-  if (disclaimerToggle && disclaimerPanel) {
-    const expandDisclaimer = () => {
-      disclaimerToggle.setAttribute('aria-expanded', 'true');
-      disclaimerToggle.querySelector('.disclaimer-toggle-label').textContent = 'Hide full disclaimer';
-      disclaimerPanel.hidden = false;
-    };
-    const collapseDisclaimer = () => {
-      disclaimerToggle.setAttribute('aria-expanded', 'false');
-      disclaimerToggle.querySelector('.disclaimer-toggle-label').textContent = 'Read full disclaimer';
-      disclaimerPanel.hidden = true;
-    };
-    disclaimerToggle.addEventListener('click', () => {
-      const isOpen = disclaimerToggle.getAttribute('aria-expanded') === 'true';
-      isOpen ? collapseDisclaimer() : expandDisclaimer();
-    });
-    // Auto-expand when a #disclaimer link is clicked (so users following the
-    // "full disclaimer and terms of use" link from the order section actually see it)
-    document.querySelectorAll('a[href="#disclaimer"]').forEach(link => {
-      link.addEventListener('click', expandDisclaimer);
-    });
-    // Handle direct navigation with #disclaimer in the URL
-    if (window.location.hash === '#disclaimer') expandDisclaimer();
-  }
-
-  // Return policy toggle
-  const returnToggle = document.getElementById('returnToggle');
-  const returnPanel  = document.getElementById('returnPanel');
-  if (returnToggle && returnPanel) {
-    returnToggle.addEventListener('click', () => {
-      const isOpen = returnToggle.getAttribute('aria-expanded') === 'true';
-      returnToggle.setAttribute('aria-expanded', String(!isOpen));
-      returnToggle.querySelector('.disclaimer-toggle-label').textContent = isOpen ? 'Read return policy' : 'Hide return policy';
-      returnPanel.hidden = isOpen;
-    });
-    if (window.location.hash === '#returns') {
-      returnToggle.setAttribute('aria-expanded', 'true');
-      returnToggle.querySelector('.disclaimer-toggle-label').textContent = 'Hide return policy';
-      returnPanel.hidden = false;
-    }
-  }
 </script>
 
 
