@@ -2931,7 +2931,7 @@
     noteParts.push('Phone: ' + (phone || '(required)'));
     noteParts.push('Shipping Address: ' + (address || '(required)'));
     noteParts.push('I agree to Superhero First Aid Systems Disclaimer and Terms of Use.');
-    const note = encodeURIComponent(noteParts.join('  |  '));
+    const note = encodeURIComponent(noteParts.join('\n'));
     cartCheckout.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + grandTotal + '&note=' + note;
   }
 
