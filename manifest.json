@@ -2,7 +2,7 @@
   "name": "Superhero First Aid",
   "short_name": "Superhero FA",
   "description": "Emergency guidance for the Superhero First Aid Kit",
-  "start_url": "/app.html",
+  "start_url": "app.html",
   "display": "standalone",
   "background_color": "#0d0d0d",
   "theme_color": "#0d0d0d",

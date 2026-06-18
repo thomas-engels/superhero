@@ -1,8 +1,6 @@
 const CACHE = 'superhero-fa-v2';
-const CORE = ['/app.html', '/manifest.json', '/logo.svg'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)));
   self.skipWaiting();
 });
 
@@ -15,9 +13,14 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
+// Cache on first fetch so paths resolve correctly regardless of subdirectory hosting
 self.addEventListener('fetch', e => {
-  if (!e.request.url.startsWith(self.location.origin)) return;
+  if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
+    caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+      const clone = res.clone();
+      caches.open(CACHE).then(c => c.put(e.request, clone));
+      return res;
+    }))
   );
 });
