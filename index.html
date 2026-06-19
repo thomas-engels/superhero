@@ -2145,7 +2145,7 @@
       <input type="checkbox" id="cartTermsCheck" style="margin-top:0.2rem; accent-color:var(--red); flex-shrink:0;">
       I agree to the <a href="disclaimer.html" target="_blank" rel="noopener" style="color:var(--red); text-decoration:underline;">disclaimer &amp; terms of use</a>
     </label>
-    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" target="_blank" rel="noopener noreferrer" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
+    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
     <p class="cart-checkout-note">You'll be taken to Venmo to complete your order.</p>
   </div>
 </div>
@@ -2592,7 +2592,7 @@
     noteParts.push('Shipping Address: ' + (address || '(required)'));
     noteParts.push('I agree to Superhero First Aid Systems Disclaimer and Terms of Use.');
     const note = encodeURIComponent(noteParts.join('\n'));
-    cartCheckout.href = 'https://venmo.com/superhero_first_aid_systems?txn=pay&amount=' + grandTotal + '&note=' + note;
+    cartCheckout.href = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
   }
 
   // Contents toggle (expand/collapse)
