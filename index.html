@@ -2606,8 +2606,9 @@
     const deepUrl = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
     cartCheckout.onclick = (e) => {
       e.preventDefault();
-      window.open(webUrl, '_blank');
-      window.location.href = 'thank-you.html';
+      sessionStorage.setItem('venmoWebUrl', webUrl);
+      window.location.href = deepUrl;
+      setTimeout(() => { window.location.href = 'thank-you.html'; }, 500);
     };
   }
 

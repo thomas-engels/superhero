@@ -174,7 +174,24 @@
   <div class="ty-label">Order Received</div>
   <div class="ty-title">Thank You!</div>
   <p class="ty-body">Your payment is on its way to Venmo. Once confirmed, we'll do everything we can to get your kit to you as fast as possible.</p>
+  <div id="venmoFallback" style="display:none; margin-top:-1rem; margin-bottom:2rem;">
+    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.6rem;">Venmo didn't open automatically?</p>
+    <a id="venmoFallbackLink" href="#" target="_blank" rel="noopener"
+       style="display:inline-flex; align-items:center; gap:0.5rem; background:var(--mid);
+              border:1px solid var(--border); color:var(--text); text-decoration:none;
+              font-size:0.88rem; font-weight:600; padding:0.6rem 1.1rem; border-radius:6px;">
+      Pay via Venmo →
+    </a>
+  </div>
 </div>
+<script>
+  const venmoUrl = sessionStorage.getItem('venmoWebUrl');
+  if (venmoUrl) {
+    const fb = document.getElementById('venmoFallback');
+    document.getElementById('venmoFallbackLink').href = venmoUrl;
+    fb.style.display = 'block';
+  }
+</script>
 
 <!-- What's next -->
 <div class="ty-steps">
