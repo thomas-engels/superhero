@@ -2606,6 +2606,22 @@
     };
   }
 
+  // Robust scroll to #pricing-cards — re-fires after images/fonts may have shifted layout
+  document.querySelectorAll('a[href="#pricing-cards"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const scrollToTarget = () => {
+        const el = document.getElementById('pricing-cards');
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      };
+      scrollToTarget();
+      setTimeout(scrollToTarget, 400);
+      history.pushState(null, '', '#pricing-cards');
+    });
+  });
+
   // Contents toggle (expand/collapse)
   const contentsToggle = document.getElementById('contentsToggle');
   if (contentsToggle && contentsPanel) {
