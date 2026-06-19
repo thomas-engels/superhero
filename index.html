@@ -419,6 +419,7 @@
     .price-picker {
       max-width: 640px;
       margin: 0 auto;
+      scroll-margin-top: 5rem;
     }
 
     /* Order flow diagram */
@@ -1345,7 +1346,7 @@
     <div class="hero-divider"></div>
     <p class="hero-tagline">For the Prepared. For the Caring.</p>
     <div class="d-flex flex-wrap justify-content-center gap-3">
-      <a href="#pricing" class="btn-hero-primary">See the Kits</a>
+      <a href="#pricing-cards" class="btn-hero-primary">See the Kits</a>
       <a href="#why"     class="btn-hero-outline">Why It's Different</a>
     </div>
   </div>
@@ -1707,7 +1708,7 @@
       </div>
     </div>
 
-    <div class="price-picker reveal">
+    <div class="price-picker reveal" id="pricing-cards">
       <div class="price-tier-toggle" role="tablist" aria-label="Choose a kit tier">
         <button class="tier-btn active" type="button" role="tab" data-tier="standard" aria-selected="true">Superhero</button>
         <button class="tier-btn" type="button" role="tab" data-tier="pro" aria-selected="false">Superhero Professional</button>
