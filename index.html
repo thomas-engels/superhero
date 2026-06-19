@@ -2592,7 +2592,13 @@
     noteParts.push('Shipping Address: ' + (address || '(required)'));
     noteParts.push('I agree to Superhero First Aid Systems Disclaimer and Terms of Use.');
     const note = encodeURIComponent(noteParts.join('\n'));
-    cartCheckout.href = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    const webUrl  = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    const deepUrl = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    cartCheckout.onclick = (e) => {
+      e.preventDefault();
+      window.location = deepUrl;
+      setTimeout(() => { window.location = webUrl; }, 1500);
+    };
   }
 
   // Contents toggle (expand/collapse)
