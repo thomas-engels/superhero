@@ -33,7 +33,7 @@
 
     /* Nav */
     .navbar {
-      background: rgba(13,13,13,0.95) !important;
+      background: rgba(13,13,13,0.92) !important;
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0.75rem 2rem;
@@ -41,9 +41,41 @@
       top: 0;
       z-index: 1000;
     }
-    .nav-shield { height: 32px; width: auto; margin-right: 0.5rem; }
-    .navbar-brand { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
-                    letter-spacing: 0.05em; color: var(--text) !important; display: flex; align-items: center; }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: #fff !important;
+      text-decoration: none;
+    }
+    .nav-shield { width: 50px; height: auto; }
+    .navbar-nav .nav-link {
+      color: var(--muted) !important;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.9rem !important;
+      transition: color 0.2s;
+    }
+    .navbar-nav .nav-link:hover { color: #fff !important; }
+    .navbar-nav .nav-link.nav-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      border-radius: 4px !important;
+      padding: 0.4rem 1.1rem !important;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .navbar-nav .nav-link.nav-cta:hover { background: var(--red-dark) !important; }
+    .navbar-toggler { border-color: var(--border); }
+    .navbar-toggler-icon { filter: invert(1); }
+    @media (max-width: 576px) {
+      .navbar-brand { font-size: 1rem; }
+      .nav-shield { width: 36px; }
+    }
 
     /* Hero checkmark */
     .ty-hero {
@@ -167,12 +199,24 @@
 <body>
 
 <!-- Nav -->
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid px-3">
     <a class="navbar-brand" href="index.html">
       <img src="logo.svg" class="nav-shield" alt="Superhero logo"/>
       <span class="d-none d-sm-inline">Superhero First Aid Systems</span>
     </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html#why">The Difference</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#the-bag">Design</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#pricing-cards">Kits</a></li>
+        <li class="nav-item"><a class="nav-link" href="after-purchase.html">Knowledge &amp; Training</a></li>
+        <li class="nav-item ms-lg-2"><a class="nav-link nav-cta" href="index.html#pricing-cards">Get a Kit</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -255,5 +299,6 @@
   &copy; 2026 Superhero First Aid Systems
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
