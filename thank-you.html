@@ -32,7 +32,15 @@
     }
 
     /* Nav */
-    .navbar { background: rgba(13,13,13,0.95); border-bottom: 1px solid var(--border); }
+    .navbar {
+      background: rgba(13,13,13,0.95) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
     .nav-shield { height: 32px; width: auto; margin-right: 0.5rem; }
     .navbar-brand { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
                     letter-spacing: 0.05em; color: var(--text) !important; display: flex; align-items: center; }
