@@ -2614,7 +2614,8 @@
       const scrollToTarget = (smooth) => {
         const el = document.getElementById('pricing-cards');
         if (!el) return;
-        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+        const navH = document.querySelector('.navbar')?.offsetHeight || 60;
+        const top = el.getBoundingClientRect().top + window.scrollY - navH - 20;
         window.scrollTo({ top, behavior: smooth ? 'smooth' : 'instant' });
       };
       scrollToTarget(true);
