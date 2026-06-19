@@ -2606,19 +2606,20 @@
     };
   }
 
-  // Robust scroll to #pricing-cards — re-fires after images/fonts may have shifted layout
+  // Robust scroll to #pricing-cards — scrolls immediately, then snaps after fonts settle
   document.querySelectorAll('a[href="#pricing-cards"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
-      const scrollToTarget = () => {
+      history.pushState(null, '', '#pricing-cards');
+      const scrollToTarget = (smooth) => {
         const el = document.getElementById('pricing-cards');
         if (!el) return;
         const top = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top, behavior: smooth ? 'smooth' : 'instant' });
       };
-      scrollToTarget();
-      setTimeout(scrollToTarget, 400);
-      history.pushState(null, '', '#pricing-cards');
+      scrollToTarget(true);
+      // After fonts finish loading (resolves quickly if cached), snap to correct position
+      document.fonts.ready.then(() => scrollToTarget(false));
     });
   });
 
