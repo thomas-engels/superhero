@@ -2124,19 +2124,19 @@
     <div class="cart-form-title">Your Info</div>
     <div class="cart-form-field">
       <label class="cart-form-label" for="cfName">Full name</label>
-      <input class="cart-form-input" id="cfName" type="text" placeholder="Jane Smith" autocomplete="name">
+      <input class="cart-form-input" id="cfName" type="text" placeholder="Jane Smith" autocomplete="name" required>
     </div>
     <div class="cart-form-field">
       <label class="cart-form-label" for="cfEmail">Email</label>
-      <input class="cart-form-input" id="cfEmail" type="email" placeholder="jane@example.com" autocomplete="email">
+      <input class="cart-form-input" id="cfEmail" type="email" placeholder="jane@example.com" autocomplete="email" required>
     </div>
     <div class="cart-form-field">
       <label class="cart-form-label" for="cfPhone">Phone</label>
-      <input class="cart-form-input" id="cfPhone" type="tel" placeholder="612-555-1234" autocomplete="tel">
+      <input class="cart-form-input" id="cfPhone" type="tel" placeholder="612-555-1234" autocomplete="tel" required>
     </div>
     <div class="cart-form-field">
       <label class="cart-form-label" for="cfAddress">Shipping address (PO boxes welcome)</label>
-      <input class="cart-form-input" id="cfAddress" type="text" placeholder="123 Main St, Minneapolis MN 55401" autocomplete="street-address">
+      <input class="cart-form-input" id="cfAddress" type="text" placeholder="123 Main St, Minneapolis MN 55401" autocomplete="street-address" required>
     </div>
   </div>
   <div class="cart-footer" id="cartFooter" hidden>
@@ -2495,14 +2495,20 @@
   const cfEmail      = document.getElementById('cfEmail');
   const cfPhone      = document.getElementById('cfPhone');
   const cfAddress    = document.getElementById('cfAddress');
-  [cfName, cfEmail, cfPhone, cfAddress].forEach(el => el.addEventListener('input', renderCart));
   const cartTermsCheck = document.getElementById('cartTermsCheck');
-  cartTermsCheck.addEventListener('change', () => {
-    cartCheckout.style.opacity = cartTermsCheck.checked ? '1' : '0.4';
-    cartCheckout.style.pointerEvents = cartTermsCheck.checked ? '' : 'none';
-  });
   const cartTotal    = document.getElementById('cartTotal');
   const cartCheckout = document.getElementById('cartCheckoutBtn');
+  function updateCheckoutBtn() {
+    const allFilled = [cfName, cfEmail, cfPhone, cfAddress].every(el => el.value.trim() !== '');
+    const ready = cartTermsCheck.checked && allFilled;
+    cartCheckout.style.opacity = ready ? '1' : '0.4';
+    cartCheckout.style.pointerEvents = ready ? '' : 'none';
+  }
+  [cfName, cfEmail, cfPhone, cfAddress].forEach(el => el.addEventListener('input', () => {
+    renderCart();
+    updateCheckoutBtn();
+  }));
+  cartTermsCheck.addEventListener('change', updateCheckoutBtn);
   const cartBackdrop = document.getElementById('cartBackdrop');
   const cartPanel    = document.getElementById('cartPanel');
   const cartState    = { standard: 0, pro: 0 };
