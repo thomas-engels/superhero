@@ -1719,7 +1719,7 @@
         <div class="price-badge" data-tier-badge>Recommended</div>
         <div class="price-name" data-tier-name>Superhero Kit</div>
         <div class="price-amount">
-          <span class="price-amount-original" id="priceOriginal" hidden></span><span data-tier-amount>$199</span>
+          <span class="price-amount-original" id="priceOriginal" hidden></span><span data-tier-amount>$159</span>
         </div>
         <div class="price-specs">
           <span class="price-pill" data-tier-weight>14 oz · 1L</span>
@@ -2276,7 +2276,7 @@
   const tierData = {
     standard: {
       name: 'Superhero Kit',
-      amount: '$199',
+      amount: '$159',
       weight: '14 oz · 1L',
       coverage: '1 person',
       coverageNote: '',
@@ -2286,7 +2286,7 @@
     },
     pro: {
       name: 'Superhero Professional',
-      amount: '$249',
+      amount: '$199',
       weight: '14 oz · 1L',
       coverage: '1 person',
       coverageNote: '',
@@ -2444,7 +2444,7 @@
   const priceOriginal   = document.getElementById('priceOriginal');
   const priceAmountEl   = priceCard ? priceCard.querySelector('[data-tier-amount]') : null;
 
-  const basePrices = { standard: 199, pro: 249 };
+  const basePrices = { standard: 159, pro: 199 };
   const discountLabels = {
     'Healthcare worker': 'healthcare worker',
     'Educator': 'educator',
@@ -2460,7 +2460,7 @@
   function applyDiscount() {
     if (!priceCard || !discountSelect || !priceAmountEl) return;
     const tier = priceCard.dataset.tierActive || 'standard';
-    const base = basePrices[tier] || 199;
+    const base = basePrices[tier] || 159;
     const rate = parseFloat(discountSelect.value) || 0;
     const selectedText = discountSelect.options[discountSelect.selectedIndex]?.text || '';
     const roleKey = Object.keys(discountLabels).find(k => selectedText.startsWith(k));
@@ -2541,7 +2541,7 @@
     const lines   = [];
     for (const [tier, qty] of Object.entries(cartState)) {
       if (qty <= 0) continue;
-      const base      = basePrices[tier] || 199;
+      const base      = basePrices[tier] || 159;
       const unitPrice = rate > 0 ? Math.round(base * (1 - rate)) : base;
       subtotal += unitPrice * qty;
       lines.push({ tier, qty, unitPrice, name: kitNames[tier] });
