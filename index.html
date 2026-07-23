@@ -672,12 +672,17 @@
       transition: background 0.15s;
     }
     .cart-checkout-btn:hover { background: var(--red-dark); color: #fff; }
+    .cart-checkout-btn.paypal { background: #0070BA; }
+    .cart-checkout-btn.paypal:hover { background: #005ea6; }
+    .cart-checkout-btn.zelle { background: #6D1ED4; }
+    .cart-checkout-btn.zelle:hover { background: #5a17b0; }
     .cart-checkout-note {
       text-align: center;
       color: var(--muted);
       font-size: 0.78rem;
       margin-top: 0.75rem;
     }
+    .cart-checkout-note a { color: var(--red); }
     .cart-form {
       padding: 1rem 1.5rem;
       border-top: 1px solid var(--border);
@@ -2148,8 +2153,12 @@
       <input type="checkbox" id="cartTermsCheck" style="margin-top:0.2rem; accent-color:var(--red); flex-shrink:0;">
       I agree to the <a href="disclaimer.html" target="_blank" rel="noopener" style="color:var(--red); text-decoration:underline;">disclaimer &amp; terms of use</a>
     </label>
-    <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
-    <p class="cart-checkout-note">You'll be taken to Venmo to authorize your order.</p>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
+      <a href="#" class="cart-checkout-btn paypal" id="cartPaypalBtn" style="opacity:0.4; pointer-events:none;">Pay via PayPal</a>
+      <a href="#" class="cart-checkout-btn zelle" id="cartZelleBtn" style="opacity:0.4; pointer-events:none;">Pay via Zelle</a>
+    </div>
+    <p class="cart-checkout-note" id="cartCheckoutNote">You'll be routed to the respective platform to securely authorize your transaction.</p>
   </div>
 </div>
 
@@ -2497,12 +2506,16 @@
   const cfAddress    = document.getElementById('cfAddress');
   const cartTermsCheck = document.getElementById('cartTermsCheck');
   const cartTotal    = document.getElementById('cartTotal');
-  const cartCheckout = document.getElementById('cartCheckoutBtn');
+  const cartCheckout  = document.getElementById('cartCheckoutBtn');
+  const cartPaypalBtn = document.getElementById('cartPaypalBtn');
+  const cartZelleBtn  = document.getElementById('cartZelleBtn');
   function updateCheckoutBtn() {
     const allFilled = [cfName, cfEmail, cfPhone, cfAddress].every(el => el.value.trim() !== '');
     const ready = cartTermsCheck.checked && allFilled;
-    cartCheckout.style.opacity = ready ? '1' : '0.4';
-    cartCheckout.style.pointerEvents = ready ? '' : 'none';
+    [cartCheckout, cartPaypalBtn, cartZelleBtn].forEach(btn => {
+      btn.style.opacity = ready ? '1' : '0.4';
+      btn.style.pointerEvents = ready ? '' : 'none';
+    });
   }
   [cfName, cfEmail, cfPhone, cfAddress].forEach(el => el.addEventListener('input', () => {
     renderCart();
@@ -2601,14 +2614,32 @@
     noteParts.push('Phone: ' + (phone || '(required)'));
     noteParts.push('Shipping Address: ' + (address || '(required)'));
     noteParts.push('I agree to Superhero First Aid Systems Disclaimer and Terms of Use.');
-    const note = encodeURIComponent(noteParts.join('\n'));
-    const webUrl  = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
-    const deepUrl = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    const noteText = noteParts.join('\n');
+    const note     = encodeURIComponent(noteText);
+    const webUrl   = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    const deepUrl  = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
     cartCheckout.onclick = (e) => {
       e.preventDefault();
       sessionStorage.setItem('venmoWebUrl', webUrl);
       window.location.href = deepUrl;
       setTimeout(() => { window.location.href = 'thank-you.html'; }, 500);
+    };
+
+    const paypalBtn  = document.getElementById('cartPaypalBtn');
+    const checkoutNote = document.getElementById('cartCheckoutNote');
+    const paypalUrl  = 'https://www.paypal.me/tbengels97/' + grandTotal;
+    paypalBtn.onclick = (e) => {
+      e.preventDefault();
+      navigator.clipboard.writeText(noteText).catch(() => {});
+      window.open(paypalUrl, '_blank');
+      checkoutNote.innerHTML = '📋 Order details copied — paste into the <strong>PayPal note</strong> field for shipping. <a href="thank-you.html">Done paying? Continue →</a>';
+    };
+
+    const zelleBtn = document.getElementById('cartZelleBtn');
+    zelleBtn.onclick = (e) => {
+      e.preventDefault();
+      navigator.clipboard.writeText(noteText).catch(() => {});
+      checkoutNote.innerHTML = '📋 Order details copied — send <strong>$' + grandTotal + '</strong> to <strong>(651) 395-1906</strong> on Zelle, then paste your order details as the note. <a href="thank-you.html">Done paying? Continue →</a>';
     };
   }
 
