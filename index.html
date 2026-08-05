@@ -1509,6 +1509,9 @@
             <div class="bag-slide bag-slide-contain">
               <img src="photos/kit-and-app-web.jpg" alt="Superhero First Aid kit with the digital field guide app on iPhone" loading="lazy"/>
             </div>
+            <div class="bag-slide bag-slide-contain">
+              <img src="photos/ABC-web.jpg" alt="Superhero First Aid kit showing the ABCDEG label — Airway, Breathing, Circulation, Disability, Environment, Glucose" loading="lazy"/>
+            </div>
           </div>
           <button class="bag-nav prev" type="button" aria-label="Previous photo" data-bag-dir="-1">‹</button>
           <button class="bag-nav next" type="button" aria-label="Next photo" data-bag-dir="1">›</button>
@@ -1519,6 +1522,7 @@
             <button type="button" class="bag-dot" data-slide="3" aria-label="Photo 4"></button>
             <button type="button" class="bag-dot" data-slide="4" aria-label="Photo 5"></button>
             <button type="button" class="bag-dot" data-slide="5" aria-label="Photo 6"></button>
+            <button type="button" class="bag-dot" data-slide="6" aria-label="Photo 7"></button>
           </div>
         </div>
         <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
@@ -1752,7 +1756,7 @@
         <button type="button" class="price-cta" onclick="addToCart()">Add to Cart</button>
         <a href="returns.html" target="_blank" rel="noopener" style="display:flex; align-items:center; justify-content:center; gap:0.4rem; margin-top:0.6rem; font-size:0.78rem; color:var(--muted); text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--muted)'">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <span>Satisfaction guaranteed — free returns within 30 days</span>
+          <span>Satisfaction guaranteed — free returns within 90 days</span>
         </a>
         <button type="button"
                 class="contents-toggle"
@@ -2618,11 +2622,17 @@
     const note     = encodeURIComponent(noteText);
     const webUrl   = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
     const deepUrl  = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=' + grandTotal + '&note=' + note;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     cartCheckout.onclick = (e) => {
       e.preventDefault();
       sessionStorage.setItem('venmoWebUrl', webUrl);
-      window.location.href = deepUrl;
-      setTimeout(() => { window.location.href = 'thank-you.html'; }, 500);
+      if (isMobile) {
+        window.location.href = deepUrl;
+        setTimeout(() => { window.location.href = 'thank-you.html'; }, 500);
+      } else {
+        window.open(webUrl, '_blank');
+        window.location.href = 'thank-you.html';
+      }
     };
 
     const paypalBtn  = document.getElementById('cartPaypalBtn');
