@@ -954,6 +954,20 @@
       animation: contents-fade-in 0.3s ease;
     }
     .contents-panel[hidden] { display: none; }
+    .contents-video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .contents-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
     @keyframes contents-fade-in {
       from { opacity: 0; transform: translateY(-4px); }
       to   { opacity: 1; transform: none; }
@@ -1762,12 +1776,17 @@
                 class="contents-toggle"
                 id="contentsToggle"
                 aria-expanded="false"
-                aria-controls="kitContents">
+                aria-controls="contentsPanelWrapper">
           <span class="contents-toggle-label">View what’s inside</span>
           <span class="contents-toggle-icon" aria-hidden="true">›</span>
         </button>
-        <div class="contents-panel" id="kitContents" hidden>
-          <!-- Populated by JS based on active tier -->
+        <div class="contents-panel" id="contentsPanelWrapper" hidden>
+          <div class="contents-video">
+            <iframe src="https://www.youtube.com/embed/rGnatgIAcvY" title="What's inside every Superhero First Aid Kit" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div id="kitContents">
+            <!-- Populated by JS based on active tier -->
+          </div>
         </div>
       </div>
     </div>
@@ -2673,13 +2692,14 @@
 
   // Contents toggle (expand/collapse)
   const contentsToggle = document.getElementById('contentsToggle');
-  if (contentsToggle && contentsPanel) {
+  const contentsPanelWrapper = document.getElementById('contentsPanelWrapper');
+  if (contentsToggle && contentsPanelWrapper) {
     contentsToggle.addEventListener('click', () => {
       const isOpen = contentsToggle.getAttribute('aria-expanded') === 'true';
       contentsToggle.setAttribute('aria-expanded', String(!isOpen));
       contentsToggle.querySelector('.contents-toggle-label').textContent =
         isOpen ? "View what's inside" : 'Hide contents';
-      contentsPanel.hidden = isOpen;
+      contentsPanelWrapper.hidden = isOpen;
     });
   }
 
