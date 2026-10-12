@@ -674,8 +674,6 @@
     .cart-checkout-btn:hover { background: var(--red-dark); color: #fff; }
     .cart-checkout-btn.paypal { background: #0070BA; }
     .cart-checkout-btn.paypal:hover { background: #005ea6; }
-    .cart-checkout-btn.zelle { background: #6D1ED4; }
-    .cart-checkout-btn.zelle:hover { background: #5a17b0; }
     .cart-checkout-note {
       text-align: center;
       color: var(--muted);
@@ -2179,7 +2177,6 @@
     <div style="display:flex; flex-direction:column; gap:8px;">
       <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn" style="opacity:0.4; pointer-events:none;">Pay via Venmo</a>
       <a href="#" class="cart-checkout-btn paypal" id="cartPaypalBtn" style="opacity:0.4; pointer-events:none;">Pay via PayPal</a>
-      <a href="#" class="cart-checkout-btn zelle" id="cartZelleBtn" style="opacity:0.4; pointer-events:none;">Pay via Zelle</a>
     </div>
     <p class="cart-checkout-note" id="cartCheckoutNote">You'll be routed to the respective platform to securely authorize your transaction.</p>
   </div>
@@ -2531,11 +2528,10 @@
   const cartTotal    = document.getElementById('cartTotal');
   const cartCheckout  = document.getElementById('cartCheckoutBtn');
   const cartPaypalBtn = document.getElementById('cartPaypalBtn');
-  const cartZelleBtn  = document.getElementById('cartZelleBtn');
   function updateCheckoutBtn() {
     const allFilled = [cfName, cfEmail, cfPhone, cfAddress].every(el => el.value.trim() !== '');
     const ready = cartTermsCheck.checked && allFilled;
-    [cartCheckout, cartPaypalBtn, cartZelleBtn].forEach(btn => {
+    [cartCheckout, cartPaypalBtn].forEach(btn => {
       btn.style.opacity = ready ? '1' : '0.4';
       btn.style.pointerEvents = ready ? '' : 'none';
     });
@@ -2662,13 +2658,6 @@
       navigator.clipboard.writeText(noteText).catch(() => {});
       window.open(paypalUrl, '_blank');
       checkoutNote.innerHTML = '📋 Order details copied — paste into the <strong>PayPal note</strong> field for shipping. <a href="thank-you.html">Done paying? Continue →</a>';
-    };
-
-    const zelleBtn = document.getElementById('cartZelleBtn');
-    zelleBtn.onclick = (e) => {
-      e.preventDefault();
-      navigator.clipboard.writeText(noteText).catch(() => {});
-      checkoutNote.innerHTML = '📋 Order details copied — send <strong>$' + grandTotal + '</strong> to <strong>(651) 395-1906</strong> on Zelle, then paste your order details as the note. <a href="thank-you.html">Done paying? Continue →</a>';
     };
   }
 
