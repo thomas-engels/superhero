@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout Routing Tests</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 1.3rem; }
+  .pass { color: #15803d; }
+  .fail { color: #b91c1c; font-weight: 700; }
+  pre { white-space: pre-wrap; margin: 0.2rem 0 0.6rem 1.5rem; color: #b91c1c; }
+  #summary { font-weight: 700; font-size: 1.1rem; }
+</style>
+</head>
+<body>
+<h1>Checkout routing — Venmo &amp; PayPal across platforms</h1>
+<p id="summary">Running…</p>
+<ul id="results"></ul>
+
+<script src="../checkout.js"></script>
+<script>
+  // Real user-agent strings for each platform the site needs to support.
+  const PLATFORMS = {
+    'Web (Mac Chrome)':     { mobile: false, ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36' },
+    'Web (Mac Safari)':     { mobile: false, ua: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15' },
+    'Web (Windows Edge)':   { mobile: false, ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0' },
+    'Web (Windows Firefox)':{ mobile: false, ua: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0' },
+    'iPhone Safari':        { mobile: true,  ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1' },
+    'iPhone Chrome':        { mobile: true,  ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/129.0.6668.69 Mobile/15E148 Safari/604.1' },
+    'Android Chrome':       { mobile: true,  ua: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36' },
+  };
+
+  const TOTAL = 179;
+  const NOTE = [
+    'Items: 1x Superhero Kit',
+    'Name: Jo O\'Brien',
+    'Email: jo+orders@example.com',
+    'Phone: (612) 555-1234',
+    'Shipping Address: 123 Main St #4 & Co, Minneapolis MN 55401',
+    'I agree to Superhero First Aid Systems Disclaimer and Terms of Use.',
+  ].join('\n');
+
+  const VENMO_WEB  = 'https://account.venmo.com/pay?recipients=superhero_first_aid_systems&amount=179&note=' + encodeURIComponent(NOTE);
+  const VENMO_APP  = 'venmo://paycharge?txn=pay&recipients=superhero_first_aid_systems&amount=179&note=' + encodeURIComponent(NOTE);
+  const PAYPAL_URL = 'https://www.paypal.me/tbengels97/179';
+
+  // Fake browser environment: records every side effect in order instead of performing it.
+  function fakeEnv() {
+    const calls = [];
+    const pending = [];
+    return {
+      calls,
+      pending,
+      store:    (k, v) => calls.push(['store', k, v]),
+      copy:     t => calls.push(['copy', t]),
+      openTab:  u => calls.push(['openTab', u]),
+      navigate: u => calls.push(['navigate', u]),
+      later:    (fn, ms) => { calls.push(['later', ms]); pending.push(fn); },
+      flush()   { pending.splice(0).forEach(fn => fn()); },
+    };
+  }
+
+  let passed = 0, failed = 0;
+  const list = document.getElementById('results');
+  function test(name, fn) {
+    const li = document.createElement('li');
+    try {
+      fn();
+      passed++;
+      li.className = 'pass';
+      li.textContent = '✓ ' + name;
+    } catch (err) {
+      failed++;
+      li.className = 'fail';
+      li.textContent = '✗ ' + name;
+      const pre = document.createElement('pre');
+      pre.textContent = err.message;
+      li.appendChild(pre);
+    }
+    list.appendChild(li);
+  }
+  function assertEqual(actual, expected, what) {
+    const a = JSON.stringify(actual, null, 1), e = JSON.stringify(expected, null, 1);
+    if (a !== e) throw new Error((what ? what + '\n' : '') + 'expected: ' + e + '\nactual:   ' + a);
+  }
+
+  for (const [platform, { mobile, ua }] of Object.entries(PLATFORMS)) {
+    test(platform + ' — detected as ' + (mobile ? 'mobile' : 'desktop'), () => {
+      assertEqual(isMobileUA(ua), mobile);
+    });
+
+    if (mobile) {
+      test(platform + ' — Venmo opens the Venmo app, then the thank-you page after 500ms', () => {
+        const env = fakeEnv();
+        runCheckoutPlan(venmoCheckoutPlan(TOTAL, NOTE, ua), env);
+        assertEqual(env.calls, [
+          ['store', 'venmoWebUrl', VENMO_WEB],
+          ['navigate', VENMO_APP],
+          ['later', 500],
+        ], 'before the delay');
+        env.flush();
+        assertEqual(env.calls.slice(3), [['navigate', 'thank-you.html']], 'after the delay');
+      });
+    } else {
+      test(platform + ' — Venmo opens venmo.com in a new tab and this tab goes to the thank-you page', () => {
+        const env = fakeEnv();
+        runCheckoutPlan(venmoCheckoutPlan(TOTAL, NOTE, ua), env);
+        assertEqual(env.calls, [
+          ['store', 'venmoWebUrl', VENMO_WEB],
+          ['openTab', VENMO_WEB],
+          ['navigate', 'thank-you.html'],
+        ]);
+        assertEqual(env.pending.length, 0, 'nothing scheduled for later');
+      });
+    }
+
+    test(platform + ' — PayPal copies the order details and opens PayPal.me with the total in a new tab', () => {
+      const env = fakeEnv();
+      runCheckoutPlan(paypalCheckoutPlan(TOTAL, NOTE), env);
+      assertEqual(env.calls, [
+        ['copy', NOTE],
+        ['openTab', PAYPAL_URL],
+      ]);
+      assertEqual(env.pending.length, 0, 'nothing scheduled for later');
+    });
+  }
+
+  test('Venmo note survives the round trip (newlines, &, #, +, apostrophes)', () => {
+    for (const ua of [PLATFORMS['Web (Mac Chrome)'].ua, PLATFORMS['iPhone Safari'].ua]) {
+      const plan = venmoCheckoutPlan(TOTAL, NOTE, ua);
+      for (const url of [plan.store.venmoWebUrl, plan.navigate]) {
+        if (url === 'thank-you.html') continue;
+        const params = new URLSearchParams(url.split('?')[1]);
+        assertEqual(params.get('note'), NOTE, url);
+        assertEqual(params.get('amount'), '179', url);
+        assertEqual(params.get('recipients'), 'superhero_first_aid_systems', url);
+      }
+    }
+  });
+
+  test('Discounted totals flow through to both platforms', () => {
+    const ua = PLATFORMS['Android Chrome'].ua;
+    assertEqual(new URLSearchParams(venmoCheckoutPlan(155, NOTE, ua).navigate.split('?')[1]).get('amount'), '155');
+    assertEqual(paypalCheckoutPlan(155, NOTE).openTab, 'https://www.paypal.me/tbengels97/155');
+  });
+
+  const summary = document.getElementById('summary');
+  summary.textContent = (failed ? 'FAILED' : 'PASSED') + ' — ' + passed + ' passed, ' + failed + ' failed';
+  summary.className = failed ? 'fail' : 'pass';
+  document.body.dataset.result = failed ? 'fail' : 'pass';
+</script>
+</body>
+</html>
